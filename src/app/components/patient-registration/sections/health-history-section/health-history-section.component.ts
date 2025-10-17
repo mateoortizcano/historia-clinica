@@ -21,6 +21,7 @@ export class HealthHistorySectionComponent {
   
   sectionTitle = input<string>('Información de Salud e Historia Clínica');
   initialData = input<Partial<HealthHistoryInfo>>();
+  isMinor = input<boolean>(false); // Indica si es menor de edad
   
   dataChange = output<Partial<HealthHistoryInfo>>();
 
@@ -104,7 +105,10 @@ export class HealthHistorySectionComponent {
       
       if (hasService) {
         healthServiceControl?.setValidators([Validators.required, Validators.maxLength(150)]);
-        membershipControl?.setValidators(Validators.required);
+        // Solo requerir tipo de vinculación si NO es menor
+        if (!this.isMinor()) {
+          membershipControl?.setValidators(Validators.required);
+        }
       } else {
         healthServiceControl?.clearValidators();
         healthServiceControl?.setValue('');

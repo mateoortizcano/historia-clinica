@@ -1,0 +1,271 @@
+<div class="section-container">
+  <div class="section-header mb-4">
+    <h3 class="h5 mb-1">
+      <i class="bi bi-people-fill me-2"></i>
+      Información de los Padres
+    </h3>
+    <p class="text-muted small mb-0">
+      Datos de contacto y ocupación de ambos padres
+    </p>
+  </div>
+
+  <!-- Estado Civil de los Padres -->
+  <div class="row g-3 mb-4">
+    <div class="col-12">
+      <label for="parentsMaritalStatus" class="form-label">
+        Estado civil de los padres <span class="text-danger">*</span>
+      </label>
+      <select
+        class="form-select"
+        id="parentsMaritalStatus"
+        [value]="parentsData().maritalStatus || ''"
+        (change)="updateMaritalStatus($any($event.target).value)"
+        required
+      >
+        <option value="" disabled>Seleccione una opción</option>
+        @for (option of maritalStatusOptions; track option.value) {
+          <option [value]="option.value">{{ option.label }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <!-- Información del Padre -->
+  <div class="parent-section mb-4">
+    <h4 class="h6 mb-3 text-primary">
+      <i class="bi bi-person me-2"></i>Padre
+    </h4>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="fatherName" class="form-label">
+          Nombre completo <span class="text-danger">*</span>
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="fatherName"
+          [value]="parentsData().father?.fullName"
+          (input)="updateFatherField('fullName', $any($event.target).value)"
+          placeholder="Ej: Juan Pérez García"
+          maxlength="100"
+          required
+        />
+      </div>
+
+      <div class="col-md-2">
+        <label for="fatherAge" class="form-label">
+          Edad <span class="text-danger">*</span>
+        </label>
+        <input
+          type="number"
+          class="form-control"
+          id="fatherAge"
+          [value]="parentsData().father?.age"
+          (input)="updateFatherField('age', +$any($event.target).value)"
+          min="18"
+          max="120"
+          required
+        />
+      </div>
+
+      <div class="col-md-4">
+        <label for="fatherEducation" class="form-label">
+          Escolaridad <span class="text-danger">*</span>
+        </label>
+        <select
+          class="form-select"
+          id="fatherEducation"
+          [value]="parentsData().father?.education || 'ninguna'"
+          (change)="updateFatherField('education', $any($event.target).value)"
+          required
+        >
+          @for (option of educationLevelOptions; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label for="fatherLandline" class="form-label">
+          Teléfono fijo
+        </label>
+        <input
+          type="tel"
+          class="form-control"
+          id="fatherLandline"
+          [value]="parentsData().father?.landlinePhone"
+          (input)="updateFatherField('landlinePhone', $any($event.target).value)"
+          placeholder="Ej: 6012345678"
+          maxlength="15"
+        />
+      </div>
+
+      <div class="col-md-3">
+        <label for="fatherCell" class="form-label">
+          Celular <span class="text-danger">*</span>
+        </label>
+        <input
+          type="tel"
+          class="form-control"
+          id="fatherCell"
+          [value]="parentsData().father?.cellPhone"
+          (input)="updateFatherField('cellPhone', $any($event.target).value)"
+          placeholder="Ej: 3001234567"
+          maxlength="15"
+          required
+        />
+      </div>
+
+      <div class="col-md-3">
+        <label for="fatherOccupation" class="form-label">
+          Ocupación <span class="text-danger">*</span>
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="fatherOccupation"
+          [value]="parentsData().father?.occupation"
+          (input)="updateFatherField('occupation', $any($event.target).value)"
+          placeholder="Ej: Ingeniero"
+          maxlength="100"
+          required
+        />
+      </div>
+
+      <div class="col-md-3">
+        <label for="fatherWorkplace" class="form-label">
+          Lugar de trabajo
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="fatherWorkplace"
+          [value]="parentsData().father?.workplace"
+          (input)="updateFatherField('workplace', $any($event.target).value)"
+          placeholder="Ej: Empresa XYZ"
+          maxlength="100"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Información de la Madre -->
+  <div class="parent-section">
+    <h4 class="h6 mb-3 text-primary">
+      <i class="bi bi-person me-2"></i>Madre
+    </h4>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="motherName" class="form-label">
+          Nombre completo <span class="text-danger">*</span>
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="motherName"
+          [value]="parentsData().mother?.fullName"
+          (input)="updateMotherField('fullName', $any($event.target).value)"
+          placeholder="Ej: María González Pérez"
+          maxlength="100"
+          required
+        />
+      </div>
+
+      <div class="col-md-2">
+        <label for="motherAge" class="form-label">
+          Edad <span class="text-danger">*</span>
+        </label>
+        <input
+          type="number"
+          class="form-control"
+          id="motherAge"
+          [value]="parentsData().mother?.age"
+          (input)="updateMotherField('age', +$any($event.target).value)"
+          min="18"
+          max="120"
+          required
+        />
+      </div>
+
+      <div class="col-md-4">
+        <label for="motherEducation" class="form-label">
+          Escolaridad <span class="text-danger">*</span>
+        </label>
+        <select
+          class="form-select"
+          id="motherEducation"
+          [value]="parentsData().mother?.education || 'ninguna'"
+          (change)="updateMotherField('education', $any($event.target).value)"
+          required
+        >
+          @for (option of educationLevelOptions; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label for="motherLandline" class="form-label">
+          Teléfono fijo
+        </label>
+        <input
+          type="tel"
+          class="form-control"
+          id="motherLandline"
+          [value]="parentsData().mother?.landlinePhone"
+          (input)="updateMotherField('landlinePhone', $any($event.target).value)"
+          placeholder="Ej: 6012345678"
+          maxlength="15"
+        />
+      </div>
+
+      <div class="col-md-3">
+        <label for="motherCell" class="form-label">
+          Celular <span class="text-danger">*</span>
+        </label>
+        <input
+          type="tel"
+          class="form-control"
+          id="motherCell"
+          [value]="parentsData().mother?.cellPhone"
+          (input)="updateMotherField('cellPhone', $any($event.target).value)"
+          placeholder="Ej: 3001234567"
+          maxlength="15"
+          required
+        />
+      </div>
+
+      <div class="col-md-3">
+        <label for="motherOccupation" class="form-label">
+          Ocupación <span class="text-danger">*</span>
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="motherOccupation"
+          [value]="parentsData().mother?.occupation"
+          (input)="updateMotherField('occupation', $any($event.target).value)"
+          placeholder="Ej: Profesora"
+          maxlength="100"
+          required
+        />
+      </div>
+
+      <div class="col-md-3">
+        <label for="motherWorkplace" class="form-label">
+          Lugar de trabajo
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="motherWorkplace"
+          [value]="parentsData().mother?.workplace"
+          (input)="updateMotherField('workplace', $any($event.target).value)"
+          placeholder="Ej: Colegio ABC"
+          maxlength="100"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+

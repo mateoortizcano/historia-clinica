@@ -1,0 +1,68 @@
+<div class="section-container">
+  <div class="section-header mb-4">
+    <h3 class="h5 mb-1">
+      <i class="bi bi-person-badge me-2"></i>
+      Datos del Acompañante
+    </h3>
+    <p class="text-muted small mb-0">
+      Información de la persona que acompaña al menor
+    </p>
+  </div>
+
+  <div class="row g-3">
+    <!-- Nombre del acompañante -->
+    <div class="col-md-6">
+      <label for="guardianName" class="form-label">
+        Nombre completo del acompañante <span class="text-danger">*</span>
+      </label>
+      <input
+        type="text"
+        class="form-control"
+        id="guardianName"
+        [value]="guardianData().name"
+        (input)="updateField('name', $any($event.target).value)"
+        placeholder="Ej: María González Pérez"
+        maxlength="100"
+        required
+      />
+      <div class="form-text">Máximo 100 caracteres</div>
+    </div>
+
+    <!-- Identificación -->
+    <div class="col-md-3">
+      <label for="guardianId" class="form-label">
+        Identificación <span class="text-danger">*</span>
+      </label>
+      <input
+        type="text"
+        class="form-control"
+        id="guardianId"
+        [value]="guardianData().idNumber"
+        (input)="updateField('idNumber', $any($event.target).value)"
+        placeholder="Ej: 12345678"
+        maxlength="20"
+        required
+      />
+      <div class="form-text">Número de documento</div>
+    </div>
+
+    <!-- Parentesco -->
+    <div class="col-md-3">
+      <label for="guardianRelationship" class="form-label">
+        Parentesco <span class="text-danger">*</span>
+      </label>
+      <input
+        type="text"
+        class="form-control"
+        id="guardianRelationship"
+        [value]="guardianData().relationship"
+        (input)="updateField('relationship', $any($event.target).value)"
+        placeholder="Ej: Madre, Padre, Tutor"
+        maxlength="50"
+        required
+      />
+      <div class="form-text">Relación con el menor</div>
+    </div>
+  </div>
+</div>
+

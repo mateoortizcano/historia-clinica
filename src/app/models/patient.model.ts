@@ -26,7 +26,18 @@ export type EducationLevel =
 
 export type Occupation = 'estudiante' | 'empleado' | 'independiente' | 'desempleado' | 'hogar' | 'otro';
 
+export type MinorOccupation = 'estudiante' | 'hogar' | 'otra';
+
 export type MembershipType = 'cotizante' | 'beneficiario';
+
+export type Relationship = 'padre' | 'madre' | 'hermano' | 'hermana' | 'abuelo' | 'abuela' | 'tio' | 'tia' | 'otro';
+
+export type ParentsMaritalStatus =
+  | 'solteros'
+  | 'casados'
+  | 'union_libre'
+  | 'separados'
+  | 'viudo_a';
 
 export interface PersonalInfo {
   fullName: string;
@@ -88,6 +99,59 @@ export interface AdultPatientData {
   referralInfo: ReferralInfo;
   psychologicalAttention: PreviousAttentionInfo;
   psychiatricAttention: PreviousAttentionInfo;
+  familyMembers: FamilyMember[];
   emergencyContact: EmergencyContact;
 }
+
+// Minor-specific interfaces
+export interface GuardianInfo {
+  name: string;
+  idNumber: string;
+  relationship: string;
+}
+
+export interface MinorEducationalInfo {
+  occupation: MinorOccupation;
+  otherOccupation?: string;
+  grade?: string;
+  institution?: string;
+}
+
+export interface ParentInfo {
+  fullName: string;
+  age: number;
+  education: EducationLevel;
+  landlinePhone?: string;
+  cellPhone: string;
+  occupation: string;
+  workplace?: string;
+}
+
+export interface ParentsInfo {
+  maritalStatus: ParentsMaritalStatus;
+  father: ParentInfo;
+  mother: ParentInfo;
+}
+
+export interface FamilyMember {
+  name: string;
+  relationship: string;
+  age: number;
+  occupation: string;
+}
+
+export interface MinorPatientData {
+  guardianInfo: GuardianInfo;
+  personalInfo: PersonalInfo;
+  contactInfo: ContactInfo;
+  educationalInfo: MinorEducationalInfo;
+  healthInfo: Omit<HealthInfo, 'membershipType'>; // Menores no tienen tipo de vinculación
+  referralInfo: ReferralInfo;
+  psychologicalAttention: PreviousAttentionInfo;
+  psychiatricAttention: PreviousAttentionInfo;
+  parentsInfo: ParentsInfo;
+  familyMembers: FamilyMember[];
+}
+
+export type PatientData = AdultPatientData | MinorPatientData;
 

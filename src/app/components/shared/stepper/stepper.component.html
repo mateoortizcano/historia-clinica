@@ -30,7 +30,7 @@
               <span>{{ i + 1 }}</span>
             }
           </div>
-          <div class="step-label">{{ step.label }}</div>
+          <div class="step-label" [attr.data-label]="step.label">{{ step.label }}</div>
         </div>
         
         @if (i < steps().length - 1) {

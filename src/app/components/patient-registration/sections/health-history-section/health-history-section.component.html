@@ -53,23 +53,25 @@
               }
             </div>
 
-            <div class="col-md-6">
-              <label for="membershipType" class="form-label">Tipo de vinculación <span class="text-danger">*</span></label>
-              <select
-                class="form-select"
-                id="membershipType"
-                formControlName="membershipType"
-                [class.is-invalid]="isFieldInvalid('membershipType')"
-              >
-                <option value="">Seleccione...</option>
-                @for (option of membershipTypeOptions; track option.value) {
-                  <option [value]="option.value">{{ option.label }}</option>
+            @if (!isMinor()) {
+              <div class="col-md-6">
+                <label for="membershipType" class="form-label">Tipo de vinculación <span class="text-danger">*</span></label>
+                <select
+                  class="form-select"
+                  id="membershipType"
+                  formControlName="membershipType"
+                  [class.is-invalid]="isFieldInvalid('membershipType')"
+                >
+                  <option value="">Seleccione...</option>
+                  @for (option of membershipTypeOptions; track option.value) {
+                    <option [value]="option.value">{{ option.label }}</option>
+                  }
+                </select>
+                @if (isFieldInvalid('membershipType')) {
+                  <div class="invalid-feedback">El tipo de vinculación es requerido</div>
                 }
-              </select>
-              @if (isFieldInvalid('membershipType')) {
-                <div class="invalid-feedback">El tipo de vinculación es requerido</div>
-              }
-            </div>
+              </div>
+            }
           }
 
           <!-- Consumo de medicamentos -->

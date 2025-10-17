@@ -1,0 +1,100 @@
+<div class="section-container">
+  <div class="section-header mb-4">
+    <h3 class="h5 mb-1">
+      <i class="bi bi-book me-2"></i>
+      Información Educativa
+    </h3>
+    <p class="text-muted small mb-0">
+      Datos relacionados con la ocupación y educación del menor
+    </p>
+  </div>
+
+  <div class="row g-3">
+    <!-- Ocupación -->
+    <div class="col-md-4">
+      <label for="occupation" class="form-label">
+        Ocupación <span class="text-danger">*</span>
+      </label>
+      <select
+        class="form-select"
+        id="occupation"
+        [value]="educationalData().occupation || ''"
+        (change)="updateField('occupation', $any($event.target).value)"
+        required
+      >
+        <option value="" disabled>Seleccione una opción</option>
+        @for (option of occupationOptions; track option.value) {
+          <option [value]="option.value">{{ option.label }}</option>
+        }
+      </select>
+      <div class="form-text">¿A qué se dedica principalmente?</div>
+    </div>
+
+    <!-- Otra Ocupación (si selecciona "Otra") -->
+    @if (isOtherOccupation()) {
+      <div class="col-md-4">
+        <label for="otherOccupation" class="form-label">
+          Especifique la ocupación <span class="text-danger">*</span>
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="otherOccupation"
+          [value]="educationalData().otherOccupation"
+          (input)="updateField('otherOccupation', $any($event.target).value)"
+          placeholder="Ej: Ayuda en negocio familiar"
+          maxlength="100"
+          required
+        />
+        <div class="form-text">Máximo 100 caracteres</div>
+      </div>
+    }
+
+    <!-- Grado (solo si es estudiante) -->
+    @if (isStudent()) {
+      <div class="col-md-4">
+        <label for="grade" class="form-label">
+          Grado <span class="text-danger">*</span>
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="grade"
+          [value]="educationalData().grade"
+          (input)="updateField('grade', $any($event.target).value)"
+          placeholder="Ej: 5° Primaria, 8° Bachillerato"
+          maxlength="50"
+          required
+        />
+        <div class="form-text">Grado escolar actual</div>
+      </div>
+
+      <!-- Institución (solo si es estudiante) -->
+      <div class="col-md-4">
+        <label for="institution" class="form-label">
+          Institución donde estudia <span class="text-danger">*</span>
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="institution"
+          [value]="educationalData().institution"
+          (input)="updateField('institution', $any($event.target).value)"
+          placeholder="Ej: Colegio San José"
+          maxlength="150"
+          required
+        />
+        <div class="form-text">Nombre del colegio o institución</div>
+      </div>
+    }
+  </div>
+
+  <!-- Información adicional -->
+  @if (!educationalData().occupation) {
+    <div class="alert alert-info mt-3">
+      <i class="bi bi-info-circle me-2"></i>
+      Seleccione la ocupación del menor para continuar
+    </div>
+  }
+</div>
+
