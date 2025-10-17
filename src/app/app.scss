@@ -1,0 +1,43 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar-brand {
+  font-size: 1.25rem;
+  
+  i {
+    color: #fff;
+  }
+}
+
+.navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+  }
+  
+  &.active {
+    color: #fff;
+    font-weight: 500;
+  }
+}
+
+.main-content {
+  flex: 1;
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 120px);
+}
+
+.footer {
+  border-top: 1px solid #dee2e6;
+  background-color: #f8f9fa !important;
+  
+  small {
+    font-size: 0.875rem;
+  }
+}
+

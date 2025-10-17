@@ -1,0 +1,134 @@
+<div class="card mb-4">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">{{ sectionTitle() }}</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form">
+      <div class="row g-3">
+        <!-- Servicio de salud -->
+        <div class="col-12">
+          <label class="form-label">¿Cuenta con servicio de salud? <span class="text-danger">*</span></label>
+          <div class="d-flex gap-3">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="hasHealthServiceYes"
+                [value]="true"
+                formControlName="hasHealthService"
+              />
+              <label class="form-check-label" for="hasHealthServiceYes">
+                Sí
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="hasHealthServiceNo"
+                [value]="false"
+                formControlName="hasHealthService"
+              />
+              <label class="form-check-label" for="hasHealthServiceNo">
+                No
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nombre del servicio de salud -->
+        @if (hasHealthService()) {
+          <div class="col-md-6">
+            <label for="healthServiceName" class="form-label">¿Cuál servicio de salud? <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              id="healthServiceName"
+              formControlName="healthServiceName"
+              [class.is-invalid]="isFieldInvalid('healthServiceName')"
+              placeholder="Nombre de la EPS o entidad"
+            />
+            @if (isFieldInvalid('healthServiceName')) {
+              <div class="invalid-feedback">
+                El nombre del servicio de salud es requerido (máx. 150 caracteres)
+              </div>
+            }
+          </div>
+
+          <!-- Tipo de vinculación -->
+          <div class="col-md-6">
+            <label for="membershipType" class="form-label">Tipo de vinculación <span class="text-danger">*</span></label>
+            <select
+              class="form-select"
+              id="membershipType"
+              formControlName="membershipType"
+              [class.is-invalid]="isFieldInvalid('membershipType')"
+            >
+              <option value="">Seleccione...</option>
+              @for (option of membershipTypeOptions; track option.value) {
+                <option [value]="option.value">{{ option.label }}</option>
+              }
+            </select>
+            @if (isFieldInvalid('membershipType')) {
+              <div class="invalid-feedback">
+                El tipo de vinculación es requerido
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Consumo de medicamentos -->
+        <div class="col-12">
+          <label class="form-label">¿Consume medicamentos actualmente? <span class="text-danger">*</span></label>
+          <div class="d-flex gap-3">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="takesMedicationYes"
+                [value]="true"
+                formControlName="takesMedication"
+              />
+              <label class="form-check-label" for="takesMedicationYes">
+                Sí
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="takesMedicationNo"
+                [value]="false"
+                formControlName="takesMedication"
+              />
+              <label class="form-check-label" for="takesMedicationNo">
+                No
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Medicamentos -->
+        @if (takesMedication()) {
+          <div class="col-12">
+            <label for="medications" class="form-label">¿Cuáles medicamentos? <span class="text-danger">*</span></label>
+            <textarea
+              class="form-control"
+              id="medications"
+              formControlName="medications"
+              rows="3"
+              [class.is-invalid]="isFieldInvalid('medications')"
+              placeholder="Liste los medicamentos que consume"
+            ></textarea>
+            @if (isFieldInvalid('medications')) {
+              <div class="invalid-feedback">
+                Los medicamentos son requeridos (máx. 500 caracteres)
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </form>
+  </div>
+</div>
+

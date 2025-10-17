@@ -1,0 +1,113 @@
+<div class="card mb-4">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">{{ sectionTitle() }}</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form">
+      <div class="row g-3">
+        <!-- Estado civil -->
+        <div class="col-md-6">
+          <label for="maritalStatus" class="form-label">Estado civil <span class="text-danger">*</span></label>
+          <select
+            class="form-select"
+            id="maritalStatus"
+            formControlName="maritalStatus"
+            [class.is-invalid]="isFieldInvalid('maritalStatus')"
+          >
+            <option value="">Seleccione...</option>
+            @for (option of maritalStatusOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+          @if (isFieldInvalid('maritalStatus')) {
+            <div class="invalid-feedback">
+              El estado civil es requerido
+            </div>
+          }
+        </div>
+
+        <!-- Escolaridad -->
+        <div class="col-md-6">
+          <label for="educationLevel" class="form-label">Nivel de escolaridad <span class="text-danger">*</span></label>
+          <select
+            class="form-select"
+            id="educationLevel"
+            formControlName="educationLevel"
+            [class.is-invalid]="isFieldInvalid('educationLevel')"
+          >
+            <option value="">Seleccione...</option>
+            @for (option of educationLevelOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+          @if (isFieldInvalid('educationLevel')) {
+            <div class="invalid-feedback">
+              El nivel de escolaridad es requerido
+            </div>
+          }
+        </div>
+
+        <!-- Ocupación -->
+        <div class="col-md-6">
+          <label for="occupation" class="form-label">Ocupación <span class="text-danger">*</span></label>
+          <select
+            class="form-select"
+            id="occupation"
+            formControlName="occupation"
+            [class.is-invalid]="isFieldInvalid('occupation')"
+          >
+            <option value="">Seleccione...</option>
+            @for (option of occupationOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+          @if (isFieldInvalid('occupation')) {
+            <div class="invalid-feedback">
+              La ocupación es requerida
+            </div>
+          }
+        </div>
+
+        <!-- Otra ocupación (mostrar solo si selecciona "Otro") -->
+        @if (showOtherOccupation()) {
+          <div class="col-md-6">
+            <label for="otherOccupation" class="form-label">¿Cuál ocupación? <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              id="otherOccupation"
+              formControlName="otherOccupation"
+              [class.is-invalid]="isFieldInvalid('otherOccupation')"
+              placeholder="Especifique la ocupación"
+            />
+            @if (isFieldInvalid('otherOccupation')) {
+              <div class="invalid-feedback">
+                Especifique la ocupación (máx. 100 caracteres)
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Institución donde estudia o trabaja -->
+        <div class="col-12">
+          <label for="institution" class="form-label">Institución donde estudia o trabaja</label>
+          <input
+            type="text"
+            class="form-control"
+            id="institution"
+            formControlName="institution"
+            [class.is-invalid]="isFieldInvalid('institution')"
+            placeholder="Nombre de la institución (opcional)"
+          />
+          @if (isFieldInvalid('institution')) {
+            <div class="invalid-feedback">
+              Máximo 150 caracteres
+            </div>
+          }
+          <small class="text-muted">Campo opcional</small>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+

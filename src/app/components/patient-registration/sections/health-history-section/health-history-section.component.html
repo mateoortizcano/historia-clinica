@@ -1,0 +1,366 @@
+<div class="health-history-container">
+  <form [formGroup]="form">
+    <!-- SECCIÓN 1: INFORMACIÓN DE SALUD -->
+    <div class="card mb-4">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">
+          <i class="bi bi-heart-pulse me-2"></i>
+          Información de Salud
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <!-- Servicio de salud -->
+          <div class="col-12">
+            <label class="form-label">¿Cuenta con servicio de salud? <span class="text-danger">*</span></label>
+            <div class="d-flex gap-3">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="hasHealthServiceYes"
+                  [value]="true"
+                  formControlName="hasHealthService"
+                />
+                <label class="form-check-label" for="hasHealthServiceYes">Sí</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="hasHealthServiceNo"
+                  [value]="false"
+                  formControlName="hasHealthService"
+                />
+                <label class="form-check-label" for="hasHealthServiceNo">No</label>
+              </div>
+            </div>
+          </div>
+
+          @if (hasHealthService()) {
+            <div class="col-md-6">
+              <label for="healthServiceName" class="form-label">¿Cuál servicio de salud? <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                id="healthServiceName"
+                formControlName="healthServiceName"
+                [class.is-invalid]="isFieldInvalid('healthServiceName')"
+                placeholder="Nombre de la EPS o entidad"
+              />
+              @if (isFieldInvalid('healthServiceName')) {
+                <div class="invalid-feedback">El nombre del servicio de salud es requerido (máx. 150 caracteres)</div>
+              }
+            </div>
+
+            <div class="col-md-6">
+              <label for="membershipType" class="form-label">Tipo de vinculación <span class="text-danger">*</span></label>
+              <select
+                class="form-select"
+                id="membershipType"
+                formControlName="membershipType"
+                [class.is-invalid]="isFieldInvalid('membershipType')"
+              >
+                <option value="">Seleccione...</option>
+                @for (option of membershipTypeOptions; track option.value) {
+                  <option [value]="option.value">{{ option.label }}</option>
+                }
+              </select>
+              @if (isFieldInvalid('membershipType')) {
+                <div class="invalid-feedback">El tipo de vinculación es requerido</div>
+              }
+            </div>
+          }
+
+          <!-- Consumo de medicamentos -->
+          <div class="col-12">
+            <label class="form-label">¿Consume medicamentos actualmente? <span class="text-danger">*</span></label>
+            <div class="d-flex gap-3">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="takesMedicationYes"
+                  [value]="true"
+                  formControlName="takesMedication"
+                />
+                <label class="form-check-label" for="takesMedicationYes">Sí</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="takesMedicationNo"
+                  [value]="false"
+                  formControlName="takesMedication"
+                />
+                <label class="form-check-label" for="takesMedicationNo">No</label>
+              </div>
+            </div>
+          </div>
+
+          @if (takesMedication()) {
+            <div class="col-12">
+              <label for="medications" class="form-label">¿Cuáles medicamentos? <span class="text-danger">*</span></label>
+              <textarea
+                class="form-control"
+                id="medications"
+                formControlName="medications"
+                rows="3"
+                [class.is-invalid]="isFieldInvalid('medications')"
+                placeholder="Liste los medicamentos que consume"
+              ></textarea>
+              @if (isFieldInvalid('medications')) {
+                <div class="invalid-feedback">Los medicamentos son requeridos (máx. 500 caracteres)</div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 2: INFORMACIÓN DE REMISIÓN -->
+    <div class="card mb-4">
+      <div class="card-header bg-info text-white">
+        <h5 class="mb-0">
+          <i class="bi bi-arrow-right-circle me-2"></i>
+          Información de Remisión
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label">¿Fue remitido(a) por alguien? <span class="text-danger">*</span></label>
+            <div class="d-flex gap-3">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="wasReferredYes"
+                  [value]="true"
+                  formControlName="wasReferred"
+                />
+                <label class="form-check-label" for="wasReferredYes">Sí</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="wasReferredNo"
+                  [value]="false"
+                  formControlName="wasReferred"
+                />
+                <label class="form-check-label" for="wasReferredNo">No</label>
+              </div>
+            </div>
+          </div>
+
+          @if (wasReferred()) {
+            <div class="col-12">
+              <label for="referredBy" class="form-label">¿Por quién fue remitido(a)? <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                id="referredBy"
+                formControlName="referredBy"
+                [class.is-invalid]="isFieldInvalid('referredBy')"
+                placeholder="Nombre de la persona o institución que lo remitió"
+              />
+              @if (isFieldInvalid('referredBy')) {
+                <div class="invalid-feedback">Este campo es requerido (máx. 150 caracteres)</div>
+              }
+            </div>
+
+            <div class="col-12">
+              <label for="referralReason" class="form-label">Motivo de remisión <span class="text-danger">*</span></label>
+              <textarea
+                class="form-control"
+                id="referralReason"
+                formControlName="referralReason"
+                rows="3"
+                [class.is-invalid]="isFieldInvalid('referralReason')"
+                placeholder="Describa el motivo por el cual fue remitido"
+              ></textarea>
+              @if (isFieldInvalid('referralReason')) {
+                <div class="invalid-feedback">El motivo de remisión es requerido (máx. 500 caracteres)</div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 3: ATENCIÓN PSICOLÓGICA ANTERIOR -->
+    <div class="card mb-4">
+      <div class="card-header bg-success text-white">
+        <h5 class="mb-0">
+          <i class="bi bi-person-check me-2"></i>
+          Atención Psicológica Anterior
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label">¿Ha recibido atención psicológica anteriormente? <span class="text-danger">*</span></label>
+            <div class="d-flex gap-3">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="hadPsychologicalAttentionYes"
+                  [value]="true"
+                  formControlName="hadPsychologicalAttention"
+                />
+                <label class="form-check-label" for="hadPsychologicalAttentionYes">Sí</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="hadPsychologicalAttentionNo"
+                  [value]="false"
+                  formControlName="hadPsychologicalAttention"
+                />
+                <label class="form-check-label" for="hadPsychologicalAttentionNo">No</label>
+              </div>
+            </div>
+          </div>
+
+          @if (hadPsychologicalAttention()) {
+            <div class="col-12">
+              <label for="psychologicalLocation" class="form-label">¿Dónde recibió la atención? <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                id="psychologicalLocation"
+                formControlName="psychologicalLocation"
+                [class.is-invalid]="isFieldInvalid('psychologicalLocation')"
+                placeholder="Nombre de la institución o profesional"
+              />
+              @if (isFieldInvalid('psychologicalLocation')) {
+                <div class="invalid-feedback">El lugar es requerido (máx. 200 caracteres)</div>
+              }
+            </div>
+
+            <div class="col-md-6">
+              <label for="psychologicalDuration" class="form-label">Duración del tratamiento <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                id="psychologicalDuration"
+                formControlName="psychologicalDuration"
+                [class.is-invalid]="isFieldInvalid('psychologicalDuration')"
+                placeholder="Ej: 6 meses, 1 año"
+              />
+              @if (isFieldInvalid('psychologicalDuration')) {
+                <div class="invalid-feedback">La duración es requerida (máx. 100 caracteres)</div>
+              }
+            </div>
+
+            <div class="col-12">
+              <label for="psychologicalEndReason" class="form-label">Motivo por el cual terminó <span class="text-danger">*</span></label>
+              <textarea
+                class="form-control"
+                id="psychologicalEndReason"
+                formControlName="psychologicalEndReason"
+                rows="3"
+                [class.is-invalid]="isFieldInvalid('psychologicalEndReason')"
+                placeholder="Describa el motivo"
+              ></textarea>
+              @if (isFieldInvalid('psychologicalEndReason')) {
+                <div class="invalid-feedback">El motivo es requerido (máx. 500 caracteres)</div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 4: ATENCIÓN PSIQUIÁTRICA ANTERIOR -->
+    <div class="card mb-4">
+      <div class="card-header bg-warning text-dark">
+        <h5 class="mb-0">
+          <i class="bi bi-clipboard2-pulse me-2"></i>
+          Atención Psiquiátrica Anterior
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label">¿Ha recibido atención psiquiátrica anteriormente? <span class="text-danger">*</span></label>
+            <div class="d-flex gap-3">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="hadPsychiatricAttentionYes"
+                  [value]="true"
+                  formControlName="hadPsychiatricAttention"
+                />
+                <label class="form-check-label" for="hadPsychiatricAttentionYes">Sí</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="hadPsychiatricAttentionNo"
+                  [value]="false"
+                  formControlName="hadPsychiatricAttention"
+                />
+                <label class="form-check-label" for="hadPsychiatricAttentionNo">No</label>
+              </div>
+            </div>
+          </div>
+
+          @if (hadPsychiatricAttention()) {
+            <div class="col-12">
+              <label for="psychiatricLocation" class="form-label">¿Dónde recibió la atención? <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                id="psychiatricLocation"
+                formControlName="psychiatricLocation"
+                [class.is-invalid]="isFieldInvalid('psychiatricLocation')"
+                placeholder="Nombre de la institución o profesional"
+              />
+              @if (isFieldInvalid('psychiatricLocation')) {
+                <div class="invalid-feedback">El lugar es requerido (máx. 200 caracteres)</div>
+              }
+            </div>
+
+            <div class="col-md-6">
+              <label for="psychiatricDuration" class="form-label">Duración del tratamiento <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                id="psychiatricDuration"
+                formControlName="psychiatricDuration"
+                [class.is-invalid]="isFieldInvalid('psychiatricDuration')"
+                placeholder="Ej: 6 meses, 1 año"
+              />
+              @if (isFieldInvalid('psychiatricDuration')) {
+                <div class="invalid-feedback">La duración es requerida (máx. 100 caracteres)</div>
+              }
+            </div>
+
+            <div class="col-12">
+              <label for="psychiatricEndReason" class="form-label">Motivo por el cual terminó <span class="text-danger">*</span></label>
+              <textarea
+                class="form-control"
+                id="psychiatricEndReason"
+                formControlName="psychiatricEndReason"
+                rows="3"
+                [class.is-invalid]="isFieldInvalid('psychiatricEndReason')"
+                placeholder="Describa el motivo"
+              ></textarea>
+              @if (isFieldInvalid('psychiatricEndReason')) {
+                <div class="invalid-feedback">El motivo es requerido (máx. 500 caracteres)</div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+

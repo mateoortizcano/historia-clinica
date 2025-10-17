@@ -1,0 +1,98 @@
+<div class="card mb-4">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">{{ sectionTitle() }}</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form">
+      <div class="row g-3">
+        <!-- ¿Atención psiquiátrica anterior? -->
+        <div class="col-12">
+          <label class="form-label">¿Ha recibido atención psiquiátrica anteriormente? <span class="text-danger">*</span></label>
+          <div class="d-flex gap-3">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="hadPreviousAttentionYes"
+                [value]="true"
+                formControlName="hadPreviousAttention"
+              />
+              <label class="form-check-label" for="hadPreviousAttentionYes">
+                Sí
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="hadPreviousAttentionNo"
+                [value]="false"
+                formControlName="hadPreviousAttention"
+              />
+              <label class="form-check-label" for="hadPreviousAttentionNo">
+                No
+              </label>
+            </div>
+          </div>
+        </div>
+
+        @if (hadPreviousAttention()) {
+          <!-- ¿Dónde? -->
+          <div class="col-12">
+            <label for="location" class="form-label">¿Dónde recibió la atención? <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              id="location"
+              formControlName="location"
+              [class.is-invalid]="isFieldInvalid('location')"
+              placeholder="Nombre de la institución o profesional"
+            />
+            @if (isFieldInvalid('location')) {
+              <div class="invalid-feedback">
+                El lugar es requerido (máx. 200 caracteres)
+              </div>
+            }
+          </div>
+
+          <!-- Duración -->
+          <div class="col-md-6">
+            <label for="duration" class="form-label">Duración del tratamiento <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              id="duration"
+              formControlName="duration"
+              [class.is-invalid]="isFieldInvalid('duration')"
+              placeholder="Ej: 6 meses, 1 año"
+            />
+            @if (isFieldInvalid('duration')) {
+              <div class="invalid-feedback">
+                La duración es requerida (máx. 100 caracteres)
+              </div>
+            }
+          </div>
+
+          <!-- Motivo por el cual terminó -->
+          <div class="col-12">
+            <label for="endReason" class="form-label">Motivo por el cual terminó <span class="text-danger">*</span></label>
+            <textarea
+              class="form-control"
+              id="endReason"
+              formControlName="endReason"
+              rows="3"
+              [class.is-invalid]="isFieldInvalid('endReason')"
+              placeholder="Describa el motivo"
+            ></textarea>
+            @if (isFieldInvalid('endReason')) {
+              <div class="invalid-feedback">
+                El motivo es requerido (máx. 500 caracteres)
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </form>
+  </div>
+</div>
+

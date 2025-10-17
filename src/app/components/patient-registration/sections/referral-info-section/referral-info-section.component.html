@@ -1,0 +1,80 @@
+<div class="card mb-4">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">{{ sectionTitle() }}</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form">
+      <div class="row g-3">
+        <!-- ¿Fue remitido? -->
+        <div class="col-12">
+          <label class="form-label">¿Fue remitido(a) por alguien? <span class="text-danger">*</span></label>
+          <div class="d-flex gap-3">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="wasReferredYes"
+                [value]="true"
+                formControlName="wasReferred"
+              />
+              <label class="form-check-label" for="wasReferredYes">
+                Sí
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="wasReferredNo"
+                [value]="false"
+                formControlName="wasReferred"
+              />
+              <label class="form-check-label" for="wasReferredNo">
+                No
+              </label>
+            </div>
+          </div>
+        </div>
+
+        @if (wasReferred()) {
+          <!-- ¿Por quién? -->
+          <div class="col-12">
+            <label for="referredBy" class="form-label">¿Por quién fue remitido(a)? <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              id="referredBy"
+              formControlName="referredBy"
+              [class.is-invalid]="isFieldInvalid('referredBy')"
+              placeholder="Nombre de la persona o institución que lo remitió"
+            />
+            @if (isFieldInvalid('referredBy')) {
+              <div class="invalid-feedback">
+                Este campo es requerido (máx. 150 caracteres)
+              </div>
+            }
+          </div>
+
+          <!-- Motivo de remisión -->
+          <div class="col-12">
+            <label for="referralReason" class="form-label">Motivo de remisión <span class="text-danger">*</span></label>
+            <textarea
+              class="form-control"
+              id="referralReason"
+              formControlName="referralReason"
+              rows="4"
+              [class.is-invalid]="isFieldInvalid('referralReason')"
+              placeholder="Describa el motivo por el cual fue remitido"
+            ></textarea>
+            @if (isFieldInvalid('referralReason')) {
+              <div class="invalid-feedback">
+                El motivo de remisión es requerido (máx. 500 caracteres)
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </form>
+  </div>
+</div>
+

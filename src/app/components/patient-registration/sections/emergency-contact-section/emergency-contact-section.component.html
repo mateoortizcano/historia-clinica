@@ -1,0 +1,53 @@
+<div class="card mb-4">
+  <div class="card-header bg-danger text-white">
+    <h5 class="mb-0">{{ sectionTitle() }}</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form">
+      <div class="row g-3">
+        <!-- Nombre del contacto de emergencia -->
+        <div class="col-md-6">
+          <label for="name" class="form-label">Nombre del contacto <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            [class.is-invalid]="isFieldInvalid('name')"
+            placeholder="Nombre completo"
+          />
+          @if (isFieldInvalid('name')) {
+            <div class="invalid-feedback">
+              El nombre es requerido (máx. 200 caracteres)
+            </div>
+          }
+        </div>
+
+        <!-- Teléfono del contacto -->
+        <div class="col-md-6">
+          <label for="phone" class="form-label">Teléfono del contacto <span class="text-danger">*</span></label>
+          <input
+            type="tel"
+            class="form-control"
+            id="phone"
+            formControlName="phone"
+            [class.is-invalid]="isFieldInvalid('phone')"
+            placeholder="Número de teléfono"
+          />
+          @if (isFieldInvalid('phone')) {
+            <div class="invalid-feedback">
+              El teléfono es requerido (máx. 20 caracteres)
+            </div>
+          }
+        </div>
+      </div>
+      <div class="alert alert-info mt-3 mb-0">
+        <small>
+          <strong>Importante:</strong> Este contacto será utilizado en caso de emergencia.
+          Por favor, asegúrese de proporcionar información válida y actualizada.
+        </small>
+      </div>
+    </form>
+  </div>
+</div>
+

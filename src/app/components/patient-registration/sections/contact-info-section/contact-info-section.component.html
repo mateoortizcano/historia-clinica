@@ -1,0 +1,104 @@
+<div class="card mb-4">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">{{ sectionTitle() }}</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form">
+      <div class="row g-3">
+        <!-- Dirección de residencia -->
+        <div class="col-12">
+          <label for="address" class="form-label">Dirección de residencia <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            id="address"
+            formControlName="address"
+            [class.is-invalid]="isFieldInvalid('address')"
+            placeholder="Calle, carrera, número"
+          />
+          @if (isFieldInvalid('address')) {
+            <div class="invalid-feedback">
+              La dirección es requerida (máx. 200 caracteres)
+            </div>
+          }
+        </div>
+
+        <!-- Municipio -->
+        <div class="col-md-6">
+          <label for="municipality" class="form-label">Municipio <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            id="municipality"
+            formControlName="municipality"
+            [class.is-invalid]="isFieldInvalid('municipality')"
+            placeholder="Ingrese el municipio"
+          />
+          @if (isFieldInvalid('municipality')) {
+            <div class="invalid-feedback">
+              El municipio es requerido (máx. 100 caracteres)
+            </div>
+          }
+        </div>
+
+        <!-- Barrio -->
+        <div class="col-md-6">
+          <label for="neighborhood" class="form-label">Barrio <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            id="neighborhood"
+            formControlName="neighborhood"
+            [class.is-invalid]="isFieldInvalid('neighborhood')"
+            placeholder="Ingrese el barrio"
+          />
+          @if (isFieldInvalid('neighborhood')) {
+            <div class="invalid-feedback">
+              El barrio es requerido (máx. 100 caracteres)
+            </div>
+          }
+        </div>
+
+        <!-- Estrato -->
+        <div class="col-md-6">
+          <label for="socioeconomicLevel" class="form-label">Estrato socioeconómico <span class="text-danger">*</span></label>
+          <select
+            class="form-select"
+            id="socioeconomicLevel"
+            formControlName="socioeconomicLevel"
+            [class.is-invalid]="isFieldInvalid('socioeconomicLevel')"
+          >
+            <option value="">Seleccione...</option>
+            @for (level of socioeconomicLevels; track level) {
+              <option [value]="level">Estrato {{ level }}</option>
+            }
+          </select>
+          @if (isFieldInvalid('socioeconomicLevel')) {
+            <div class="invalid-feedback">
+              El estrato socioeconómico es requerido
+            </div>
+          }
+        </div>
+
+        <!-- Teléfono -->
+        <div class="col-md-6">
+          <label for="phone" class="form-label">Teléfono <span class="text-danger">*</span></label>
+          <input
+            type="tel"
+            class="form-control"
+            id="phone"
+            formControlName="phone"
+            [class.is-invalid]="isFieldInvalid('phone')"
+            placeholder="Ingrese el teléfono"
+          />
+          @if (isFieldInvalid('phone')) {
+            <div class="invalid-feedback">
+              El teléfono es requerido (máx. 20 caracteres)
+            </div>
+          }
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+

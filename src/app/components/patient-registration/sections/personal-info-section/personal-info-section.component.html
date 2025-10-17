@@ -1,0 +1,136 @@
+<div class="card mb-4">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">{{ sectionTitle() }}</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form">
+      <div class="row g-3">
+        <!-- Nombre completo -->
+        <div class="col-12">
+          <label for="fullName" class="form-label">Nombre completo <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            id="fullName"
+            formControlName="fullName"
+            [class.is-invalid]="isFieldInvalid('fullName')"
+            placeholder="Ingrese el nombre completo"
+          />
+          @if (isFieldInvalid('fullName')) {
+            <div class="invalid-feedback">
+              El nombre completo es requerido (máx. 200 caracteres)
+            </div>
+          }
+        </div>
+
+        <!-- Fecha de nacimiento y Edad -->
+        <div class="col-md-6">
+          <label for="birthDate" class="form-label">Fecha de nacimiento <span class="text-danger">*</span></label>
+          <input
+            type="date"
+            class="form-control"
+            id="birthDate"
+            formControlName="birthDate"
+            [class.is-invalid]="isFieldInvalid('birthDate')"
+          />
+          @if (isFieldInvalid('birthDate')) {
+            <div class="invalid-feedback">
+              La fecha de nacimiento es requerida
+            </div>
+          }
+        </div>
+
+        <div class="col-md-6">
+          <label for="age" class="form-label">Edad</label>
+          <input
+            type="number"
+            class="form-control"
+            id="age"
+            formControlName="age"
+            readonly
+          />
+          <small class="text-muted">Se calcula automáticamente</small>
+        </div>
+
+        <!-- Sexo -->
+        <div class="col-md-6">
+          <label for="sex" class="form-label">Sexo <span class="text-danger">*</span></label>
+          <select
+            class="form-select"
+            id="sex"
+            formControlName="sex"
+            [class.is-invalid]="isFieldInvalid('sex')"
+          >
+            <option value="">Seleccione...</option>
+            @for (option of sexOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+          @if (isFieldInvalid('sex')) {
+            <div class="invalid-feedback">
+              El sexo es requerido
+            </div>
+          }
+        </div>
+
+        <!-- Tipo de identificación -->
+        <div class="col-md-6">
+          <label for="idType" class="form-label">Tipo de identificación <span class="text-danger">*</span></label>
+          <select
+            class="form-select"
+            id="idType"
+            formControlName="idType"
+            [class.is-invalid]="isFieldInvalid('idType')"
+          >
+            <option value="">Seleccione...</option>
+            @for (option of idTypeOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+          @if (isFieldInvalid('idType')) {
+            <div class="invalid-feedback">
+              El tipo de identificación es requerido
+            </div>
+          }
+        </div>
+
+        <!-- Número de identificación -->
+        <div class="col-md-6">
+          <label for="idNumber" class="form-label">Número de identificación <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            id="idNumber"
+            formControlName="idNumber"
+            [class.is-invalid]="isFieldInvalid('idNumber')"
+            placeholder="Ingrese el número"
+          />
+          @if (isFieldInvalid('idNumber')) {
+            <div class="invalid-feedback">
+              El número de identificación es requerido (máx. 20 caracteres)
+            </div>
+          }
+        </div>
+
+        <!-- Lugar de nacimiento -->
+        <div class="col-md-6">
+          <label for="birthPlace" class="form-label">Lugar de nacimiento <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            id="birthPlace"
+            formControlName="birthPlace"
+            [class.is-invalid]="isFieldInvalid('birthPlace')"
+            placeholder="Ciudad, Departamento"
+          />
+          @if (isFieldInvalid('birthPlace')) {
+            <div class="invalid-feedback">
+              El lugar de nacimiento es requerido (máx. 100 caracteres)
+            </div>
+          }
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
