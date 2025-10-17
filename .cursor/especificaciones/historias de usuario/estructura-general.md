@@ -133,11 +133,3 @@ Este registro se completa cuando el proceso terapéutico finaliza. Debe indicars
 * Obervaciones
 * Recomendaciones
 
-
-> **Nota 1:**  
-> Se recomienda sugerir los tamaños máximos de los campos, los tipos de entrada (por ejemplo, texto, fecha, selección, numérico, etc.) y otros detalles técnicos de los datos tomando como referencia las mejores prácticas de software clínico y según estándares utilizados en formularios médicos digitales, para garantizar compatibilidad y facilidad de uso.
-
-> **Nota 2:**  
-> * Sugerir subdivisiones en los formularios cumpliendo los requisitons no funcionales especificados en la descripcion-proyecto.md. 
->* Actúa siempre como un experto en construcción de este tipo de software
->* sugiere mejor redacción o nombramiento de campos sin cambiar el proposito de él

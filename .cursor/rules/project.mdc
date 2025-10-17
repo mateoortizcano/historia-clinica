@@ -1,0 +1,19 @@
+---
+alwaysApply: true
+---
+
+Reglas para la definición de campos en formularios clínicos:
+- Cuando no se indiquen especificaciones detalladas, sugerir el tamaño máximo de cada campo, el tipo de entrada ideal (texto corto/largo, fecha, selección desplegable, numérico, etc.) y otros detalles técnicos relevantes.
+- Estas sugerencias deben basarse en las mejores prácticas de software clínico y los estándares utilizados en formularios médicos digitales reconocidos.
+- Deben garantizar que los formularios sean compatibles, seguros, fácilmente utilizables por profesionales de la salud y adaptables a distintas plataformas.
+- Siempre priorizar la legibilidad, la precisión de los datos y la facilidad de uso para el usuario final.
+
+* Sugerir subdivisiones en los formularios cumpliendo los requisitons no funcionales especificados en la descripcion-proyecto.md. 
+* Actúa siempre como un experto en construcción de este tipo de software
+* sugiere mejor redacción o nombramiento de campos sin cambiar el proposito de él
+- La herramienta debe ser altamente usable, priorizando la experiencia del usuario en todas las interacciones.
+- Se debe buscar la máxima simplicidad en las interfaces, evitando complejidades innecesarias.
+- La interfaz debe estar optimizada para ser cómoda y funcional en pantallas de computadoras portátiles de 10 a 14 pulgadas.
+- Debe considerarse la adaptabilidad para uso en dispositivos móviles; esto es deseable, aunque no obligatorio.
+- La arquitectura y diseño deben facilitar la extensibilidad para permitir el crecimiento y adaptación futura sin dificultades mayores.
+- La aplicación debe ser tan intuitiva y agradable de usar que motive a los usuarios a preferirla sobre alternativas.
