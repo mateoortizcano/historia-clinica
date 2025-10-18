@@ -1,8 +1,11 @@
-<div class="card mb-4">
-  <div class="card-header bg-primary text-white">
-    <h5 class="mb-0">{{ sectionTitle() }}</h5>
+<div class="card section-card section-spacing">
+  <div class="section-header">
+    <h5>
+      <i class="bi bi-mortarboard"></i>
+      {{ sectionTitle() }}
+    </h5>
   </div>
-  <div class="card-body">
+  <div class="section-body">
     <form [formGroup]="form">
       <div class="row g-3">
         <!-- Estado civil -->

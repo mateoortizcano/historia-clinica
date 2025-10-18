@@ -1,15 +1,15 @@
-<div class="section-container">
-  <div class="section-header mb-4">
-    <div class="d-flex justify-content-between align-items-start">
-      <div>
-        <h3 class="h5 mb-1">
-          <i class="bi bi-house-heart me-2"></i>
-          Información Familiar
-        </h3>
-        <p class="text-muted small mb-0">
-          Personas con las que vive el paciente
-        </p>
-      </div>
+<div class="card section-card section-spacing">
+  <div class="section-header header-purple">
+    <h5>
+      <i class="bi bi-house-heart"></i>
+      Información Familiar
+    </h5>
+  </div>
+  <div class="section-body">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <p class="text-muted small mb-0">
+        Personas con las que vive el paciente
+      </p>
       <button
         type="button"
         class="btn btn-sm btn-primary"
@@ -19,33 +19,32 @@
         Agregar Familiar
       </button>
     </div>
-  </div>
 
-  @if (familyMembers().length === 0) {
-    <div class="alert alert-info">
-      <i class="bi bi-info-circle me-2"></i>
-      Haga clic en "Agregar Familiar" para registrar las personas con las que vive el paciente.
-      <br><small class="mt-2 d-block">Esta sección es opcional. Si desea, puede continuar al siguiente paso sin agregar información.</small>
-    </div>
-  } @else {
-    <div class="family-members-list">
-      @for (member of familyMembers(); track $index) {
-        <div class="family-member-card mb-3">
-          <div class="card-header d-flex justify-content-between align-items-center">
-            <h4 class="h6 mb-0">
-              <i class="bi bi-person-fill me-2"></i>
-              Familiar {{ $index + 1 }}
-            </h4>
-            <button
-              type="button"
-              class="btn btn-sm btn-outline-danger"
-              (click)="removeFamilyMember($index)"
-              title="Eliminar familiar"
-            >
-              <i class="bi bi-trash"></i>
-            </button>
-          </div>
-          <div class="card-body">
+    @if (familyMembers().length === 0) {
+      <div class="alert alert-info">
+        <i class="bi bi-info-circle me-2"></i>
+        Haga clic en "Agregar Familiar" para registrar las personas con las que vive el paciente.
+        <br><small class="mt-2 d-block">Esta sección es opcional. Si desea, puede continuar al siguiente paso sin agregar información.</small>
+      </div>
+    } @else {
+      <div class="family-members-list">
+        @for (member of familyMembers(); track $index) {
+          <div class="list-card mb-3">
+            <div class="list-card-header">
+              <h6>
+                <i class="bi bi-person-fill"></i>
+                Familiar {{ $index + 1 }}
+              </h6>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-danger"
+                (click)="removeFamilyMember($index)"
+                title="Eliminar familiar"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+            <div class="list-card-body">
             <div class="row g-3">
               <!-- Nombre -->
               <div class="col-md-4">
@@ -116,18 +115,19 @@
               </div>
             </div>
 
-            @if (!isMemberValid(member)) {
-              <div class="alert alert-warning mt-3 mb-0">
-                <small>
-                  <i class="bi bi-exclamation-triangle me-1"></i>
-                  Complete todos los campos requeridos
-                </small>
-              </div>
-            }
+              @if (!isMemberValid(member)) {
+                <div class="alert alert-warning mt-3 mb-0">
+                  <small>
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    Complete todos los campos requeridos
+                  </small>
+                </div>
+              }
+            </div>
           </div>
-        </div>
-      }
-    </div>
-  }
+        }
+      </div>
+    }
+  </div>
 </div>
 

@@ -101,6 +101,7 @@ export interface AdultPatientData {
   psychiatricAttention: PreviousAttentionInfo;
   familyMembers: FamilyMember[];
   emergencyContact: EmergencyContact;
+  healthBackground: HealthBackground;
 }
 
 // Minor-specific interfaces
@@ -140,6 +141,13 @@ export interface FamilyMember {
   occupation: string;
 }
 
+export interface HealthBackground {
+  personalSomaticConditions: string;
+  familySomaticConditions: string;
+  personalPsychologicalHistory: string;
+  familyPsychologicalHistory: string;
+}
+
 export interface MinorPatientData {
   guardianInfo: GuardianInfo;
   personalInfo: PersonalInfo;
@@ -151,6 +159,7 @@ export interface MinorPatientData {
   psychiatricAttention: PreviousAttentionInfo;
   parentsInfo: ParentsInfo;
   familyMembers: FamilyMember[];
+  healthBackground: HealthBackground;
 }
 
 export type PatientData = AdultPatientData | MinorPatientData;

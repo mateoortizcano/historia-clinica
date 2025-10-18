@@ -1,0 +1,117 @@
+<div class="health-background-section">
+  <!-- Estado Somático -->
+  <div class="card section-card section-spacing">
+    <div class="section-header">
+      <h5>
+        <i class="bi bi-hospital"></i>
+        Estado Somático y Enfermedades Relevantes
+      </h5>
+    </div>
+    <div class="section-body">
+      <p class="text-muted small mb-3">
+        <i class="bi bi-info-circle me-1"></i>
+        Registre información relevante sobre antecedentes médicos, tanto a nivel personal como familiar.
+      </p>
+      <div class="row g-3">
+        <!-- Personal -->
+        <div class="col-12">
+          <label for="personalSomatic" class="form-label fw-medium">
+            A nivel personal
+          </label>
+          <textarea
+            id="personalSomatic"
+            class="form-control"
+            rows="4"
+            placeholder="Ej: Diabetes tipo 2, hipertensión arterial, cirugías previas, alergias, etc."
+            [value]="formData().personalSomaticConditions"
+            (input)="updateField('personalSomaticConditions', $any($event.target).value)"
+          ></textarea>
+          <div class="form-text">
+            Incluya diagnósticos, tratamientos actuales, cirugías previas, alergias importantes, etc.
+          </div>
+        </div>
+
+        <!-- Familiar -->
+        <div class="col-12">
+          <label for="familySomatic" class="form-label fw-medium">
+            A nivel familiar
+          </label>
+          <textarea
+            id="familySomatic"
+            class="form-control"
+            rows="4"
+            placeholder="Ej: Madre con diabetes, padre con enfermedad cardiovascular, antecedentes de cáncer, etc."
+            [value]="formData().familySomaticConditions"
+            (input)="updateField('familySomaticConditions', $any($event.target).value)"
+          ></textarea>
+          <div class="form-text">
+            Incluya enfermedades hereditarias o relevantes en padres, hermanos u otros familiares cercanos.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trastornos Psíquicos -->
+  <div class="card section-card section-spacing">
+    <div class="section-header header-purple">
+      <h5>
+        <i class="bi bi-emoji-frown"></i>
+        Trastornos Psíquicos y Acontecimientos Emocionales
+      </h5>
+    </div>
+    <div class="section-body">
+      <p class="text-muted small mb-3">
+        <i class="bi bi-info-circle me-1"></i>
+        Registre información sobre antecedentes psicológicos y eventos emocionales significativos.
+      </p>
+      <div class="row g-3">
+        <!-- Personal -->
+        <div class="col-12">
+          <label for="personalPsychological" class="form-label fw-medium">
+            A nivel personal
+          </label>
+          <textarea
+            id="personalPsychological"
+            class="form-control"
+            rows="4"
+            placeholder="Ej: Episodio depresivo hace 2 años, ansiedad generalizada en tratamiento, duelo por pérdida familiar, etc."
+            [value]="formData().personalPsychologicalHistory"
+            (input)="updateField('personalPsychologicalHistory', $any($event.target).value)"
+          ></textarea>
+          <div class="form-text">
+            Incluya diagnósticos psiquiátricos previos o actuales, eventos traumáticos, pérdidas significativas, crisis emocionales, etc.
+          </div>
+        </div>
+
+        <!-- Familiar -->
+        <div class="col-12">
+          <label for="familyPsychological" class="form-label fw-medium">
+            A nivel familiar
+          </label>
+          <textarea
+            id="familyPsychological"
+            class="form-control"
+            rows="4"
+            placeholder="Ej: Madre con historial de depresión, hermano con trastorno bipolar, antecedentes de suicidio en la familia, etc."
+            [value]="formData().familyPsychologicalHistory"
+            (input)="updateField('familyPsychologicalHistory', $any($event.target).value)"
+          ></textarea>
+          <div class="form-text">
+            Incluya trastornos mentales, hospitalizaciones psiquiátricas, intentos de suicidio u otros eventos relevantes en la familia.
+          </div>
+        </div>
+      </div>
+
+      <!-- Info adicional -->
+      <div class="alert alert-info mt-3">
+        <i class="bi bi-lightbulb-fill me-2"></i>
+        <small>
+          <strong>Nota:</strong> Esta información es importante para comprender el contexto del paciente y sus factores de riesgo.
+          Sea lo más específico posible, incluyendo fechas aproximadas y tratamientos recibidos cuando sea relevante.
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+

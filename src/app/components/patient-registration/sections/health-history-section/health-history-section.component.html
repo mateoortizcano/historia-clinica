@@ -1,14 +1,14 @@
 <div class="health-history-container">
   <form [formGroup]="form">
     <!-- SECCIÓN 1: INFORMACIÓN DE SALUD -->
-    <div class="card mb-4">
-      <div class="card-header bg-primary text-white">
-        <h5 class="mb-0">
-          <i class="bi bi-heart-pulse me-2"></i>
+    <div class="card section-card section-spacing">
+      <div class="section-header">
+        <h5>
+          <i class="bi bi-heart-pulse"></i>
           Información de Salud
         </h5>
       </div>
-      <div class="card-body">
+      <div class="section-body">
         <div class="row g-3">
           <!-- Servicio de salud -->
           <div class="col-12">
@@ -122,14 +122,14 @@
     </div>
 
     <!-- SECCIÓN 2: INFORMACIÓN DE REMISIÓN -->
-    <div class="card mb-4">
-      <div class="card-header bg-info text-white">
-        <h5 class="mb-0">
-          <i class="bi bi-arrow-right-circle me-2"></i>
+    <div class="card section-card section-spacing">
+      <div class="section-header header-info">
+        <h5>
+          <i class="bi bi-arrow-right-circle"></i>
           Información de Remisión
         </h5>
       </div>
-      <div class="card-body">
+      <div class="section-body">
         <div class="row g-3">
           <div class="col-12">
             <label class="form-label">¿Fue remitido(a) por alguien? <span class="text-danger">*</span></label>
@@ -193,14 +193,14 @@
     </div>
 
     <!-- SECCIÓN 3: ATENCIÓN PSICOLÓGICA ANTERIOR -->
-    <div class="card mb-4">
-      <div class="card-header bg-success text-white">
-        <h5 class="mb-0">
-          <i class="bi bi-person-check me-2"></i>
+    <div class="card section-card section-spacing">
+      <div class="section-header header-success">
+        <h5>
+          <i class="bi bi-person-check"></i>
           Atención Psicológica Anterior
         </h5>
       </div>
-      <div class="card-body">
+      <div class="section-body">
         <div class="row g-3">
           <div class="col-12">
             <label class="form-label">¿Ha recibido atención psicológica anteriormente? <span class="text-danger">*</span></label>
@@ -279,14 +279,14 @@
     </div>
 
     <!-- SECCIÓN 4: ATENCIÓN PSIQUIÁTRICA ANTERIOR -->
-    <div class="card mb-4">
-      <div class="card-header bg-warning text-dark">
-        <h5 class="mb-0">
-          <i class="bi bi-clipboard2-pulse me-2"></i>
+    <div class="card section-card section-spacing">
+      <div class="section-header header-warning">
+        <h5>
+          <i class="bi bi-clipboard2-pulse"></i>
           Atención Psiquiátrica Anterior
         </h5>
       </div>
-      <div class="card-body">
+      <div class="section-body">
         <div class="row g-3">
           <div class="col-12">
             <label class="form-label">¿Ha recibido atención psiquiátrica anteriormente? <span class="text-danger">*</span></label>

@@ -21,6 +21,7 @@ import { EmergencyContactSectionComponent } from './sections/emergency-contact-s
 import { GuardianInfoSectionComponent } from './sections/guardian-info-section/guardian-info-section.component';
 import { ParentsInfoSectionComponent } from './sections/parents-info-section/parents-info-section.component';
 import { FamilyMembersSectionComponent } from './sections/family-members-section/family-members-section.component';
+import { HealthBackgroundSectionComponent } from './sections/health-background-section/health-background-section.component';
 import { StepperComponent, Step } from '../shared/stepper/stepper.component';
 
 type PatientDataUnion = Partial<AdultPatientData & MinorPatientData>;
@@ -34,6 +35,7 @@ interface StepValidations {
   parentsInfo: boolean;
   familyMembers: boolean;
   emergencyContact: boolean;
+  healthBackground: boolean;
 }
 
 @Component({
@@ -49,6 +51,7 @@ interface StepValidations {
     GuardianInfoSectionComponent,
     ParentsInfoSectionComponent,
     FamilyMembersSectionComponent,
+    HealthBackgroundSectionComponent,
   ],
   templateUrl: './patient-registration.component.html',
   styleUrl: './patient-registration.component.scss',
@@ -75,6 +78,7 @@ export class PatientRegistrationComponent {
     parentsInfo: false,
     familyMembers: false,
     emergencyContact: false,
+    healthBackground: false,
   });
 
   // Steps dinámicos según tipo de paciente
@@ -127,6 +131,12 @@ export class PatientRegistrationComponent {
           completed: validations.familyMembers,
           valid: validations.familyMembers,
         },
+        {
+          id: 'health-background',
+          label: 'Antecedentes',
+          completed: validations.healthBackground,
+          valid: validations.healthBackground,
+        },
       ];
     } else {
       // Steps para adulto
@@ -166,6 +176,12 @@ export class PatientRegistrationComponent {
           label: 'Contacto Emergencia',
           completed: validations.emergencyContact,
           valid: validations.emergencyContact,
+        },
+        {
+          id: 'health-background',
+          label: 'Antecedentes',
+          completed: validations.healthBackground,
+          valid: validations.healthBackground,
         },
       ];
     }
@@ -256,6 +272,14 @@ export class PatientRegistrationComponent {
     this.stepValidations.update((v) => ({ ...v, emergencyContact: true }));
   }
 
+  onHealthBackgroundChange(data: any) {
+    this.patientData.update((current) => ({
+      ...current,
+      healthBackground: data,
+    }));
+    this.stepValidations.update((v) => ({ ...v, healthBackground: true }));
+  }
+
   onStepChange(stepIndex: number) {
     this.currentStepIndex.set(stepIndex);
   }
@@ -294,7 +318,8 @@ export class PatientRegistrationComponent {
         validations.educationalInfo &&
         validations.healthHistory &&
         validations.parentsInfo &&
-        validations.familyMembers
+        validations.familyMembers &&
+        validations.healthBackground
       );
     } else {
       // Validar campos de adulto
@@ -304,7 +329,8 @@ export class PatientRegistrationComponent {
         validations.educationalInfo &&
         validations.healthHistory &&
         validations.familyMembers &&
-        validations.emergencyContact
+        validations.emergencyContact &&
+        validations.healthBackground
       );
     }
   }

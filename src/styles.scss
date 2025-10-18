@@ -3,6 +3,9 @@
 /* Import Bootstrap using modern Sass module system */
 @use "bootstrap/scss/bootstrap" as *;
 
+/* Import shared section styles */
+@use 'app/components/patient-registration/sections/shared-section-styles';
+
 /* Global Styles for the Application */
 * {
   margin: 0;

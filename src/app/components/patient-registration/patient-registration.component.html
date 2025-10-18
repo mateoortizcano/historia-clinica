@@ -12,9 +12,9 @@
         </h1>
         <p class="text-muted">
           @if (isMinor()) {
-            Complete el formulario en 7 pasos
+            Complete el formulario en 8 pasos
           } @else {
-            Complete el formulario en 6 pasos
+            Complete el formulario en 7 pasos
           }
         </p>
       </div>
@@ -110,6 +110,14 @@
                   <app-emergency-contact-section
                     [initialData]="patientData().emergencyContact"
                     (dataChange)="onEmergencyContactChange($event)"
+                  />
+                }
+
+                <!-- Step 7 (adultos) / Step 8 (menores): Health Background -->
+                @if (isStepVisible('health-background')) {
+                  <app-health-background-section
+                    [initialData]="patientData().healthBackground"
+                    (dataChange)="onHealthBackgroundChange($event)"
                   />
                 }
               </app-stepper>
