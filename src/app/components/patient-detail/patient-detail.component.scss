@@ -2,40 +2,40 @@
 
 .patient-detail-container {
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background-color: var(--color-bg-secondary);
 
   .container-fluid {
-    max-width: 1400px;
+    max-width: var(--max-width-container);
     margin: 0 auto;
   }
 
   .card {
     border: none;
-    margin-bottom: 1.5rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: var(--spacing-6);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1) !important;
+      box-shadow: var(--shadow-lg) !important;
     }
 
     .card-header {
-      font-weight: 600;
+      font-weight: var(--font-weight-semibold);
       border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 
       h5 {
-        font-size: 1.1rem;
+        font-size: var(--font-size-md);
       }
     }
   }
 
   .patient-badges {
-    margin-top: 0.5rem;
+    margin-top: var(--spacing-2);
 
     .badge {
-      font-size: 0.85rem;
-      padding: 0.4rem 0.8rem;
-      font-weight: 500;
+      font-size: var(--font-size-sm);
+      padding: var(--spacing-2) var(--spacing-3);
+      font-weight: var(--font-weight-medium);
     }
   }
 
@@ -48,27 +48,27 @@
     margin-bottom: 0;
 
     th {
-      background-color: #f8f9fa;
-      font-weight: 600;
-      font-size: 0.9rem;
+      background-color: var(--color-bg-secondary);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-sm);
       border-top: none;
     }
 
     tbody tr {
-      transition: background-color 0.2s ease;
+      transition: background-color var(--transition-base);
 
       &:hover {
-        background-color: #f1f3f5;
+        background-color: var(--color-bg-tertiary);
       }
     }
   }
 
   .btn {
-    transition: all 0.2s ease;
+    transition: all var(--transition-base);
 
     &:hover {
       transform: translateY(-1px);
-      box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+      box-shadow: var(--shadow-base);
     }
   }
 

@@ -1,0 +1,257 @@
+/**
+ * ============================================================================
+ * SISTEMA DE DISEÑO - HISTORIA CLÍNICA DE PSICOLOGÍA
+ * ============================================================================
+ * 
+ * Tokens de diseño estandarizados para crear una experiencia visual
+ * consistente, profesional y calmada, optimizada para uso clínico.
+ * 
+ * Filosofía: Claridad, Confianza, Calma, Profesionalismo
+ */
+
+/**
+ * ----------------------------------------------------------------------------
+ * TIPOGRAFÍA
+ * ----------------------------------------------------------------------------
+ * Fuente: Inter - Moderna, legible y profesional
+ * Excelente para interfaces clínicas y uso prolongado
+ */
+
+:root {
+  /* Familia de fuentes */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Fira Code', 'Courier New', monospace;
+
+  /* Tamaños de fuente - Escala armónica */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-md: 1.125rem;     /* 18px */
+  --font-size-lg: 1.25rem;      /* 20px */
+  --font-size-xl: 1.5rem;       /* 24px */
+  --font-size-2xl: 1.875rem;    /* 30px */
+  --font-size-3xl: 2.25rem;     /* 36px */
+
+  /* Pesos de fuente */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Alturas de línea */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Espaciado de letras */
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+
+  /**
+   * --------------------------------------------------------------------------
+   * PALETA DE COLORES
+   * --------------------------------------------------------------------------
+   * Paleta profesional basada en tonos calmados que evocan:
+   * - Confianza (Azul)
+   * - Serenidad (Tonos suaves)
+   * - Enfoque clínico (Grises neutros)
+   */
+
+  /* Colores primarios - Azul sereno y profesional */
+  --color-primary-50: #e8f2ff;
+  --color-primary-100: #d0e4ff;
+  --color-primary-200: #a8cdff;
+  --color-primary-300: #75aeff;
+  --color-primary-400: #4a8fff;
+  --color-primary-500: #2770ff;    /* Color principal */
+  --color-primary-600: #1457e6;
+  --color-primary-700: #0d3fb8;
+  --color-primary-800: #093395;
+  --color-primary-900: #062773;
+
+  /* Colores secundarios - Verde suave (éxito, calma) */
+  --color-secondary-50: #e6f9f2;
+  --color-secondary-100: #ccf3e5;
+  --color-secondary-200: #99e7cb;
+  --color-secondary-300: #66dbb1;
+  --color-secondary-400: #33cf97;
+  --color-secondary-500: #10b981;    /* Verde principal */
+  --color-secondary-600: #0d9668;
+  --color-secondary-700: #0a734f;
+  --color-secondary-800: #075036;
+  --color-secondary-900: #042d1d;
+
+  /* Grises neutros - Base visual calmada */
+  --color-neutral-50: #f8f9fa;
+  --color-neutral-100: #f1f3f5;
+  --color-neutral-200: #e9ecef;
+  --color-neutral-300: #dee2e6;
+  --color-neutral-400: #ced4da;
+  --color-neutral-500: #adb5bd;
+  --color-neutral-600: #868e96;
+  --color-neutral-700: #495057;
+  --color-neutral-800: #343a40;
+  --color-neutral-900: #212529;
+
+  /* Colores semánticos */
+  --color-success-light: #d1f4e0;
+  --color-success: #10b981;
+  --color-success-dark: #0a734f;
+
+  --color-warning-light: #fff3cd;
+  --color-warning: #fbbf24;
+  --color-warning-dark: #d97706;
+
+  --color-error-light: #ffe5e5;
+  --color-error: #ef4444;
+  --color-error-dark: #b91c1c;
+
+  --color-info-light: #e0f2fe;
+  --color-info: #3b82f6;
+  --color-info-dark: #1e40af;
+
+  /* Colores de fondo */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8f9fa;
+  --color-bg-tertiary: #f1f3f5;
+  --color-bg-disabled: #e9ecef;
+
+  /* Colores de texto */
+  --color-text-primary: #212529;
+  --color-text-secondary: #495057;
+  --color-text-tertiary: #868e96;
+  --color-text-disabled: #adb5bd;
+  --color-text-inverse: #ffffff;
+
+  /* Colores de borde */
+  --color-border-light: #f1f3f5;
+  --color-border: #dee2e6;
+  --color-border-dark: #adb5bd;
+
+  /**
+   * --------------------------------------------------------------------------
+   * ESPACIADO
+   * --------------------------------------------------------------------------
+   * Sistema basado en escala de 8px para mantener ritmo visual consistente
+   */
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;    /* 4px */
+  --spacing-2: 0.5rem;     /* 8px */
+  --spacing-3: 0.75rem;    /* 12px */
+  --spacing-4: 1rem;       /* 16px */
+  --spacing-5: 1.25rem;    /* 20px */
+  --spacing-6: 1.5rem;     /* 24px */
+  --spacing-7: 1.75rem;    /* 28px */
+  --spacing-8: 2rem;       /* 32px */
+  --spacing-10: 2.5rem;    /* 40px */
+  --spacing-12: 3rem;      /* 48px */
+  --spacing-16: 4rem;      /* 64px */
+  --spacing-20: 5rem;      /* 80px */
+
+  /**
+   * --------------------------------------------------------------------------
+   * BORDES REDONDEADOS
+   * --------------------------------------------------------------------------
+   * Valores suaves que transmiten amabilidad sin perder profesionalismo
+   */
+  --radius-none: 0;
+  --radius-sm: 0.375rem;    /* 6px */
+  --radius-base: 0.5rem;    /* 8px */
+  --radius-md: 0.625rem;    /* 10px */
+  --radius-lg: 0.75rem;     /* 12px */
+  --radius-xl: 1rem;        /* 16px */
+  --radius-full: 9999px;    /* Círculo perfecto */
+
+  /**
+   * --------------------------------------------------------------------------
+   * SOMBRAS
+   * --------------------------------------------------------------------------
+   * Sombras sutiles que añaden profundidad sin ser invasivas
+   */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-base: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-md: 0 6px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.12);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+
+  /* Sombras con color primario (para focus states) */
+  --shadow-focus: 0 0 0 3px rgba(39, 112, 255, 0.15);
+  --shadow-focus-error: 0 0 0 3px rgba(239, 68, 68, 0.15);
+  --shadow-focus-success: 0 0 0 3px rgba(16, 185, 129, 0.15);
+
+  /**
+   * --------------------------------------------------------------------------
+   * TRANSICIONES
+   * --------------------------------------------------------------------------
+   * Animaciones sutiles para interacciones fluidas
+   */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 200ms ease-in-out;
+  --transition-slow: 300ms ease-in-out;
+
+  /**
+   * --------------------------------------------------------------------------
+   * Z-INDEX
+   * --------------------------------------------------------------------------
+   * Jerarquía de capas consistente
+   */
+  --z-index-base: 0;
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+
+  /**
+   * --------------------------------------------------------------------------
+   * DIMENSIONES DE COMPONENTES
+   * --------------------------------------------------------------------------
+   * Tamaños estandarizados para mantener consistencia
+   */
+
+  /* Inputs y controles de formulario */
+  --input-height-sm: 2rem;       /* 32px */
+  --input-height-base: 2.5rem;   /* 40px */
+  --input-height-lg: 3rem;       /* 48px */
+
+  /* Botones */
+  --button-height-sm: 2rem;      /* 32px */
+  --button-height-base: 2.5rem;  /* 40px */
+  --button-height-lg: 3rem;      /* 48px */
+
+  --button-padding-x-sm: 0.75rem;
+  --button-padding-x-base: 1rem;
+  --button-padding-x-lg: 1.5rem;
+
+  /* Anchos máximos */
+  --max-width-xs: 20rem;      /* 320px */
+  --max-width-sm: 24rem;      /* 384px */
+  --max-width-md: 28rem;      /* 448px */
+  --max-width-lg: 32rem;      /* 512px */
+  --max-width-xl: 36rem;      /* 576px */
+  --max-width-2xl: 42rem;     /* 672px */
+  --max-width-3xl: 48rem;     /* 768px */
+  --max-width-4xl: 56rem;     /* 896px */
+  --max-width-5xl: 64rem;     /* 1024px */
+  --max-width-6xl: 72rem;     /* 1152px */
+  --max-width-7xl: 80rem;     /* 1280px */
+  --max-width-container: 87.5rem; /* 1400px - Container principal */
+
+  /**
+   * --------------------------------------------------------------------------
+   * BREAKPOINTS RESPONSIVE
+   * --------------------------------------------------------------------------
+   */
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
+}
+

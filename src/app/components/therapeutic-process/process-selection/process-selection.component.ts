@@ -122,7 +122,9 @@ export class ProcessSelectionComponent implements OnInit {
   }
 
   viewPatientDetail() {
-    this.router.navigate(['/paciente', this.patientId(), 'detalle']);
+    this.router.navigate(['/paciente', this.patientId(), 'detalle'], {
+      queryParams: { returnTo: 'process-list' }
+    });
   }
 
   createNewProcess() {

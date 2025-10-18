@@ -110,7 +110,9 @@ export class PatientSelectionComponent implements OnInit {
   }
 
   viewPatientDetail(patientId: string) {
-    this.router.navigate(['/paciente', patientId, 'detalle']);
+    this.router.navigate(['/paciente', patientId, 'detalle'], {
+      queryParams: { returnTo: 'patient-list' }
+    });
   }
 
   goToPatientRegistration() {

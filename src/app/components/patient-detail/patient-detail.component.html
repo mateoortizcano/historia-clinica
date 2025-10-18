@@ -5,7 +5,11 @@
         <!-- Back Button -->
         <button type="button" class="btn btn-outline-secondary mb-3" (click)="goBack()">
           <i class="bi bi-arrow-left me-2"></i>
-          Volver a Procesos del Paciente
+          @if (returnTo() === 'patient-list') {
+            Volver al Listado de Pacientes
+          } @else {
+            Volver a Procesos del Paciente
+          }
         </button>
 
         @if (isLoading()) {

@@ -46,12 +46,19 @@ export class PatientDetailComponent implements OnInit {
   patientId = signal('');
   patient = signal<PatientData | null>(null);
   isLoading = signal(false);
+  returnTo = signal<string>('process-list'); // Default a lista de procesos
 
   isAdult = computed(() => this.patient()?.patientType === 'adult');
   isMinor = computed(() => this.patient()?.patientType === 'minor');
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('patientId');
+    const returnToParam = this.route.snapshot.queryParamMap.get('returnTo');
+    
+    if (returnToParam) {
+      this.returnTo.set(returnToParam);
+    }
+    
     if (id) {
       this.patientId.set(id);
       this.loadPatientData(id);
@@ -76,7 +83,13 @@ export class PatientDetailComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/proceso-terapeutico/paciente', this.patientId()]);
+    if (this.returnTo() === 'patient-list') {
+      // Volver al listado de pacientes
+      this.router.navigate(['/proceso-terapeutico']);
+    } else {
+      // Volver al listado de procesos del paciente
+      this.router.navigate(['/proceso-terapeutico/paciente', this.patientId()]);
+    }
   }
 
   goToProcesses() {

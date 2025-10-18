@@ -5,39 +5,39 @@
 }
 
 .navbar-brand {
-  font-size: 1.25rem;
+  font-size: var(--font-size-lg);
   
   i {
-    color: #fff;
+    color: var(--color-text-inverse);
   }
 }
 
 .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.85);
-  transition: color 0.2s ease;
+  transition: color var(--transition-base);
   
   &:hover {
     color: rgba(255, 255, 255, 1);
   }
   
   &.active {
-    color: #fff;
-    font-weight: 500;
+    color: var(--color-text-inverse);
+    font-weight: var(--font-weight-medium);
   }
 }
 
 .main-content {
   flex: 1;
-  background-color: #f8f9fa;
+  background-color: var(--color-bg-secondary);
   min-height: calc(100vh - 120px);
 }
 
 .footer {
-  border-top: 1px solid #dee2e6;
-  background-color: #f8f9fa !important;
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-bg-secondary) !important;
   
   small {
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
   }
 }
 
