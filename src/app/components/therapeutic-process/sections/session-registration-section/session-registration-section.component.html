@@ -1,7 +1,14 @@
 <div class="section-container">
-  <h3 class="section-title">Registro de Sesiones</h3>
+  <h3 class="section-title">
+    <i class="bi bi-calendar2-week me-2"></i>
+    Registro de Sesiones
+  </h3>
   <p class="section-description">
-    Registre cada sesión o cita con el paciente. Las sesiones quedan registradas permanentemente para mantener la integridad del historial clínico.
+    @if (readOnly()) {
+      Historial completo de sesiones realizadas durante el proceso terapéutico.
+    } @else {
+      Registre cada sesión o cita con el paciente. Las sesiones quedan registradas permanentemente para mantener la integridad del historial clínico.
+    }
   </p>
 
   <!-- Lista de sesiones existentes -->
@@ -40,13 +47,19 @@
                 <!-- Vista expandida (detalles completos) -->
                 @if (isSessionExpanded(i)) {
                   <div class="session-details-expanded">
-                    <div class="detail-section mb-3">
-                      <label class="detail-label">Objetivos / Técnicas - Instrumentos:</label>
+                    <div class="detail-section">
+                      <span class="detail-label">
+                        <i class="bi bi-bullseye"></i>
+                        Objetivos / Técnicas - Instrumentos
+                      </span>
                       <div class="detail-content">{{ session.objectivesAndTechniques }}</div>
                     </div>
                     
                     <div class="detail-section">
-                      <label class="detail-label">Descripción de la Sesión:</label>
+                      <span class="detail-label">
+                        <i class="bi bi-journal-text"></i>
+                        Descripción de la Sesión
+                      </span>
                       <div class="detail-content">{{ session.sessionDescription }}</div>
                     </div>
                   </div>

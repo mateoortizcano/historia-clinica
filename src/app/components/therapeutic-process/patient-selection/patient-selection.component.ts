@@ -4,11 +4,12 @@ import {
   signal,
   computed,
   inject,
+  OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MockDataService } from '../../../services/mock-data.service';
 
-// Interfaz temporal para pacientes (luego vendrá del backend)
 interface PatientSummary {
   id: string;
   fullName: string;
@@ -26,46 +27,18 @@ interface PatientSummary {
   styleUrl: './patient-selection.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PatientSelectionComponent {
+export class PatientSelectionComponent implements OnInit {
   private router = inject(Router);
   private fb = inject(FormBuilder);
+  private mockDataService = inject(MockDataService);
 
   searchForm = this.fb.group({
     searchTerm: [''],
   });
 
-  // TODO: Reemplazar con datos reales del backend
-  allPatients = signal<PatientSummary[]>([
-    {
-      id: '1',
-      fullName: 'Juan Pérez García',
-      idNumber: '1234567890',
-      age: 35,
-      phone: '3001234567',
-      activeProcesses: 1,
-      closedProcesses: 2,
-    },
-    {
-      id: '2',
-      fullName: 'María Rodríguez López',
-      idNumber: '0987654321',
-      age: 28,
-      phone: '3109876543',
-      activeProcesses: 0,
-      closedProcesses: 1,
-    },
-    {
-      id: '3',
-      fullName: 'Carlos Martínez Sánchez',
-      idNumber: '1122334455',
-      age: 42,
-      phone: '3201122334',
-      activeProcesses: 1,
-      closedProcesses: 0,
-    },
-  ]);
-
+  allPatients = signal<PatientSummary[]>([]);
   searchTerm = signal('');
+  isLoading = signal(false);
 
   filteredPatients = computed(() => {
     const term = this.searchTerm().toLowerCase().trim();
@@ -82,6 +55,53 @@ export class PatientSelectionComponent {
   constructor() {
     this.searchForm.get('searchTerm')?.valueChanges.subscribe((value) => {
       this.searchTerm.set(value || '');
+    });
+  }
+
+  ngOnInit() {
+    this.loadPatients();
+  }
+
+  loadPatients() {
+    this.isLoading.set(true);
+    
+    this.mockDataService.getAllPatients().subscribe({
+      next: (patients) => {
+        const patientSummaries: PatientSummary[] = patients.map((patient) => ({
+          id: patient.id,
+          fullName: this.mockDataService.getFullName(patient),
+          idNumber: patient.personalInfo.idNumber,
+          age: this.mockDataService.calculateAge(patient.personalInfo.birthDate),
+          phone: patient.contactInfo?.phone,
+          activeProcesses: 0, // Will be updated with process stats
+          closedProcesses: 0,
+        }));
+
+        // Load process stats for each patient
+        patientSummaries.forEach((summary, index) => {
+          this.mockDataService.getProcessStats(summary.id).subscribe({
+            next: (stats) => {
+              summary.activeProcesses = stats.active;
+              summary.closedProcesses = stats.closed;
+              // Trigger signal update
+              if (index === patientSummaries.length - 1) {
+                this.allPatients.set([...patientSummaries]);
+                this.isLoading.set(false);
+              }
+            },
+          });
+        });
+
+        // If no patients, still set loading to false
+        if (patientSummaries.length === 0) {
+          this.allPatients.set(patientSummaries);
+          this.isLoading.set(false);
+        }
+      },
+      error: (error) => {
+        console.error('Error loading patients:', error);
+        this.isLoading.set(false);
+      },
     });
   }
 

@@ -5,6 +5,7 @@ import {
   output,
   OnInit,
   inject,
+  effect,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ConsultationMotive } from '../../../../models/therapeutic-process.model';
@@ -33,17 +34,26 @@ export class ConsultationMotiveSectionComponent implements OnInit {
     ],
   });
 
+  constructor() {
+    // Effect para cargar datos iniciales cuando cambien
+    effect(() => {
+      const data = this.initialData();
+      if (data && Object.keys(data).length > 0) {
+        this.form.patchValue(data, { emitEvent: false });
+      }
+    });
+
+    // Effect para manejar el modo readonly
+    effect(() => {
+      if (this.readOnly()) {
+        this.form.disable();
+      } else {
+        this.form.enable();
+      }
+    });
+  }
+
   ngOnInit() {
-    const data = this.initialData();
-    if (data) {
-      this.form.patchValue(data);
-    }
-
-    // Deshabilitar el formulario si es solo lectura
-    if (this.readOnly()) {
-      this.form.disable();
-    }
-
     this.form.valueChanges.subscribe(() => {
       if (this.form.valid && !this.readOnly()) {
         this.dataChange.emit(this.form.value as ConsultationMotive);

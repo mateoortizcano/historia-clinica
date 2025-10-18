@@ -6,6 +6,7 @@ import {
   signal,
   computed,
   inject,
+  effect,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Session } from '../../../../models/therapeutic-process.model';
@@ -51,11 +52,13 @@ export class SessionRegistrationSectionComponent {
   });
 
   constructor() {
-    // Inicializar con datos existentes si hay
-    const initial = this.initialData();
-    if (initial && initial.length > 0) {
-      this.sessions.set([...initial]);
-    }
+    // Effect para cargar datos iniciales cuando cambien
+    effect(() => {
+      const initial = this.initialData();
+      if (initial && initial.length > 0) {
+        this.sessions.set([...initial]);
+      }
+    });
   }
 
   startNewSession() {

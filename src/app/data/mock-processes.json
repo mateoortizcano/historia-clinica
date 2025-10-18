@@ -1,0 +1,279 @@
+{
+  "processes": [
+    {
+      "id": "proc-001",
+      "patientId": "pat-001",
+      "status": "active",
+      "startDate": "2024-09-15",
+      "consultationMotive": {
+        "reason": "La paciente refiere incremento en sintomatología ansiosa relacionada con su ambiente laboral. Manifiesta preocupación excesiva, dificultad para concentrarse, tensión muscular y alteraciones del sueño que han empeorado en los últimos 3 meses.",
+        "cieCode": "F41.1",
+        "dsmCode": "300.02",
+        "situationDescription": "La situación actual ha afectado significativamente su desempeño laboral, presentando dificultades para cumplir deadlines y tomar decisiones. En el ámbito familiar, reporta irritabilidad y menor tolerancia con su esposo e hijos. Ha intentado técnicas de respiración y mindfulness aprendidas en tratamiento anterior, con resultados parciales. Cuenta con apoyo de su esposo y red de amigas cercanas. Redes de apoyo: esposo comprensivo, grupo de amigas, hermana mayor. Estrategias previas: técnicas de respiración, mindfulness, ejercicio regular (suspendido hace 2 meses por falta de tiempo)."
+      },
+      "sessions": [
+        {
+          "sessionNumber": 1,
+          "date": "2024-09-15",
+          "time": "14:00",
+          "objectivesAndTechniques": "Evaluación inicial. Establecimiento de rapport. Exploración de sintomatología actual mediante entrevista semi-estructurada. Aplicación de escala de ansiedad de Beck (BAI).",
+          "sessionDescription": "Primera sesión enfocada en conocer a la paciente y realizar evaluación inicial. María se mostró colaboradora y con buen nivel de insight. Refiere sintomatología ansiosa incrementada en últimos 3 meses, coincidiendo con cambios en su lugar de trabajo (nuevo jefe, aumento de carga laboral). Puntaje BAI: 28 (ansiedad moderada-severa). Se establece buen rapport. La paciente expresa motivación para el tratamiento y disposición para implementar estrategias terapéuticas. Se acuerda sesiones semanales inicialmente."
+        },
+        {
+          "sessionNumber": 2,
+          "date": "2024-09-22",
+          "time": "14:00",
+          "objectivesAndTechniques": "Psicoeducación sobre trastorno de ansiedad. Identificación de pensamientos automáticos negativos. Enseñanza de técnica de registro de pensamientos. Práctica de respiración diafragmática.",
+          "sessionDescription": "Sesión centrada en psicoeducación. Se explica el ciclo cognitivo-conductual de la ansiedad. María identifica pensamientos catastróficos relacionados con el trabajo ('no seré capaz', 'me van a despedir', 'decepciono a todos'). Se introduce registro ABC para identificar situaciones-pensamientos-emociones. Practica respiración diafragmática en sesión, reporta alivio inmediato. Tarea: registro ABC diario y práctica de respiración 3 veces al día. La paciente se muestra receptiva y con buena comprensión de conceptos."
+        },
+        {
+          "sessionNumber": 3,
+          "date": "2024-09-29",
+          "time": "14:00",
+          "objectivesAndTechniques": "Revisión de registros ABC. Reestructuración cognitiva de pensamientos distorsionados. Introducción a técnicas de resolución de problemas.",
+          "sessionDescription": "Revisión de tareas: María completó 5 de 7 días de registro ABC y practicó respiración regularmente. Se trabaja reestructuración de pensamiento catastrófico más frecuente ('no seré capaz de cumplir con todo'). Se usa técnica de evidencias a favor y en contra, generando pensamiento alternativo más adaptativo. Se introduce modelo de resolución de problemas para situaciones laborales concretas. María identifica que la evitación de conversaciones difíciles con su jefe mantiene el problema. Se acuerda practicar asertividad en situaciones de bajo riesgo durante la semana."
+        }
+      ],
+      "closure": null,
+      "createdAt": "2024-09-15T14:00:00Z",
+      "updatedAt": "2024-09-29T15:30:00Z"
+    },
+    {
+      "id": "proc-002",
+      "patientId": "pat-001",
+      "status": "closed",
+      "startDate": "2023-01-10",
+      "closureDate": "2023-07-15",
+      "consultationMotive": {
+        "reason": "Paciente consulta por sintomatología ansiosa relacionada con manejo de situaciones de tráfico y conducción después de accidente automovilístico en 2019.",
+        "cieCode": "F40.2",
+        "dsmCode": "300.29",
+        "situationDescription": "Desde el accidente, la paciente evita conducir y experimenta ansiedad anticipatoria cuando necesita desplazarse en vehículo. Esto ha limitado su independencia y generado conflictos familiares. Presenta pensamientos intrusivos sobre el accidente y respuestas de hipervigilancia en el tráfico. Su esposo ha asumido toda la responsabilidad de conducir. Ha intentado exponerse gradualmente sin éxito por aumento de ansiedad. Red de apoyo: esposo comprensivo pero preocupado, grupo terapéutico online de sobrevivientes de accidentes."
+      },
+      "sessions": [
+        {
+          "sessionNumber": 1,
+          "date": "2023-01-10",
+          "time": "10:00",
+          "objectivesAndTechniques": "Evaluación inicial. Historia clínica detallada del trauma. Aplicación de PTSD Checklist (PCL-5).",
+          "sessionDescription": "Evaluación inicial exhaustiva. María relata accidente de 2019 con impacto emocional significativo. Aunque no cumple criterios completos para TEPT, presenta sintomatología ansiosa específica relacionada con conducción. PCL-5: 25 puntos (sintomatología subclínica). Se establece diagnóstico de fobia específica (situacional). Buen nivel de motivación para tratamiento."
+        },
+        {
+          "sessionNumber": 2,
+          "date": "2023-01-24",
+          "time": "10:00",
+          "objectivesAndTechniques": "Psicoeducación sobre fobias y ansiedad. Construcción de jerarquía de exposición. Entrenamiento en relajación progresiva de Jacobson.",
+          "sessionDescription": "Se explica modelo de mantenimiento de la fobia a través de evitación. María construye jerarquía de 10 pasos, desde ver fotos de autos hasta conducir sola en autopista. Practica relajación en sesión. Tarea: práctica diaria de relajación y exposición imaginada al primer nivel de jerarquía."
+        },
+        {
+          "sessionNumber": 3,
+          "date": "2023-02-07",
+          "time": "10:00",
+          "objectivesAndTechniques": "Inicio de exposición gradual (en vivo). Acompañamiento al vehículo y permanencia en el mismo sin conducir. Técnicas de control de ansiedad.",
+          "sessionDescription": "Sesión de exposición in vivo en parqueadero cercano al consultorio. María se expone a estar en el asiento del conductor por 15 minutos. Ansiedad inicial 7/10, al final 4/10. Se valida experiencia emocional y se refuerza progreso. Practica técnicas de respiración durante exposición con buenos resultados."
+        },
+        {
+          "sessionNumber": 4,
+          "date": "2023-02-21",
+          "time": "10:00",
+          "objectivesAndTechniques": "Exposición gradual: encender vehículo y realizar maniobras básicas en parqueadero vacío.",
+          "sessionDescription": "Progreso significativo. María enciende el vehículo, realiza ajustes y practica reversa en parqueadero. Ansiedad manejable (máximo 6/10). Manifiesta sorpresa por su capacidad. Se trabaja cogniciones ('puedo hacerlo', 'estoy en control'). Tarea: práctica independiente en parqueadero con esposo presente."
+        },
+        {
+          "sessionNumber": 5,
+          "date": "2023-03-14",
+          "time": "10:00",
+          "objectivesAndTechniques": "Exposición: conducción en vía de bajo tráfico acompañada por terapeuta.",
+          "sessionDescription": "Sesión de exposición en vía residencial de poco tráfico. María conduce por 20 minutos con terapeuta como copiloto. Manejo adecuado de ansiedad (máximo 5/10). Identifica pensamientos automáticos y los reestructura en vivo. Alta satisfacción con su desempeño."
+        },
+        {
+          "sessionNumber": 6,
+          "date": "2023-04-04",
+          "time": "10:00",
+          "objectivesAndTechniques": "Exposición progresiva: conducción en vías de mayor tráfico. Trabajo con pensamientos anticipatorios.",
+          "sessionDescription": "María conduce en avenida principal durante 30 minutos. Ansiedad inicial elevada (7/10) que desciende gradualmente (4/10). Manejo competente del vehículo. Refuerzo de autoeficacia. Se trabaja generalización: planificación de rutas cotidianas."
+        },
+        {
+          "sessionNumber": 7,
+          "date": "2023-05-09",
+          "time": "10:00",
+          "objectivesAndTechniques": "Exposición independiente: María conduce sola durante sesión bajo seguimiento telefónico. Prevención de recaídas.",
+          "sessionDescription": "Sesión innovadora: María conduce sola ruta pre-acordada mientras mantiene contacto telefónico con terapeuta (usando manos libres). Completa recorrido de 40 minutos exitosamente. Ansiedad máxima 5/10, manejada con técnicas aprendidas. Se introduce plan de prevención de recaídas."
+        },
+        {
+          "sessionNumber": 8,
+          "date": "2023-06-13",
+          "time": "10:00",
+          "objectivesAndTechniques": "Consolidación de logros. Exposición a situación evitada de mayor jerarquía (autopista). Cierre terapéutico.",
+          "sessionDescription": "Última sesión terapéutica. María reporta conducir regularmente durante las últimas 4 semanas sin dificultades significativas. En sesión se realiza exposición final: conducción por autopista acompañada de terapeuta por 25 minutos. Ansiedad mínima (3/10). BAI post-tratamiento: 8 (mínimo). María expresa gratitud y confianza en habilidades adquiridas. Se acuerda sesión de seguimiento a los 3 meses."
+        }
+      ],
+      "closure": {
+        "closureInfo": {
+          "status": "concluido",
+          "hadFollowUp": true,
+          "followUpPeriod": "3m"
+        },
+        "observations": "Proceso terapéutico exitoso con cumplimiento de objetivos planteados. La paciente superó la fobia específica a la conducción mediante exposición gradual sistemática. Demostró alta motivación, adherencia al tratamiento y capacidad para implementar estrategias aprendidas. Mejoría significativa en sintomatología ansiosa (BAI de 28 a 8). Recuperación de autonomía e independencia en desplazamientos. Relación terapéutica positiva facilitó el proceso. Se realizó seguimiento telefónico a los 3 meses: la paciente mantiene conducción regular sin dificultades, conduce al trabajo diariamente y ha realizado viaje por carretera con familia.",
+        "recommendations": "1. Continuar práctica regular de conducción para mantener confianza adquirida.\n2. Implementar técnicas de respiración y reestructuración cognitiva ante situaciones novedosas de conducción.\n3. Mantener rutinas de autocuidado y manejo de estrés general.\n4. Contactar si reaparecen síntomas ansiosos significativos relacionados con conducción u otras áreas.\n5. Considerar grupo de apoyo para sobrevivientes de accidentes si desea procesar otros aspectos de la experiencia traumática.\n6. Seguimiento psicológico cada 6 meses durante primer año post-tratamiento."
+      },
+      "createdAt": "2023-01-10T10:00:00Z",
+      "updatedAt": "2023-07-15T11:00:00Z"
+    },
+    {
+      "id": "proc-003",
+      "patientId": "pat-002",
+      "status": "active",
+      "startDate": "2024-10-01",
+      "consultationMotive": {
+        "reason": "Paciente consulta por estrés laboral crónico asociado a altas demandas en su trabajo como ingeniero de software. Refiere agotamiento, dificultad para desconectarse del trabajo, problemas de sueño y síntomas somáticos (tensión muscular, cefaleas).",
+        "cieCode": "Z73.0",
+        "dsmCode": "",
+        "situationDescription": "Carlos trabaja en una startup tecnológica con jornadas extensas (10-12 horas diarias) y alta presión por cumplir con entregas. En los últimos 6 meses ha experimentado aumento progresivo de síntomas de burnout. Esto ha afectado sus relaciones sociales (aislamiento), actividades de ocio (abandono de gimnasio y hobbies) y relaciones familiares (menor contacto con padres). No ha establecido límites claros con trabajo, responde correos y mensajes fuera de horario laboral. Red de apoyo limitada: madre preocupada, dos amigos cercanos, compañeros de trabajo. Estrategias intentadas: trabajar más horas para 'ponerse al día' (contraproducente), consumo aumentado de cafeína, gaming nocturno como escape."
+      },
+      "sessions": [
+        {
+          "sessionNumber": 1,
+          "date": "2024-10-01",
+          "time": "18:00",
+          "objectivesAndTechniques": "Evaluación inicial. Exploración de sintomatología. Aplicación de Maslach Burnout Inventory (MBI). Establecimiento de objetivos terapéuticos.",
+          "sessionDescription": "Primera sesión con Carlos, ingeniero de 32 años, soltero. Se presenta puntual pero visiblemente fatigado. Refiere estrés laboral crónico con sintomatología compatible con síndrome de burnout. MBI: agotamiento emocional (alto), despersonalización (moderado), realización personal (bajo). Reconoce que situación es insostenible pero expresa dificultad para establecer cambios ('si no cumplo me van a despedir', 'mis compañeros dependen de mí'). Objetivos acordados: 1) Manejo de estrés y ansiedad, 2) Establecimiento de límites trabajo-vida personal, 3) Mejora de higiene del sueño, 4) Reconexión con actividades placenteras. Buen nivel de insight y motivación."
+        },
+        {
+          "sessionNumber": 2,
+          "date": "2024-10-08",
+          "time": "18:00",
+          "objectivesAndTechniques": "Psicoeducación sobre burnout y estrés. Análisis funcional de ciclo de trabajo-descanso. Introducción a higiene del sueño. Técnica de programación de actividades.",
+          "sessionDescription": "Se trabaja psicoeducación sobre burnout: causas, sintomatología, consecuencias si no se atiende. Carlos identifica claramente patrón: alto estrés → más trabajo para compensar → menos descanso → más estrés. Reconoce creencias disfuncionales sobre productividad ('descansar es perder tiempo', 'debo estar siempre disponible'). Se introduce concepto de higiene del sueño: Carlos duerme promedio 5-6 horas con mala calidad (despertares, rumia). Se acuerda implementar rutina: apagar dispositivos 1 hora antes de dormir, establecer horario fijo. Tarea: registro de horas de sueño y actividades durante la semana, identificar al menos 2 actividades placenteras posibles."
+        }
+      ],
+      "closure": null,
+      "createdAt": "2024-10-01T18:00:00Z",
+      "updatedAt": "2024-10-08T19:15:00Z"
+    },
+    {
+      "id": "proc-004",
+      "patientId": "pat-003",
+      "status": "active",
+      "startDate": "2024-10-10",
+      "consultationMotive": {
+        "reason": "La menor es remitida por psicóloga escolar por dificultades de atención en clase, problemas para seguir instrucciones y conflictos frecuentes con compañeros. Padres refieren que en casa es distraída, olvida fácilmente tareas y tiene baja tolerancia a la frustración.",
+        "cieCode": "F90.0",
+        "dsmCode": "314.01",
+        "situationDescription": "Las dificultades de Sofía han impactado su rendimiento académico (bajo rendimiento en materias que requieren atención sostenida como matemáticas) y sus relaciones sociales (tiene pocas amigas, conflictos por no esperar turnos en juegos). Los padres están preocupados pero colaboradores. Han intentado implementar rutinas estructuradas con resultados parciales. Sofía responde bien a reforzamiento positivo pero rápidamente pierde el interés. En el colegio ha recibido llamados de atención frecuentes. Red de apoyo: padres presentes y comprometidos, profesora del colegio dispuesta a colaborar, hermano menor con quien juega bien. Fortalezas: creatividad, habilidad para el dibujo, buen vínculo con padres, inteligencia dentro de rango normal."
+      },
+      "sessions": [
+        {
+          "sessionNumber": 1,
+          "date": "2024-10-10",
+          "time": "15:00",
+          "objectivesAndTechniques": "Sesión inicial con padres (sin menor). Entrevista clínica estructurada. Recolección de historia evolutiva. Aplicación de cuestionario Conners para padres.",
+          "sessionDescription": "Primera sesión solo con padres Laura y Miguel. Se muestran colaboradores y preocupados. Relatan historia evolutiva: embarazo y parto sin complicaciones, desarrollo psicomotor normal, pero desde edad temprana notaron que Sofía era 'muy activa', 'difícil de contener'. Problemas se evidenciaron más al ingresar al colegio. Cuestionario Conners: puntajes elevados en inatención y hiperactividad. Psicóloga escolar ha sugerido evaluación para posible TDAH. Padres ambivalentes respecto a diagnóstico y medicación. Se explica proceso de evaluación que incluirá: sesiones de juego diagnóstico con la menor, pruebas psicológicas, coordinación con colegio. Se acuerda siguiente sesión con Sofía."
+        }
+      ],
+      "closure": null,
+      "createdAt": "2024-10-10T15:00:00Z",
+      "updatedAt": "2024-10-10T16:30:00Z"
+    },
+    {
+      "id": "proc-005",
+      "patientId": "pat-004",
+      "status": "closed",
+      "startDate": "2024-02-15",
+      "closureDate": "2024-06-20",
+      "consultationMotive": {
+        "reason": "Paciente remitida por Defensoría de Familia en contexto de proceso de custodia. Refiere sintomatología depresiva y ansiosa relacionada con proceso legal conflictivo con ex-esposo y preocupación por bienestar de sus hijos.",
+        "cieCode": "F43.22",
+        "dsmCode": "309.0",
+        "situationDescription": "Ana se encuentra en proceso legal de custodia de sus dos hijos (13 y 10 años) tras divorcio conflictivo. Su ex-esposo cuestiona su estabilidad emocional para ejercer custodia. Esto ha generado sintomatología: tristeza persistente, llanto frecuente, preocupación excesiva, dificultades de sueño, pérdida de apetito. Ha afectado su desempeño laboral (ausentismo, dificultad concentración) y relación con hijos (irritabilidad, hipervigilancia). Red de apoyo: hermana que vive en la misma ciudad (principal soporte), dos amigas cercanas, abogada del proceso. Factores estresantes adicionales: dificultades económicas, amenazas de ex-esposo. Fortalezas: vínculo fuerte con hijos, compromiso con su bienestar, capacidad de recuperación demostrada en proceso anterior."
+      },
+      "sessions": [
+        {
+          "sessionNumber": 1,
+          "date": "2024-02-15",
+          "time": "09:00",
+          "objectivesAndTechniques": "Evaluación inicial. Exploración de sintomatología depresiva y ansiosa. Aplicación de BDI-II y BAI. Evaluación de riesgo.",
+          "sessionDescription": "Ana llega a sesión vía remisión de Defensoría. Se muestra afectada emocionalmente, llora en varios momentos. Refiere sintomatología compatible con trastorno adaptativo con sintomatología mixta. BDI-II: 28 (depresión moderada), BAI: 25 (ansiedad moderada). No presenta ideación suicida. Relata historia de violencia psicológica durante matrimonio y actual proceso legal estresante. Temor a perder custodia de hijos. Se valida experiencia y se establece plan terapéutico enfocado en: estabilización emocional, fortalecimiento de recursos de afrontamiento, apoyo durante proceso legal. Ana acepta proceso con expectativas realistas."
+        },
+        {
+          "sessionNumber": 2,
+          "date": "2024-02-22",
+          "time": "09:00",
+          "objectivesAndTechniques": "Psicoeducación sobre trastorno adaptativo. Validación emocional. Técnicas de regulación emocional (respiración, grounding). Identificación de red de apoyo.",
+          "sessionDescription": "Se normaliza sintomatología en contexto de situación estresante. Ana comprende que sus reacciones son adaptativas a circunstancia difícil. Se trabaja validación: es comprensible sentirse así ante amenaza de perder custodia de hijos. Práctica de técnicas de regulación en sesión: respiración 4-7-8, grounding 5-4-3-2-1. Ana reporta alivio inmediato. Se mapea red de apoyo: hermana Claudia (soporte principal), amigas Elena y Rosa, abogada Dra. Martínez. Se acuerda activar más este soporte. Tarea: práctica diaria de técnicas, contactar a hermana al menos 3 veces en semana."
+        },
+        {
+          "sessionNumber": 3,
+          "date": "2024-03-07",
+          "time": "09:00",
+          "objectivesAndTechniques": "Fortalecimiento de vínculo madre-hijos. Orientación en comunicación con hijos sobre proceso legal. Técnicas de mindfulness.",
+          "sessionDescription": "Ana reporta adherencia a tareas. Ha contactado más a hermana con buenos resultados. Preocupación principal ahora: cómo hablar con hijos sobre situación. Se trabaja orientación: importancia de comunicación honesta pero apropiada para edad, no involucrarlos en conflicto adulto, mantener rutinas y normalidad. Ana comprende conceptos. Se introduce mindfulness informal para momentos con hijos (estar presente, atención plena). Practica en sesión recordando momento positivo reciente con hijo menor. Se acuerda sesión especial siguiente semana para planificar actividad de calidad con hijos."
+        },
+        {
+          "sessionNumber": 4,
+          "date": "2024-03-21",
+          "time": "09:00",
+          "objectivesAndTechniques": "Trabajo con esquemas relacionados con experiencia de violencia. Introducción a re-evaluación de creencias sobre sí misma.",
+          "sessionDescription": "Ana ha tenido audiencia judicial estresante (semana anterior). Emerge contenido relacionado con historia de violencia psicológica: creencias 'no soy suficiente', 'soy mala madre', 'no merezco ser feliz'. Se inicia trabajo de reestructuración cognitiva. Técnica de la evidencia: buscar evidencias en contra de 'soy mala madre'. Ana identifica múltiples ejemplos de su dedicación y amor. Se introduce concepto de voz crítica interna (voz del ex-esposo internalizada) vs. voz compasiva. Tarea: diario de auto-compasión, registrar momentos en que es buena madre."
+        },
+        {
+          "sessionNumber": 5,
+          "date": "2024-04-11",
+          "time": "09:00",
+          "objectivesAndTechniques": "Continuar reestructuración cognitiva. Trabajar asertividad. Role-playing de situaciones con ex-esposo.",
+          "sessionDescription": "Revisión de diario: Ana registró muchos momentos positivos con hijos. Reporta mejoría en ánimo (BDI-II: 18, mejoría significativa). Se trabaja asertividad en comunicación con ex-esposo. Ana tiende a oscilar entre sumisión (evitar conflicto) y agresividad (frustración acumulada). Role-playing de situaciones: establecer límites claros, comunicación concreta sin ataques. Ana practica y reporta sentirse más empoderada. Se refuerza que puede defender sus derechos sin violencia."
+        },
+        {
+          "sessionNumber": 6,
+          "date": "2024-05-09",
+          "time": "09:00",
+          "objectivesAndTechniques": "Cierre parcial enfocado en estabilización. Planificación de autocuidado. Prevención de recaídas.",
+          "sessionDescription": "Ana reporta mejoría significativa en sintomatología. BDI-II: 10 (mínimo), BAI: 12 (leve). Proceso legal en curso pero ella se siente más preparada emocionalmente. Ha implementado rutina de autocuidado: ejercicio 2 veces por semana, tiempo para sí misma, actividades con hermana. Relación con hijos mejorada. Se trabaja plan de prevención: señales de alarma si incrementa sintomatología, estrategias de afrontamiento aprendidas, cuándo solicitar ayuda. Se acuerda cierre de proceso con posibilidad de seguimiento telefónico si lo necesita durante proceso legal. Ana agradece proceso y expresa confianza."
+        }
+      ],
+      "closure": {
+        "closureInfo": {
+          "status": "concluido",
+          "hadFollowUp": true,
+          "followUpPeriod": "1m"
+        },
+        "observations": "Proceso terapéutico breve y efectivo con cumplimiento de objetivos de estabilización emocional. Ana demostró capacidad de resiliencia y compromiso con su bienestar y el de sus hijos. Mejoría significativa en sintomatología depresiva y ansiosa (BDI de 28 a 10, BAI de 25 a 12). Desarrolló herramientas de regulación emocional, fortaleció red de apoyo, mejoró auto-concepto y asertividad. Mejor manejo del estrés relacionado con proceso legal. Seguimiento telefónico a 1 mes (julio 2024): Ana ganó custodia de sus hijos, mantiene estabilidad emocional, continúa implementando estrategias aprendidas. No requiere continuación de tratamiento en este momento.",
+        "recommendations": "1. Mantener rutina de autocuidado establecida (ejercicio, tiempo personal, contacto con red de apoyo).\n2. Continuar implementando técnicas de regulación emocional aprendidas ante situaciones estresantes.\n3. Mantener límites saludables en comunicación con ex-esposo, priorizando bienestar de hijos.\n4. Considerar proceso terapéutico más profundo en futuro (cuando situación legal esté resuelta) para trabajar secuelas de violencia psicológica si lo considera necesario.\n5. Contactar si presenta sintomatología depresiva o ansiosa significativa nuevamente.\n6. Valorar grupo de apoyo para mujeres sobrevivientes de violencia si desea conectar con pares.\n7. Celebrar fortaleza y capacidad de recuperación demostradas en este proceso difícil."
+      },
+      "createdAt": "2024-02-15T09:00:00Z",
+      "updatedAt": "2024-06-20T10:30:00Z"
+    },
+    {
+      "id": "proc-006",
+      "patientId": "pat-005",
+      "status": "active",
+      "startDate": "2024-10-12",
+      "consultationMotive": {
+        "reason": "Adolescente remitido por comité de convivencia escolar por conducta disruptiva, ausentismo, bajo rendimiento académico y reporte de consumo de sustancias. Madre refiere cambios conductuales en último año, aislamiento familiar y grupo de pares de riesgo.",
+        "cieCode": "F91.9",
+        "dsmCode": "312.9",
+        "situationDescription": "Diego presenta patrón de conducta disruptiva escalada en último año escolar. Esto ha afectado su rendimiento académico (riesgo de reprobar año), relaciones con pares pro-sociales (aislamiento de compañeros positivos, vinculación con grupo de riesgo del barrio) y relación familiar (conflictos frecuentes con madre, distanciamiento de familia extensa). Factores de riesgo: exposición a violencia familiar en pasado, padre con consumo problemático de alcohol, vecindario con pandillismo, abandono de tratamiento previo. Factores protectores: madre comprometida aunque con dificultades de manejo, inteligencia promedio, tía que vive con ellos y es figura estabilizadora. Diego inicialmente rechazó venir a consulta, accedió por presión escolar y familiar."
+      },
+      "sessions": [
+        {
+          "sessionNumber": 1,
+          "date": "2024-10-12",
+          "time": "16:00",
+          "objectivesAndTechniques": "Primera entrevista con madre Patricia. Recolección de historia clínica y evolutiva. Comprensión de dinámica familiar. Evaluación de factores de riesgo y protección.",
+          "sessionDescription": "Sesión inicial solo con madre Patricia (enfermera, 45 años). Se muestra preocupada y algo desbordada. Relata historia: separación de padre de Diego hace 6 años (contexto de violencia verbal y consumo de alcohol), custodia para ella, padre ve a Diego irregularmente. Cambios conductuales notorios en último año: ausentismo escolar, grupo de amigos nuevo (del barrio, con reputación negativa), actitud desafiante en casa, ha llegado con olor a marihuana en dos ocasiones. Colegio reporta: peleas con compañeros, no cumple tareas, responde mal a profesores. Patricia ha intentado castigos, diálogo, pedir ayuda a tía, sin éxito. Se siente culpable ('trabajo mucho, lo he descuidado'). Se valida experiencia de Patricia y se explica importancia de proceso terapéutico con enfoque sistémico. Dudas sobre si Diego vendrá a siguiente sesión. Se acuerda estrategia para motivarlo: presentarlo como espacio de él, no como castigo."
+        },
+        {
+          "sessionNumber": 2,
+          "date": "2024-10-16",
+          "time": "16:00",
+          "objectivesAndTechniques": "Primera sesión individual con Diego. Establecimiento de rapport. Exploración no confrontativa de su perspectiva. Evaluación de motivación al cambio.",
+          "sessionDescription": "Diego llega con actitud defensiva, brazos cruzados, respuestas monosilábicas iniciales. Se adopta postura no-juiciosa, validante. Cuando se le pregunta sobre sus intereses (no sobre problemas), se abre: le gusta el fútbol (ya no juega), los videojuegos, la música rap. Gradualmente habla sobre situación: se siente incomprendido, dice que en el colegio 'todos lo tienen montado', que su mamá 'solo trabaja', que su papá 'le da igual'. Cuando se aborda tema de consumo, lo minimiza ('solo he probado, no es gran cosa'). Respecto a ausentismo y grupo del barrio, dice que son 'los únicos que lo entienden'. Se valida que busque pertenencia (necesidad adolescente normal) pero se siembra duda sobre si esa pertenencia es sana. No muestra motivación al cambio actualmente (etapa de pre-contemplación). Se cierra sesión dejando puerta abierta: este es su espacio, no se le juzga. Acepta volver siguiente semana. Se logra establecer contacto inicial positivo."
+        }
+      ],
+      "closure": null,
+      "createdAt": "2024-10-12T16:00:00Z",
+      "updatedAt": "2024-10-16T17:15:00Z"
+    }
+  ]
+}
+

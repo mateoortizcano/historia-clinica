@@ -7,6 +7,7 @@ import {
   inject,
   computed,
   signal,
+  effect,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
@@ -77,23 +78,34 @@ export class ProcessClosureSectionComponent implements OnInit {
     { value: '1a', label: '1 año' },
   ];
 
-  ngOnInit() {
-    // Deshabilitar el formulario si es solo lectura
-    if (this.readOnly()) {
-      this.form.disable();
-    }
+  getStatusLabel(status: ProcessStatus | null): string {
+    if (!status) return 'No especificado';
+    return (
+      this.processStatuses.find((s) => s.value === status)?.label ||
+      'No especificado'
+    );
+  }
 
-    const data = this.initialData();
-    if (data) {
-      // Cargar datos iniciales
-      const closureInfo = data.closureInfo;
-      if (closureInfo) {
+  getFollowUpPeriodLabel(period: FollowUpPeriod | string | null): string {
+    if (!period) return 'No especificado';
+    return (
+      this.followUpPeriods.find((p) => p.value === period)?.label ||
+      'No especificado'
+    );
+  }
+
+  constructor() {
+    // Effect para cargar datos iniciales cuando cambien
+    effect(() => {
+      const data = this.initialData();
+      if (data && data.closureInfo) {
+        const closureInfo = data.closureInfo;
         this.selectedStatus.set(closureInfo.status);
         this.form.patchValue({
           status: closureInfo.status,
           observations: data.observations,
           recommendations: data.recommendations,
-        });
+        }, { emitEvent: false });
 
         // Cargar campos condicionales según el estado
         switch (closureInfo.status) {
@@ -101,26 +113,38 @@ export class ProcessClosureSectionComponent implements OnInit {
             this.form.patchValue({
               hadFollowUp: closureInfo.hadFollowUp,
               followUpPeriodConcluded: closureInfo.followUpPeriod || '',
-            });
+            }, { emitEvent: false });
             break;
           case 'deserta':
             this.form.patchValue({
               followUpPeriodDeserted: closureInfo.followUpPeriod,
-            });
+            }, { emitEvent: false });
             break;
           case 'va_y_vuelve':
             this.form.patchValue({
               hadRelapses: closureInfo.hadRelapses,
-            });
+            }, { emitEvent: false });
             break;
           case 'remision':
             this.form.patchValue({
               hadImprovement: closureInfo.hadImprovement,
-            });
+            }, { emitEvent: false });
             break;
         }
       }
-    }
+    });
+
+    // Effect para manejar el modo readonly
+    effect(() => {
+      if (this.readOnly()) {
+        this.form.disable();
+      } else {
+        this.form.enable();
+      }
+    });
+  }
+
+  ngOnInit() {
 
     // Observar cambios en el estado para actualizar validaciones
     this.form.get('status')?.valueChanges.subscribe((status) => {

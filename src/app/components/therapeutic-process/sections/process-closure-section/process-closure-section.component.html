@@ -1,197 +1,321 @@
 <div class="section-container">
-  <h3 class="section-title">Cierre del Proceso Terapéutico</h3>
+  <h3 class="section-title">
+    <i class="bi bi-check-circle me-2"></i>
+    Cierre del Proceso Terapéutico
+  </h3>
   <p class="section-description">
-    Complete este registro cuando el proceso terapéutico finalice, indicando el estado final y las observaciones correspondientes.
+    @if (readOnly()) {
+      Información registrada sobre el cierre y finalización del proceso terapéutico.
+    } @else {
+      Complete este registro cuando el proceso terapéutico finalice, indicando el estado final y las observaciones correspondientes.
+    }
   </p>
 
-  <form [formGroup]="form">
-    <div class="row g-3">
-      <!-- Estado final del proceso -->
-      <div class="col-12">
-        <label for="status" class="form-label required">Estado Final del Proceso</label>
-        <select
-          id="status"
-          formControlName="status"
-          class="form-select"
-          [class.is-invalid]="form.get('status')?.invalid && form.get('status')?.touched"
-        >
-          <option value="">Seleccione el estado final...</option>
-          @for (status of processStatuses; track status.value) {
-            <option [value]="status.value">{{ status.label }}</option>
-          }
-        </select>
-        @if (form.get('status')?.invalid && form.get('status')?.touched) {
-          <div class="invalid-feedback">Debe seleccionar el estado final del proceso</div>
-        }
-      </div>
-
-      <!-- Campos condicionales según el estado -->
-      @if (selectedStatus()) {
+  @if (readOnly()) {
+    <!-- Read-only view -->
+    <div class="readonly-view">
+      <div class="row g-3">
+        <!-- Estado Final -->
         <div class="col-12">
-          <div class="conditional-fields p-3 border rounded bg-light">
-            <!-- Concluido -->
-            @if (showFollowUpQuestion()) {
-              <div class="mb-3">
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    id="hadFollowUp"
-                    formControlName="hadFollowUp"
-                    class="form-check-input"
-                  />
-                  <label for="hadFollowUp" class="form-check-label">
-                    ¿Se le hizo seguimiento al paciente una vez finalizó la intervención?
-                  </label>
-                </div>
-              </div>
+          <div class="readonly-field">
+            <span class="readonly-label">
+              <i class="bi bi-flag-fill"></i>
+              Estado Final del Proceso
+            </span>
+            <div class="readonly-value">
+              <span class="readonly-badge">{{ getStatusLabel(selectedStatus()) }}</span>
+            </div>
+          </div>
+        </div>
 
-              @if (form.get('hadFollowUp')?.value) {
+        <!-- Campos condicionales según el estado -->
+        @if (selectedStatus()) {
+          <div class="col-12">
+            <div class="readonly-section">
+              <!-- Concluido -->
+              @if (showFollowUpQuestion()) {
+                <div class="readonly-field">
+                  <span class="readonly-label">¿Se le hizo seguimiento al paciente una vez finalizó la intervención?</span>
+                  <div class="readonly-value">
+                    <span [class]="'readonly-check ' + (form.get('hadFollowUp')?.value ? 'checked' : 'unchecked')">
+                      <i [class]="form.get('hadFollowUp')?.value ? 'bi bi-check-circle-fill' : 'bi bi-x-circle'"></i>
+                      {{ form.get('hadFollowUp')?.value ? 'Sí' : 'No' }}
+                    </span>
+                  </div>
+                </div>
+
+                @if (form.get('hadFollowUp')?.value) {
+                  <div class="readonly-field">
+                    <span class="readonly-label">
+                      <i class="bi bi-calendar-range"></i>
+                      Periodo de seguimiento
+                    </span>
+                    <div class="readonly-value">
+                      {{ getFollowUpPeriodLabel(form.get('followUpPeriodConcluded')?.value ?? null) }}
+                    </div>
+                  </div>
+                }
+              }
+
+              <!-- Deserta -->
+              @if (selectedStatus() === 'deserta') {
+                <div class="readonly-field">
+                  <span class="readonly-label">
+                    <i class="bi bi-calendar-range"></i>
+                    Periodo de tiempo que le hizo seguimiento al caso
+                  </span>
+                  <div class="readonly-value">
+                    {{ getFollowUpPeriodLabel(form.get('followUpPeriodDeserted')?.value ?? null) }}
+                  </div>
+                </div>
+              }
+
+              <!-- Va y vuelve -->
+              @if (showRelapsesQuestion()) {
+                <div class="readonly-field">
+                  <span class="readonly-label">¿Conoce si el paciente presentó recaídas?</span>
+                  <div class="readonly-value">
+                    <span [class]="'readonly-check ' + (form.get('hadRelapses')?.value ? 'checked' : 'unchecked')">
+                      <i [class]="form.get('hadRelapses')?.value ? 'bi bi-check-circle-fill' : 'bi bi-x-circle'"></i>
+                      {{ form.get('hadRelapses')?.value ? 'Sí' : 'No' }}
+                    </span>
+                  </div>
+                </div>
+              }
+
+              <!-- Remisión -->
+              @if (showImprovementQuestion()) {
+                <div class="readonly-field">
+                  <span class="readonly-label">¿Se presentó una mejora en su situación?</span>
+                  <div class="readonly-value">
+                    <span [class]="'readonly-check ' + (form.get('hadImprovement')?.value ? 'checked' : 'unchecked')">
+                      <i [class]="form.get('hadImprovement')?.value ? 'bi bi-check-circle-fill' : 'bi bi-x-circle'"></i>
+                      {{ form.get('hadImprovement')?.value ? 'Sí' : 'No' }}
+                    </span>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Observaciones -->
+        <div class="col-12">
+          <div class="readonly-field">
+            <span class="readonly-label">
+              <i class="bi bi-journal-text"></i>
+              Observaciones
+            </span>
+            <div class="readonly-value textarea-content">
+              {{ form.get('observations')?.value || 'Sin observaciones registradas' }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Recomendaciones -->
+        <div class="col-12">
+          <div class="readonly-field">
+            <span class="readonly-label">
+              <i class="bi bi-lightbulb"></i>
+              Recomendaciones
+            </span>
+            <div class="readonly-value textarea-content">
+              {{ form.get('recommendations')?.value || 'Sin recomendaciones registradas' }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <!-- Editable form -->
+    <form [formGroup]="form">
+      <div class="row g-3">
+        <!-- Estado final del proceso -->
+        <div class="col-12">
+          <label for="status" class="form-label required">Estado Final del Proceso</label>
+          <select
+            id="status"
+            formControlName="status"
+            class="form-select"
+            [class.is-invalid]="form.get('status')?.invalid && form.get('status')?.touched"
+          >
+            <option value="">Seleccione el estado final...</option>
+            @for (status of processStatuses; track status.value) {
+              <option [value]="status.value">{{ status.label }}</option>
+            }
+          </select>
+          @if (form.get('status')?.invalid && form.get('status')?.touched) {
+            <div class="invalid-feedback">Debe seleccionar el estado final del proceso</div>
+          }
+        </div>
+
+        <!-- Campos condicionales según el estado -->
+        @if (selectedStatus()) {
+          <div class="col-12">
+            <div class="conditional-fields p-3 border rounded bg-light">
+              <!-- Concluido -->
+              @if (showFollowUpQuestion()) {
                 <div class="mb-3">
-                  <label for="followUpPeriodConcluded" class="form-label required">
-                    Periodo de seguimiento
+                  <div class="form-check">
+                    <input
+                      type="checkbox"
+                      id="hadFollowUp"
+                      formControlName="hadFollowUp"
+                      class="form-check-input"
+                    />
+                    <label for="hadFollowUp" class="form-check-label">
+                      ¿Se le hizo seguimiento al paciente una vez finalizó la intervención?
+                    </label>
+                  </div>
+                </div>
+
+                @if (form.get('hadFollowUp')?.value) {
+                  <div class="mb-3">
+                    <label for="followUpPeriodConcluded" class="form-label required">
+                      Periodo de seguimiento
+                    </label>
+                    <select
+                      id="followUpPeriodConcluded"
+                      formControlName="followUpPeriodConcluded"
+                      class="form-select"
+                      [class.is-invalid]="form.get('followUpPeriodConcluded')?.invalid && form.get('followUpPeriodConcluded')?.touched"
+                    >
+                      <option value="">Seleccione el periodo...</option>
+                      @for (period of followUpPeriods; track period.value) {
+                        <option [value]="period.value">{{ period.label }}</option>
+                      }
+                    </select>
+                    @if (form.get('followUpPeriodConcluded')?.invalid && form.get('followUpPeriodConcluded')?.touched) {
+                      <div class="invalid-feedback">Debe indicar el periodo de seguimiento</div>
+                    }
+                  </div>
+                }
+              }
+
+              <!-- Deserta -->
+              @if (selectedStatus() === 'deserta') {
+                <div class="mb-3">
+                  <label for="followUpPeriodDeserted" class="form-label required">
+                    Indique el periodo de tiempo que le hizo seguimiento al caso
                   </label>
                   <select
-                    id="followUpPeriodConcluded"
-                    formControlName="followUpPeriodConcluded"
+                    id="followUpPeriodDeserted"
+                    formControlName="followUpPeriodDeserted"
                     class="form-select"
-                    [class.is-invalid]="form.get('followUpPeriodConcluded')?.invalid && form.get('followUpPeriodConcluded')?.touched"
+                    [class.is-invalid]="form.get('followUpPeriodDeserted')?.invalid && form.get('followUpPeriodDeserted')?.touched"
                   >
                     <option value="">Seleccione el periodo...</option>
                     @for (period of followUpPeriods; track period.value) {
                       <option [value]="period.value">{{ period.label }}</option>
                     }
                   </select>
-                  @if (form.get('followUpPeriodConcluded')?.invalid && form.get('followUpPeriodConcluded')?.touched) {
+                  @if (form.get('followUpPeriodDeserted')?.invalid && form.get('followUpPeriodDeserted')?.touched) {
                     <div class="invalid-feedback">Debe indicar el periodo de seguimiento</div>
                   }
                 </div>
               }
-            }
 
-            <!-- Deserta -->
-            @if (selectedStatus() === 'deserta') {
-              <div class="mb-3">
-                <label for="followUpPeriodDeserted" class="form-label required">
-                  Indique el periodo de tiempo que le hizo seguimiento al caso
-                </label>
-                <select
-                  id="followUpPeriodDeserted"
-                  formControlName="followUpPeriodDeserted"
-                  class="form-select"
-                  [class.is-invalid]="form.get('followUpPeriodDeserted')?.invalid && form.get('followUpPeriodDeserted')?.touched"
-                >
-                  <option value="">Seleccione el periodo...</option>
-                  @for (period of followUpPeriods; track period.value) {
-                    <option [value]="period.value">{{ period.label }}</option>
-                  }
-                </select>
-                @if (form.get('followUpPeriodDeserted')?.invalid && form.get('followUpPeriodDeserted')?.touched) {
-                  <div class="invalid-feedback">Debe indicar el periodo de seguimiento</div>
-                }
-              </div>
-            }
+              <!-- Va y vuelve -->
+              @if (showRelapsesQuestion()) {
+                <div class="mb-3">
+                  <label class="form-label">¿Conoce si el paciente presentó recaídas?</label>
+                  <div class="form-check">
+                    <input
+                      type="radio"
+                      id="hadRelapses-yes"
+                      formControlName="hadRelapses"
+                      [value]="true"
+                      class="form-check-input"
+                    />
+                    <label for="hadRelapses-yes" class="form-check-label">Sí</label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      type="radio"
+                      id="hadRelapses-no"
+                      formControlName="hadRelapses"
+                      [value]="false"
+                      class="form-check-input"
+                    />
+                    <label for="hadRelapses-no" class="form-check-label">No</label>
+                  </div>
+                </div>
+              }
 
-            <!-- Va y vuelve -->
-            @if (showRelapsesQuestion()) {
-              <div class="mb-3">
-                <label class="form-label">¿Conoce si el paciente presentó recaídas?</label>
-                <div class="form-check">
-                  <input
-                    type="radio"
-                    id="hadRelapses-yes"
-                    formControlName="hadRelapses"
-                    [value]="true"
-                    class="form-check-input"
-                  />
-                  <label for="hadRelapses-yes" class="form-check-label">Sí</label>
+              <!-- Remisión -->
+              @if (showImprovementQuestion()) {
+                <div class="mb-3">
+                  <label class="form-label">¿Se presentó una mejora en su situación?</label>
+                  <div class="form-check">
+                    <input
+                      type="radio"
+                      id="hadImprovement-yes"
+                      formControlName="hadImprovement"
+                      [value]="true"
+                      class="form-check-input"
+                    />
+                    <label for="hadImprovement-yes" class="form-check-label">Sí</label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      type="radio"
+                      id="hadImprovement-no"
+                      formControlName="hadImprovement"
+                      [value]="false"
+                      class="form-check-input"
+                    />
+                    <label for="hadImprovement-no" class="form-check-label">No</label>
+                  </div>
                 </div>
-                <div class="form-check">
-                  <input
-                    type="radio"
-                    id="hadRelapses-no"
-                    formControlName="hadRelapses"
-                    [value]="false"
-                    class="form-check-input"
-                  />
-                  <label for="hadRelapses-no" class="form-check-label">No</label>
-                </div>
-              </div>
-            }
-
-            <!-- Remisión -->
-            @if (showImprovementQuestion()) {
-              <div class="mb-3">
-                <label class="form-label">¿Se presentó una mejora en su situación?</label>
-                <div class="form-check">
-                  <input
-                    type="radio"
-                    id="hadImprovement-yes"
-                    formControlName="hadImprovement"
-                    [value]="true"
-                    class="form-check-input"
-                  />
-                  <label for="hadImprovement-yes" class="form-check-label">Sí</label>
-                </div>
-                <div class="form-check">
-                  <input
-                    type="radio"
-                    id="hadImprovement-no"
-                    formControlName="hadImprovement"
-                    [value]="false"
-                    class="form-check-input"
-                  />
-                  <label for="hadImprovement-no" class="form-check-label">No</label>
-                </div>
-              </div>
-            }
-          </div>
-        </div>
-      }
-
-      <!-- Observaciones -->
-      <div class="col-12">
-        <label for="observations" class="form-label required">Observaciones</label>
-        <textarea
-          id="observations"
-          formControlName="observations"
-          class="form-control"
-          [class.is-invalid]="form.get('observations')?.invalid && form.get('observations')?.touched"
-          rows="6"
-          maxlength="5000"
-          placeholder="Registre observaciones importantes sobre el proceso terapéutico, evolución del paciente, aspectos destacables, etc."
-        ></textarea>
-        @if (form.get('observations')?.invalid && form.get('observations')?.touched) {
-          <div class="invalid-feedback">
-            Este campo es requerido (máximo 5000 caracteres)
+              }
+            </div>
           </div>
         }
-        <div class="form-text">
-          {{ form.get('observations')?.value?.length || 0 }}/5000 caracteres
-        </div>
-      </div>
 
-      <!-- Recomendaciones -->
-      <div class="col-12">
-        <label for="recommendations" class="form-label required">Recomendaciones</label>
-        <textarea
-          id="recommendations"
-          formControlName="recommendations"
-          class="form-control"
-          [class.is-invalid]="form.get('recommendations')?.invalid && form.get('recommendations')?.touched"
-          rows="6"
-          maxlength="5000"
-          placeholder="Proporcione recomendaciones para el paciente, profesionales de referencia, familia, etc."
-        ></textarea>
-        @if (form.get('recommendations')?.invalid && form.get('recommendations')?.touched) {
-          <div class="invalid-feedback">
-            Este campo es requerido (máximo 5000 caracteres)
+        <!-- Observaciones -->
+        <div class="col-12">
+          <label for="observations" class="form-label required">Observaciones</label>
+          <textarea
+            id="observations"
+            formControlName="observations"
+            class="form-control"
+            [class.is-invalid]="form.get('observations')?.invalid && form.get('observations')?.touched"
+            rows="6"
+            maxlength="5000"
+            placeholder="Registre observaciones importantes sobre el proceso terapéutico, evolución del paciente, aspectos destacables, etc."
+          ></textarea>
+          @if (form.get('observations')?.invalid && form.get('observations')?.touched) {
+            <div class="invalid-feedback">
+              Este campo es requerido (máximo 5000 caracteres)
+            </div>
+          }
+          <div class="form-text">
+            {{ form.get('observations')?.value?.length || 0 }}/5000 caracteres
           </div>
-        }
-        <div class="form-text">
-          {{ form.get('recommendations')?.value?.length || 0 }}/5000 caracteres
+        </div>
+
+        <!-- Recomendaciones -->
+        <div class="col-12">
+          <label for="recommendations" class="form-label required">Recomendaciones</label>
+          <textarea
+            id="recommendations"
+            formControlName="recommendations"
+            class="form-control"
+            [class.is-invalid]="form.get('recommendations')?.invalid && form.get('recommendations')?.touched"
+            rows="6"
+            maxlength="5000"
+            placeholder="Proporcione recomendaciones para el paciente, profesionales de referencia, familia, etc."
+          ></textarea>
+          @if (form.get('recommendations')?.invalid && form.get('recommendations')?.touched) {
+            <div class="invalid-feedback">
+              Este campo es requerido (máximo 5000 caracteres)
+            </div>
+          }
+          <div class="form-text">
+            {{ form.get('recommendations')?.value?.length || 0 }}/5000 caracteres
+          </div>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+  }
 </div>
-

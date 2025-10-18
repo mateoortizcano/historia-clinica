@@ -16,6 +16,7 @@ import {
 import { ConsultationMotiveSectionComponent } from './sections/consultation-motive-section/consultation-motive-section.component';
 import { SessionRegistrationSectionComponent } from './sections/session-registration-section/session-registration-section.component';
 import { ProcessClosureSectionComponent } from './sections/process-closure-section/process-closure-section.component';
+import { MockDataService } from '../../services/mock-data.service';
 
 type TabId = 'consultation-motive' | 'sessions' | 'closure';
 
@@ -53,6 +54,7 @@ interface PatientInfo {
 export class TherapeuticProcessComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private mockDataService = inject(MockDataService);
 
   patientId = signal('');
   processId = signal<string | null>(null);
@@ -60,6 +62,7 @@ export class TherapeuticProcessComponent implements OnInit {
   isNewProcess = computed(() => !this.processId());
   isProcessClosed = signal(false);
   isReadOnly = computed(() => this.isProcessClosed());
+  isLoading = signal(false);
   
   processData = signal<Partial<TherapeuticProcess>>({
     sessions: [],
@@ -82,83 +85,59 @@ export class TherapeuticProcessComponent implements OnInit {
   }
 
   private loadPatientData(patientId: string) {
-    // TODO: Reemplazar con llamada real al backend
-    const mockPatients: Record<string, PatientInfo> = {
-      '1': { id: '1', fullName: 'Juan Pérez García', idNumber: '1234567890', age: 35 },
-      '2': { id: '2', fullName: 'María Rodríguez López', idNumber: '0987654321', age: 28 },
-      '3': { id: '3', fullName: 'Carlos Martínez Sánchez', idNumber: '1122334455', age: 42 },
-    };
-    this.patient.set(mockPatients[patientId] || null);
+    this.isLoading.set(true);
+    
+    this.mockDataService.getPatientById(patientId).subscribe({
+      next: (patient) => {
+        if (patient) {
+          this.patient.set({
+            id: patient.id,
+            fullName: this.mockDataService.getFullName(patient),
+            idNumber: patient.personalInfo.idNumber,
+            age: this.mockDataService.calculateAge(patient.personalInfo.birthDate),
+          });
+        }
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        console.error('Error loading patient:', error);
+        this.isLoading.set(false);
+      },
+    });
   }
 
   private loadProcessData(processId: string) {
-    // TODO: Reemplazar con llamada real al backend
-    // Mock data para simular procesos cerrados y activos
-    const mockProcesses: Record<string, any> = {
-      'proc-1': {
-        id: 'proc-1',
-        status: 'active',
-        consultationMotive: {
-          reason: 'Manejo de ansiedad y estrés laboral',
-          cieCode: 'F41.1',
-          dsmCode: '300.02',
-          situationDescription: 'El paciente presenta síntomas de ansiedad...',
-        },
-        sessions: [
-          {
-            sessionNumber: 1,
-            date: '2025-01-15',
-            time: '10:00',
-            objectivesAndTechniques: 'Evaluación inicial...',
-            sessionDescription: 'Primera sesión de evaluación...',
-          },
-        ],
+    this.isLoading.set(true);
+    
+    this.mockDataService.getProcessById(processId).subscribe({
+      next: (process) => {
+        if (process) {
+          this.processData.set({
+            consultationMotive: process.consultationMotive,
+            sessions: process.sessions || [],
+            closure: process.closure,
+          });
+          
+          this.isProcessClosed.set(process.status === 'closed');
+          
+          // Actualizar validaciones según los datos cargados
+          if (process.consultationMotive) {
+            this.tabValidations.update((v) => ({ ...v, consultationMotive: true }));
+          }
+          if (process.sessions && process.sessions.length > 0) {
+            this.tabValidations.update((v) => ({ ...v, sessions: true }));
+          }
+          if (process.closure) {
+            this.tabValidations.update((v) => ({ ...v, closure: true }));
+          }
+        }
+        this.isLoading.set(false);
       },
-      'proc-2': {
-        id: 'proc-2',
-        status: 'closed',
-        consultationMotive: {
-          reason: 'Proceso de duelo',
-          cieCode: 'Z63.4',
-          situationDescription: 'Proceso de duelo por pérdida familiar...',
-        },
-        sessions: [
-          {
-            sessionNumber: 1,
-            date: '2024-05-20',
-            time: '14:00',
-            objectivesAndTechniques: 'Acompañamiento inicial...',
-            sessionDescription: 'Primera sesión de acompañamiento...',
-          },
-        ],
-        closure: {
-          closureInfo: {
-            status: 'concluido',
-            hadFollowUp: true,
-            followUpPeriod: '3m',
-          },
-          observations: 'Proceso completado satisfactoriamente.',
-          recommendations: 'Continuar con actividades de autocuidado.',
-        },
+      error: (error) => {
+        console.error('Error loading process:', error);
+        this.isLoading.set(false);
       },
-    };
-
-    const process = mockProcesses[processId];
-    if (process) {
-      this.processData.set(process);
-      this.isProcessClosed.set(process.status === 'closed');
-      
-      // Actualizar validaciones según los datos cargados
-      if (process.consultationMotive) {
-        this.tabValidations.update((v) => ({ ...v, consultationMotive: true }));
-      }
-      if (process.sessions && process.sessions.length > 0) {
-        this.tabValidations.update((v) => ({ ...v, sessions: true }));
-      }
-      if (process.closure) {
-        this.tabValidations.update((v) => ({ ...v, closure: true }));
-      }
-    }
+    });
   }
 
   // Tab validation states

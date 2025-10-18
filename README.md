@@ -95,11 +95,18 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 ## Documentación Adicional
 
+### Proceso Terapéutico
 - **[FLUJO-PROCESO-TERAPEUTICO.md](./FLUJO-PROCESO-TERAPEUTICO.md)** - Flujo completo y arquitectura del proceso terapéutico
 - **[PROCESOS-CERRADOS-READONLY.md](./PROCESOS-CERRADOS-READONLY.md)** - Modo solo lectura para procesos cerrados
 - **[SESIONES-INMUTABLES.md](./SESIONES-INMUTABLES.md)** - Sesiones inmutables una vez guardadas
 - **[PROCESO-TERAPEUTICO.md](./PROCESO-TERAPEUTICO.md)** - Guía completa del sistema de proceso terapéutico
 - **[CAMBIOS-TABS-IMPLEMENTATION.md](./CAMBIOS-TABS-IMPLEMENTATION.md)** - Migración de stepper a tabs
+
+### UX y Datos
+- **[MEJORAS-UX-ESTANDARIZACION.md](./MEJORAS-UX-ESTANDARIZACION.md)** - Sistema estandarizado de UX y visualización
+- **[SISTEMA-MOCK-DATA.md](./SISTEMA-MOCK-DATA.md)** - Sistema de datos mock y simulación de API REST
+
+### Especificaciones
 - **[descripcion-proyecto.md](./.cursor/especificaciones/descripcion-proyecto.md)** - Descripción general del proyecto
 - **[estructura-general.md](./.cursor/especificaciones/historias de usuario/estructura-general.md)** - Especificaciones de formularios
 
@@ -114,6 +121,7 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 ## Características Técnicas
 
+### Frontend
 - ✅ Arquitectura modular con lazy loading
 - ✅ Change Detection optimizada (OnPush)
 - ✅ Componentes standalone
@@ -121,6 +129,16 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 - ✅ Formularios reactivos con validaciones
 - ✅ Diseño responsivo optimizado para laptops 10-14"
 - ✅ Sin dependencia de módulos NgModule
+- ✅ Sistema estandarizado de UX para visualización de datos
+- ✅ Estilos compartidos y reutilizables
+- ✅ Iconografía consistente en toda la aplicación
+
+### Datos y Backend (Mock)
+- ✅ Sistema de datos mock completo (5 pacientes, 6 procesos)
+- ✅ Servicio que simula API REST con Observables
+- ✅ Latencia de red simulada (500ms)
+- ✅ CRUD completo implementado
+- ✅ Preparado para migración a backend real
 
 ## Additional Resources
 

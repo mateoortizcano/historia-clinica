@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MockDataService } from '../../../services/mock-data.service';
 
-// Interfaces temporales (luego vendrán del backend)
 interface PatientInfo {
   id: string;
   fullName: string;
@@ -37,10 +37,12 @@ interface ProcessSummary {
 export class ProcessSelectionComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private mockDataService = inject(MockDataService);
 
   patientId = signal('');
   patient = signal<PatientInfo | null>(null);
   processes = signal<ProcessSummary[]>([]);
+  isLoading = signal(false);
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('patientId');
@@ -51,79 +53,68 @@ export class ProcessSelectionComponent implements OnInit {
     }
   }
 
-  // TODO: Reemplazar con llamadas reales al backend
   private loadPatientData(patientId: string) {
-    // Mock data
-    const mockPatients: Record<string, PatientInfo> = {
-      '1': {
-        id: '1',
-        fullName: 'Juan Pérez García',
-        idNumber: '1234567890',
-        age: 35,
-      },
-      '2': {
-        id: '2',
-        fullName: 'María Rodríguez López',
-        idNumber: '0987654321',
-        age: 28,
-      },
-      '3': {
-        id: '3',
-        fullName: 'Carlos Martínez Sánchez',
-        idNumber: '1122334455',
-        age: 42,
-      },
-    };
+    this.isLoading.set(true);
     
-    this.patient.set(mockPatients[patientId] || null);
+    this.mockDataService.getPatientById(patientId).subscribe({
+      next: (patient) => {
+        if (patient) {
+          this.patient.set({
+            id: patient.id,
+            fullName: this.mockDataService.getFullName(patient),
+            idNumber: patient.personalInfo.idNumber,
+            age: this.mockDataService.calculateAge(patient.personalInfo.birthDate),
+          });
+        }
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        console.error('Error loading patient:', error);
+        this.isLoading.set(false);
+      },
+    });
   }
 
   private loadProcesses(patientId: string) {
-    // Mock data
-    const mockProcesses: Record<string, ProcessSummary[]> = {
-      '1': [
-        {
-          id: 'proc-1',
-          status: 'active',
-          consultationReason: 'Manejo de ansiedad y estrés laboral',
-          startDate: '2025-01-15',
-          lastSessionDate: '2025-10-10',
-          sessionsCount: 8,
-        },
-        {
-          id: 'proc-2',
-          status: 'closed',
-          consultationReason: 'Proceso de duelo',
-          startDate: '2024-05-20',
-          closureDate: '2024-11-30',
-          sessionsCount: 12,
-          closureStatus: 'Concluido',
-        },
-      ],
-      '2': [
-        {
-          id: 'proc-3',
-          status: 'closed',
-          consultationReason: 'Depresión post-parto',
-          startDate: '2024-08-01',
-          closureDate: '2025-02-15',
-          sessionsCount: 15,
-          closureStatus: 'Concluido',
-        },
-      ],
-      '3': [
-        {
-          id: 'proc-4',
-          status: 'active',
-          consultationReason: 'Trastorno de pánico',
-          startDate: '2025-09-01',
-          lastSessionDate: '2025-10-15',
-          sessionsCount: 3,
-        },
-      ],
-    };
+    this.mockDataService.getProcessesByPatientId(patientId).subscribe({
+      next: (processes) => {
+        const processSummaries: ProcessSummary[] = processes.map((process) => {
+          const lastSession = process.sessions.length > 0
+            ? process.sessions[process.sessions.length - 1]
+            : null;
 
-    this.processes.set(mockProcesses[patientId] || []);
+          const closureStatusLabel = process.closure?.closureInfo?.status
+            ? this.getClosureStatusLabel(process.closure.closureInfo.status)
+            : undefined;
+
+          return {
+            id: process.id,
+            status: process.status,
+            consultationReason: process.consultationMotive.reason,
+            startDate: process.startDate,
+            lastSessionDate: lastSession?.date,
+            closureDate: process.closureDate,
+            sessionsCount: process.sessions.length,
+            closureStatus: closureStatusLabel,
+          };
+        });
+
+        this.processes.set(processSummaries);
+      },
+      error: (error) => {
+        console.error('Error loading processes:', error);
+      },
+    });
+  }
+
+  private getClosureStatusLabel(status: string): string {
+    const statusMap: Record<string, string> = {
+      'concluido': 'Concluido',
+      'deserta': 'Deserta',
+      'va_y_vuelve': 'Va y vuelve',
+      'remision': 'Remisión',
+    };
+    return statusMap[status] || status;
   }
 
   goBack() {
