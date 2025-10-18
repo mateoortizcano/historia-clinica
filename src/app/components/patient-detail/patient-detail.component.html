@@ -1,0 +1,1126 @@
+<div class="patient-detail-container">
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <!-- Back Button -->
+        <button type="button" class="btn btn-outline-secondary mb-3" (click)="goBack()">
+          <i class="bi bi-arrow-left me-2"></i>
+          Volver a Procesos del Paciente
+        </button>
+
+        @if (isLoading()) {
+          <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+            <p class="mt-3">Cargando datos del paciente...</p>
+          </div>
+        }
+
+        @if (!isLoading() && patient(); as patientData) {
+          <!-- Header Card -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <h1 class="mb-2">
+                    <i class="bi bi-person-circle me-2 text-primary"></i>
+                    {{ patientData.personalInfo.firstName }}
+                    {{ patientData.personalInfo.secondName || '' }}
+                    {{ patientData.personalInfo.firstLastName }}
+                    {{ patientData.personalInfo.secondLastName || '' }}
+                  </h1>
+                  <div class="patient-badges">
+                    @if (isAdult()) {
+                      <span class="badge bg-info me-2">Paciente Adulto</span>
+                    }
+                    @if (isMinor()) {
+                      <span class="badge bg-warning me-2">Paciente Menor de Edad</span>
+                    }
+                    <span class="badge bg-secondary">
+                      {{ calculateAge(patientData.personalInfo.birthDate) }} años
+                    </span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="goToProcesses()"
+                >
+                  <i class="bi bi-clipboard-pulse me-2"></i>
+                  Ver Procesos Terapéuticos
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alert: Solo Lectura -->
+          <div class="alert alert-info d-flex align-items-center mb-4">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            <div>
+              <strong>Visualización de Datos:</strong>
+              Esta es una vista de solo lectura de la información del paciente.
+            </div>
+          </div>
+
+          <!-- Información Personal -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-person-badge me-2"></i>
+                Información Personal
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="readonly-view">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-person"></i>
+                        Primer Nombre
+                      </span>
+                      <div class="readonly-value">
+                        {{ patientData.personalInfo.firstName }}
+                      </div>
+                    </div>
+                  </div>
+
+                  @if (patientData.personalInfo.secondName) {
+                    <div class="col-md-6">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-person"></i>
+                          Segundo Nombre
+                        </span>
+                        <div class="readonly-value">
+                          {{ patientData.personalInfo.secondName }}
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  <div class="col-md-6">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-person"></i>
+                        Primer Apellido
+                      </span>
+                      <div class="readonly-value">
+                        {{ patientData.personalInfo.firstLastName }}
+                      </div>
+                    </div>
+                  </div>
+
+                  @if (patientData.personalInfo.secondLastName) {
+                    <div class="col-md-6">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-person"></i>
+                          Segundo Apellido
+                        </span>
+                        <div class="readonly-value">
+                          {{ patientData.personalInfo.secondLastName }}
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  <div class="col-md-4">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-calendar3"></i>
+                        Fecha de Nacimiento
+                      </span>
+                      <div class="readonly-value">
+                        {{ formatDate(patientData.personalInfo.birthDate) }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-hash"></i>
+                        Edad
+                      </span>
+                      <div class="readonly-value">
+                        {{ calculateAge(patientData.personalInfo.birthDate) }} años
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-gender-ambiguous"></i>
+                        Género
+                      </span>
+                      <div class="readonly-value">
+                        {{ getGenderLabel(patientData.personalInfo.gender) }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-card-text"></i>
+                        Tipo de Identificación
+                      </span>
+                      <div class="readonly-value">
+                        {{ getIdTypeLabel(patientData.personalInfo.idType) }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-123"></i>
+                        Número de Identificación
+                      </span>
+                      <div class="readonly-value">
+                        {{ patientData.personalInfo.idNumber }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-geo-alt"></i>
+                        Lugar de Nacimiento
+                      </span>
+                      <div class="readonly-value">
+                        {{ patientData.personalInfo.birthPlace }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Información Civil y Educativa (Solo Adultos) -->
+          @if (isAdult() && patientData.civilEducationalInfo) {
+            <div class="card shadow-sm mb-4">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                  <i class="bi bi-mortarboard me-2"></i>
+                  Información Civil y Educativa
+                </h5>
+              </div>
+              <div class="card-body">
+                <div class="readonly-view">
+                  <div class="row g-3">
+                    <div class="col-md-4">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-heart"></i>
+                          Estado Civil
+                        </span>
+                        <div class="readonly-value">
+                          {{ getMaritalStatusLabel(patientData.civilEducationalInfo.maritalStatus) }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-book"></i>
+                          Nivel Educativo
+                        </span>
+                        <div class="readonly-value">
+                          {{ getEducationLevelLabel(patientData.civilEducationalInfo.educationLevel) }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-briefcase"></i>
+                          Ocupación
+                        </span>
+                        <div class="readonly-value">
+                          {{ patientData.civilEducationalInfo.occupation || 'No especificada' }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Información de Padres (Solo Menores) -->
+          @if (isMinor() && patientData.parentsInfo) {
+            <div class="card shadow-sm mb-4">
+              <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                  <i class="bi bi-people me-2"></i>
+                  Información de los Padres
+                </h5>
+              </div>
+              <div class="card-body">
+                <div class="row g-4">
+                  <!-- Madre -->
+                  <div class="col-md-6">
+                    <h6 class="text-primary mb-3">
+                      <i class="bi bi-person-circle me-2"></i>
+                      Madre
+                    </h6>
+                    <div class="readonly-view">
+                      <div class="readonly-field">
+                        <span class="readonly-label">Nombre Completo</span>
+                        <div class="readonly-value">
+                          {{ patientData.parentsInfo.mother.fullName }}
+                        </div>
+                      </div>
+                      <div class="readonly-field">
+                        <span class="readonly-label">Identificación</span>
+                        <div class="readonly-value">
+                          {{ getIdTypeLabel(patientData.parentsInfo.mother.idType) }} - 
+                          {{ patientData.parentsInfo.mother.idNumber }}
+                        </div>
+                      </div>
+                      <div class="readonly-field">
+                        <span class="readonly-label">Ocupación</span>
+                        <div class="readonly-value">
+                          {{ patientData.parentsInfo.mother.occupation || 'No especificada' }}
+                        </div>
+                      </div>
+                      <div class="readonly-field">
+                        <span class="readonly-label">Teléfono</span>
+                        <div class="readonly-value">
+                          {{ patientData.parentsInfo.mother.phone }}
+                        </div>
+                      </div>
+                      <div class="readonly-field">
+                        <span class="readonly-label">Vive con el menor</span>
+                        <div class="readonly-value">
+                          <span [class]="'readonly-check ' + (patientData.parentsInfo.mother.livesWithMinor ? 'checked' : 'unchecked')">
+                            <i [class]="patientData.parentsInfo.mother.livesWithMinor ? 'bi bi-check-circle-fill' : 'bi bi-x-circle'"></i>
+                            {{ patientData.parentsInfo.mother.livesWithMinor ? 'Sí' : 'No' }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Padre -->
+                  <div class="col-md-6">
+                    <h6 class="text-primary mb-3">
+                      <i class="bi bi-person-circle me-2"></i>
+                      Padre
+                    </h6>
+                    <div class="readonly-view">
+                      <div class="readonly-field">
+                        <span class="readonly-label">Nombre Completo</span>
+                        <div class="readonly-value">
+                          {{ patientData.parentsInfo.father.fullName }}
+                        </div>
+                      </div>
+                      <div class="readonly-field">
+                        <span class="readonly-label">Identificación</span>
+                        <div class="readonly-value">
+                          {{ getIdTypeLabel(patientData.parentsInfo.father.idType) }} - 
+                          {{ patientData.parentsInfo.father.idNumber }}
+                        </div>
+                      </div>
+                      <div class="readonly-field">
+                        <span class="readonly-label">Ocupación</span>
+                        <div class="readonly-value">
+                          {{ patientData.parentsInfo.father.occupation || 'No especificada' }}
+                        </div>
+                      </div>
+                      <div class="readonly-field">
+                        <span class="readonly-label">Teléfono</span>
+                        <div class="readonly-value">
+                          {{ patientData.parentsInfo.father.phone }}
+                        </div>
+                      </div>
+                      <div class="readonly-field">
+                        <span class="readonly-label">Vive con el menor</span>
+                        <div class="readonly-value">
+                          <span [class]="'readonly-check ' + (patientData.parentsInfo.father.livesWithMinor ? 'checked' : 'unchecked')">
+                            <i [class]="patientData.parentsInfo.father.livesWithMinor ? 'bi bi-check-circle-fill' : 'bi bi-x-circle'"></i>
+                            {{ patientData.parentsInfo.father.livesWithMinor ? 'Sí' : 'No' }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Información Educativa del Menor -->
+          @if (isMinor() && patientData.minorEducationalInfo) {
+            <div class="card shadow-sm mb-4">
+              <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                  <i class="bi bi-mortarboard me-2"></i>
+                  Información Educativa
+                </h5>
+              </div>
+              <div class="card-body">
+                <div class="readonly-view">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-book"></i>
+                          Grado Escolar
+                        </span>
+                        <div class="readonly-value">
+                          {{ patientData.minorEducationalInfo.grade }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-building"></i>
+                          Tipo de Institución
+                        </span>
+                        <div class="readonly-value">
+                          {{ getInstitutionTypeLabel(patientData.minorEducationalInfo.institutionType) }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-bank"></i>
+                          Nombre de la Institución
+                        </span>
+                        <div class="readonly-value">
+                          {{ patientData.minorEducationalInfo.institutionName }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-graph-up"></i>
+                          Rendimiento Académico
+                        </span>
+                        <div class="readonly-value textarea-content">
+                          {{ patientData.minorEducationalInfo.academicPerformance || 'No especificado' }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-exclamation-triangle"></i>
+                          Dificultades Comportamentales
+                        </span>
+                        <div class="readonly-value textarea-content">
+                          {{ patientData.minorEducationalInfo.behavioralIssues || 'Ninguna reportada' }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Miembros de la Familia (Solo Menores) -->
+          @if (isMinor() && patientData.familyMembers && patientData.familyMembers.length > 0) {
+            <div class="card shadow-sm mb-4">
+              <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                  <i class="bi bi-people-fill me-2"></i>
+                  Composición Familiar ({{ patientData.familyMembers.length }} miembros)
+                </h5>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Nombre Completo</th>
+                        <th>Parentesco</th>
+                        <th>Edad</th>
+                        <th>Ocupación</th>
+                        <th>Vive con Paciente</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (member of patientData.familyMembers; track member.fullName) {
+                        <tr>
+                          <td>{{ member.fullName }}</td>
+                          <td>{{ member.relationship }}</td>
+                          <td>{{ member.age }} años</td>
+                          <td>{{ member.occupation }}</td>
+                          <td>
+                            @if (member.livesWithPatient) {
+                              <span class="badge bg-success">
+                                <i class="bi bi-check-lg"></i> Sí
+                              </span>
+                            } @else {
+                              <span class="badge bg-secondary">
+                                <i class="bi bi-x-lg"></i> No
+                              </span>
+                            }
+                          </td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Información de Contacto -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-success text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-telephone me-2"></i>
+                Información de Contacto
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="readonly-view">
+                <div class="row g-3">
+                  <div class="col-12">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-house"></i>
+                        Dirección
+                      </span>
+                      <div class="readonly-value">
+                        {{ patientData.contactInfo.address }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-pin-map"></i>
+                        Barrio
+                      </span>
+                      <div class="readonly-value">
+                        {{ patientData.contactInfo.neighborhood }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-geo-alt"></i>
+                        Ciudad
+                      </span>
+                      <div class="readonly-value">
+                        {{ patientData.contactInfo.city }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-telephone"></i>
+                        Teléfono
+                      </span>
+                      <div class="readonly-value">
+                        {{ patientData.contactInfo.phone }}
+                      </div>
+                    </div>
+                  </div>
+
+                  @if (patientData.contactInfo.email) {
+                    <div class="col-md-12">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-envelope"></i>
+                          Correo Electrónico
+                        </span>
+                        <div class="readonly-value">
+                          {{ patientData.contactInfo.email }}
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contacto de Emergencia -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-danger text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                Contacto de Emergencia
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="readonly-view">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-person"></i>
+                        Nombre Completo
+                      </span>
+                      <div class="readonly-value">
+                        {{ patientData.emergencyContact.fullName }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-people"></i>
+                        Parentesco
+                      </span>
+                      <div class="readonly-value">
+                        {{ patientData.emergencyContact.relationship }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-telephone"></i>
+                        Teléfono
+                      </span>
+                      <div class="readonly-value">
+                        {{ patientData.emergencyContact.phone }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Información de Salud -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-info text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-heart-pulse me-2"></i>
+                Información de Salud
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="readonly-view">
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-hospital"></i>
+                        EPS
+                      </span>
+                      <div class="readonly-value">
+                        {{ patientData.healthInfo.eps }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-droplet"></i>
+                        Tipo de Sangre
+                      </span>
+                      <div class="readonly-value">
+                        {{ patientData.healthInfo.bloodType }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-shield-check"></i>
+                        Alergias
+                      </span>
+                      <div class="readonly-value">
+                        <span [class]="'readonly-check ' + (patientData.healthInfo.hasAllergies ? 'checked' : 'unchecked')">
+                          <i [class]="patientData.healthInfo.hasAllergies ? 'bi bi-check-circle-fill' : 'bi bi-x-circle'"></i>
+                          {{ patientData.healthInfo.hasAllergies ? 'Sí' : 'No' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  @if (patientData.healthInfo.hasAllergies && patientData.healthInfo.allergies) {
+                    <div class="col-12">
+                      <div class="readonly-field">
+                        <span class="readonly-label">Detalle de Alergias</span>
+                        <div class="readonly-value textarea-content">
+                          {{ patientData.healthInfo.allergies }}
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  <div class="col-md-12">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-capsule"></i>
+                        Medicamentos Actuales
+                      </span>
+                      <div class="readonly-value">
+                        <span [class]="'readonly-check ' + (patientData.healthInfo.hasMedications ? 'checked' : 'unchecked')">
+                          <i [class]="patientData.healthInfo.hasMedications ? 'bi bi-check-circle-fill' : 'bi bi-x-circle'"></i>
+                          {{ patientData.healthInfo.hasMedications ? 'Sí' : 'No' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  @if (patientData.healthInfo.hasMedications && patientData.healthInfo.medications) {
+                    <div class="col-12">
+                      <div class="readonly-field">
+                        <span class="readonly-label">Detalle de Medicamentos</span>
+                        <div class="readonly-value textarea-content">
+                          {{ patientData.healthInfo.medications }}
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Historial de Salud -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-info text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-clipboard2-pulse me-2"></i>
+                Historial de Salud Mental
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="readonly-view">
+                <div class="row g-3">
+                  <div class="col-md-12">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-clock-history"></i>
+                        Tratamiento Psicológico/Psiquiátrico Previo
+                      </span>
+                      <div class="readonly-value">
+                        <span [class]="'readonly-check ' + (patientData.healthHistory.hasPreviousTreatment ? 'checked' : 'unchecked')">
+                          <i [class]="patientData.healthHistory.hasPreviousTreatment ? 'bi bi-check-circle-fill' : 'bi bi-x-circle'"></i>
+                          {{ patientData.healthHistory.hasPreviousTreatment ? 'Sí' : 'No' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  @if (patientData.healthHistory.hasPreviousTreatment && patientData.healthHistory.previousTreatmentDetails) {
+                    <div class="col-12">
+                      <div class="readonly-field">
+                        <span class="readonly-label">Detalles del Tratamiento Previo</span>
+                        <div class="readonly-value textarea-content">
+                          {{ patientData.healthHistory.previousTreatmentDetails }}
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  <div class="col-md-12">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-heart-pulse"></i>
+                        Condiciones Médicas Relevantes
+                      </span>
+                      <div class="readonly-value">
+                        <span [class]="'readonly-check ' + (patientData.healthHistory.hasMedicalConditions ? 'checked' : 'unchecked')">
+                          <i [class]="patientData.healthHistory.hasMedicalConditions ? 'bi bi-check-circle-fill' : 'bi bi-x-circle'"></i>
+                          {{ patientData.healthHistory.hasMedicalConditions ? 'Sí' : 'No' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  @if (patientData.healthHistory.hasMedicalConditions && patientData.healthHistory.medicalConditions) {
+                    <div class="col-12">
+                      <div class="readonly-field">
+                        <span class="readonly-label">Detalles de Condiciones Médicas</span>
+                        <div class="readonly-value textarea-content">
+                          {{ patientData.healthHistory.medicalConditions }}
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  <div class="col-md-12">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-bandaid"></i>
+                        Antecedentes de Trauma
+                      </span>
+                      <div class="readonly-value">
+                        <span [class]="'readonly-check ' + (patientData.healthHistory.hasTrauma ? 'checked' : 'unchecked')">
+                          <i [class]="patientData.healthHistory.hasTrauma ? 'bi bi-check-circle-fill' : 'bi bi-x-circle'"></i>
+                          {{ patientData.healthHistory.hasTrauma ? 'Sí' : 'No' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  @if (patientData.healthHistory.hasTrauma && patientData.healthHistory.traumaDetails) {
+                    <div class="col-12">
+                      <div class="readonly-field">
+                        <span class="readonly-label">Detalles del Trauma</span>
+                        <div class="readonly-value textarea-content">
+                          {{ patientData.healthHistory.traumaDetails }}
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Antecedentes Familiares de Salud Mental -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-secondary text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-diagram-3 me-2"></i>
+                Antecedentes Familiares de Salud Mental
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="readonly-view">
+                <div class="row g-3">
+                  <div class="col-md-12">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-people"></i>
+                        Antecedentes Familiares
+                      </span>
+                      <div class="readonly-value">
+                        <span [class]="'readonly-check ' + (patientData.healthBackground.hasFamilyHistory ? 'checked' : 'unchecked')">
+                          <i [class]="patientData.healthBackground.hasFamilyHistory ? 'bi bi-check-circle-fill' : 'bi bi-x-circle'"></i>
+                          {{ patientData.healthBackground.hasFamilyHistory ? 'Sí' : 'No' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  @if (patientData.healthBackground.hasFamilyHistory && patientData.healthBackground.familyHistoryDetails) {
+                    <div class="col-12">
+                      <div class="readonly-field">
+                        <span class="readonly-label">Detalles de Antecedentes Familiares</span>
+                        <div class="readonly-value textarea-content">
+                          {{ patientData.healthBackground.familyHistoryDetails }}
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  <div class="col-md-12">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-cup-straw"></i>
+                        Consumo de Sustancias
+                      </span>
+                      <div class="readonly-value">
+                        <span [class]="'readonly-check ' + (patientData.healthBackground.hasSubstanceUse ? 'checked' : 'unchecked')">
+                          <i [class]="patientData.healthBackground.hasSubstanceUse ? 'bi bi-check-circle-fill' : 'bi bi-x-circle'"></i>
+                          {{ patientData.healthBackground.hasSubstanceUse ? 'Sí' : 'No' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  @if (patientData.healthBackground.hasSubstanceUse && patientData.healthBackground.substanceUseDetails) {
+                    <div class="col-12">
+                      <div class="readonly-field">
+                        <span class="readonly-label">Detalles de Consumo de Sustancias</span>
+                        <div class="readonly-value textarea-content">
+                          {{ patientData.healthBackground.substanceUseDetails }}
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  <div class="col-md-12">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-exclamation-octagon"></i>
+                        Conductas de Riesgo
+                      </span>
+                      <div class="readonly-value">
+                        <span [class]="'readonly-check ' + (patientData.healthBackground.hasRiskBehaviors ? 'checked' : 'unchecked')">
+                          <i [class]="patientData.healthBackground.hasRiskBehaviors ? 'bi bi-check-circle-fill' : 'bi bi-x-circle'"></i>
+                          {{ patientData.healthBackground.hasRiskBehaviors ? 'Sí' : 'No' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  @if (patientData.healthBackground.hasRiskBehaviors && patientData.healthBackground.riskBehaviorsDetails) {
+                    <div class="col-12">
+                      <div class="readonly-field">
+                        <span class="readonly-label">Detalles de Conductas de Riesgo</span>
+                        <div class="readonly-value textarea-content">
+                          {{ patientData.healthBackground.riskBehaviorsDetails }}
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Información de Remisión -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-arrow-right-circle me-2"></i>
+                Información de Remisión
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="readonly-view">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-signpost"></i>
+                        Fuente de Remisión
+                      </span>
+                      <div class="readonly-value">
+                        {{ getReferralSourceLabel(patientData.referralInfo.referralSource) }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="readonly-field">
+                      <span class="readonly-label">
+                        <i class="bi bi-info-circle"></i>
+                        Detalles de Remisión
+                      </span>
+                      <div class="readonly-value">
+                        {{ patientData.referralInfo.referralDetails || 'No especificado' }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Atención Psiquiátrica Previa -->
+          @if (patientData.psychiatricAttention?.hasAttended) {
+            <div class="card shadow-sm mb-4">
+              <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                  <i class="bi bi-hospital me-2"></i>
+                  Atención Psiquiátrica Previa
+                </h5>
+              </div>
+              <div class="card-body">
+                <div class="readonly-view">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-calendar-check"></i>
+                          Última Atención
+                        </span>
+                        <div class="readonly-value">
+                          {{ formatDate(patientData.psychiatricAttention.lastAttendance) }}
+                        </div>
+                      </div>
+                    </div>
+
+                    @if (patientData.psychiatricAttention.diagnosis) {
+                      <div class="col-md-6">
+                        <div class="readonly-field">
+                          <span class="readonly-label">
+                            <i class="bi bi-clipboard2-check"></i>
+                            Diagnóstico
+                          </span>
+                          <div class="readonly-value">
+                            {{ patientData.psychiatricAttention.diagnosis }}
+                          </div>
+                        </div>
+                      </div>
+                    }
+
+                    @if (patientData.psychiatricAttention.hasMedication) {
+                      <div class="col-12">
+                        <div class="readonly-field">
+                          <span class="readonly-label">
+                            <i class="bi bi-capsule"></i>
+                            Medicación Actual
+                          </span>
+                          <div class="readonly-value textarea-content">
+                            {{ patientData.psychiatricAttention.currentMedication }}
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Atención Psicológica Previa -->
+          @if (patientData.psychologicalAttention?.hasAttended) {
+            <div class="card shadow-sm mb-4">
+              <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                  <i class="bi bi-chat-dots me-2"></i>
+                  Atención Psicológica Previa
+                </h5>
+              </div>
+              <div class="card-body">
+                <div class="readonly-view">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-calendar-check"></i>
+                          Última Atención
+                        </span>
+                        <div class="readonly-value">
+                          {{ formatDate(patientData.psychologicalAttention.lastAttendance) }}
+                        </div>
+                      </div>
+                    </div>
+
+                    @if (patientData.psychologicalAttention.treatmentType) {
+                      <div class="col-md-6">
+                        <div class="readonly-field">
+                          <span class="readonly-label">
+                            <i class="bi bi-journal-medical"></i>
+                            Tipo de Tratamiento
+                          </span>
+                          <div class="readonly-value">
+                            {{ patientData.psychologicalAttention.treatmentType }}
+                          </div>
+                        </div>
+                      </div>
+                    }
+
+                    @if (patientData.psychologicalAttention.duration) {
+                      <div class="col-md-6">
+                        <div class="readonly-field">
+                          <span class="readonly-label">
+                            <i class="bi bi-hourglass"></i>
+                            Duración
+                          </span>
+                          <div class="readonly-value">
+                            {{ patientData.psychologicalAttention.duration }}
+                          </div>
+                        </div>
+                      </div>
+                    }
+
+                    @if (patientData.psychologicalAttention.outcome) {
+                      <div class="col-md-6">
+                        <div class="readonly-field">
+                          <span class="readonly-label">
+                            <i class="bi bi-graph-up"></i>
+                            Resultado
+                          </span>
+                          <div class="readonly-value">
+                            {{ patientData.psychologicalAttention.outcome }}
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Información de Registro -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-secondary text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-clock-history me-2"></i>
+                Información de Registro
+              </h5>
+            </div>
+            <div class="card-body">
+              <div class="readonly-view">
+                <div class="row g-3">
+                  @if (patientData.createdAt) {
+                    <div class="col-md-6">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-calendar-plus"></i>
+                          Fecha de Registro
+                        </span>
+                        <div class="readonly-value">
+                          {{ formatDate(patientData.createdAt) }}
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  @if (patientData.updatedAt) {
+                    <div class="col-md-6">
+                      <div class="readonly-field">
+                        <span class="readonly-label">
+                          <i class="bi bi-pencil-square"></i>
+                          Última Actualización
+                        </span>
+                        <div class="readonly-value">
+                          {{ formatDate(patientData.updatedAt) }}
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Acciones -->
+          <div class="card shadow-sm">
+            <div class="card-body text-center">
+              <button
+                type="button"
+                class="btn btn-primary btn-lg"
+                (click)="goToProcesses()"
+              >
+                <i class="bi bi-clipboard-pulse me-2"></i>
+                Ver Procesos Terapéuticos de este Paciente
+              </button>
+            </div>
+          </div>
+        }
+
+        @if (!isLoading() && !patient()) {
+          <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            No se encontró el paciente solicitado.
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+

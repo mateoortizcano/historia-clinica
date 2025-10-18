@@ -29,14 +29,24 @@
                     </span>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  class="btn btn-success btn-lg"
-                  (click)="createNewProcess()"
-                >
-                  <i class="bi bi-plus-circle me-2"></i>
-                  Nuevo Proceso Terapéutico
-                </button>
+                <div class="d-flex gap-2">
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary btn-lg"
+                    (click)="viewPatientDetail()"
+                  >
+                    <i class="bi bi-eye me-2"></i>
+                    Ver Datos del Paciente
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-success btn-lg"
+                    (click)="createNewProcess()"
+                  >
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Nuevo Proceso Terapéutico
+                  </button>
+                </div>
               </div>
             </div>
           </div>

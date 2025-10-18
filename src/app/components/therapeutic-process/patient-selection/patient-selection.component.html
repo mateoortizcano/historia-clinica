@@ -86,11 +86,7 @@
             } @else {
               <div class="list-group list-group-flush">
                 @for (patient of filteredPatients(); track patient.id) {
-                  <button
-                    type="button"
-                    class="list-group-item list-group-item-action patient-item"
-                    (click)="selectPatient(patient.id)"
-                  >
+                  <div class="list-group-item patient-item">
                     <div class="d-flex w-100 justify-content-between align-items-start">
                       <div class="flex-grow-1">
                         <div class="d-flex align-items-center mb-2">
@@ -126,11 +122,26 @@
                           </div>
                         }
                       </div>
-                      <div class="ms-3">
-                        <i class="bi bi-chevron-right text-muted"></i>
+                      <div class="ms-3 d-flex flex-column gap-2">
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary btn-sm"
+                          (click)="viewPatientDetail(patient.id)"
+                        >
+                          <i class="bi bi-eye me-1"></i>
+                          Ver Datos
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-primary btn-sm"
+                          (click)="selectPatient(patient.id)"
+                        >
+                          <i class="bi bi-clipboard-pulse me-1"></i>
+                          Procesos
+                        </button>
                       </div>
                     </div>
-                  </button>
+                  </div>
                 }
               </div>
             }
