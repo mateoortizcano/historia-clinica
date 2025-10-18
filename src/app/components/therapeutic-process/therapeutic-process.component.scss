@@ -1,0 +1,188 @@
+.therapeutic-process-container {
+  background-color: var(--bs-gray-100);
+  min-height: 100vh;
+
+  .container-fluid {
+    max-width: 1400px;
+  }
+}
+
+.page-title {
+  color: var(--bs-gray-900);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.page-description {
+  color: var(--bs-gray-600);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+// Custom Tabs Styling
+.nav-tabs-custom {
+  border-bottom: none;
+  padding: 0.5rem;
+  gap: 0.5rem;
+
+  .nav-item {
+    margin-bottom: 0;
+  }
+
+  .nav-link {
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    color: var(--bs-gray-700);
+    background-color: transparent;
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: var(--bs-gray-100);
+      color: var(--bs-primary);
+    }
+
+    &.active {
+      background-color: var(--bs-primary);
+      color: white;
+      border-color: var(--bs-primary);
+
+      &:hover {
+        background-color: var(--bs-primary);
+        color: white;
+      }
+    }
+
+    i {
+      font-size: 1.1rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+    }
+  }
+}
+
+// Tab Content
+.tab-pane-custom {
+  animation: fadeIn 0.3s ease;
+
+  &.active {
+    display: block;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Action Buttons
+.action-buttons {
+  .btn {
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    white-space: nowrap;
+  }
+}
+
+// Help Section
+.help-item {
+  h6 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: var(--bs-gray-600);
+    line-height: 1.4;
+  }
+}
+
+// Bootstrap icons support
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css');
+
+// Responsive adjustments
+@media (max-width: 992px) {
+  .nav-tabs-custom {
+    flex-direction: column;
+
+    .nav-item {
+      width: 100%;
+    }
+
+    .nav-link {
+      width: 100%;
+      text-align: left;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .page-description {
+    font-size: 0.9rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    
+    .left-buttons,
+    .right-buttons {
+      width: 100%;
+    }
+
+    .right-buttons {
+      flex-direction: column;
+      
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+
+  .help-item {
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Card styling consistency
+.card {
+  border: none;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+// Alert styling
+.alert {
+  border-radius: 0.5rem;
+  border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+// Status message styling
+small {
+  i {
+    font-size: 0.9rem;
+  }
+}

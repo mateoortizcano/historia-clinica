@@ -1,0 +1,201 @@
+<div class="section-container">
+  <h3 class="section-title">Registro de Sesiones</h3>
+  <p class="section-description">
+    Registre cada sesión o cita con el paciente. Puede agregar múltiples sesiones y editarlas posteriormente.
+  </p>
+
+  <!-- Lista de sesiones existentes -->
+  @if (sessionsCount() > 0) {
+    <div class="sessions-list mb-4">
+      <h5 class="mb-3">Sesiones Registradas ({{ sessionsCount() }})</h5>
+      @for (session of sessions(); track session.sessionNumber; let i = $index) {
+        <div class="session-card card mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="flex-grow-1">
+                <h6 class="card-title mb-2">
+                  <span class="badge bg-primary me-2">Sesión {{ session.sessionNumber }}</span>
+                  {{ session.date }} - {{ session.time }}
+                </h6>
+                <p class="card-text mb-2">
+                  <strong>Objetivos/Técnicas:</strong> {{ session.objectivesAndTechniques }}
+                </p>
+                <p class="card-text text-muted mb-0">
+                  {{ getSessionSummary(session) }}
+                </p>
+              </div>
+              <div class="btn-group ms-3" role="group">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-primary"
+                  (click)="editSession(i)"
+                  [disabled]="showForm()"
+                >
+                  <i class="bi bi-pencil"></i> Editar
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="deleteSession(i)"
+                  [disabled]="showForm()"
+                >
+                  <i class="bi bi-trash"></i> Eliminar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Botón para agregar nueva sesión -->
+  @if (!showForm()) {
+    <div class="mb-4">
+      <button
+        type="button"
+        class="btn btn-success"
+        (click)="startNewSession()"
+      >
+        <i class="bi bi-plus-circle me-2"></i>
+        {{ sessionsCount() === 0 ? 'Registrar Primera Sesión' : 'Agregar Nueva Sesión' }}
+      </button>
+    </div>
+  }
+
+  <!-- Formulario de sesión -->
+  @if (showForm()) {
+    <div class="session-form card border-primary">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">
+          {{ isEditing() ? 'Editar Sesión' : 'Nueva Sesión' }}
+        </h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form">
+          <div class="row g-3">
+            <!-- Número de sesión -->
+            <div class="col-md-4">
+              <label for="sessionNumber" class="form-label required">Número de Sesión</label>
+              <input
+                type="number"
+                id="sessionNumber"
+                formControlName="sessionNumber"
+                class="form-control"
+                [class.is-invalid]="form.get('sessionNumber')?.invalid && form.get('sessionNumber')?.touched"
+                readonly
+              />
+            </div>
+
+            <!-- Fecha -->
+            <div class="col-md-4">
+              <label for="date" class="form-label required">Fecha</label>
+              <input
+                type="date"
+                id="date"
+                formControlName="date"
+                class="form-control"
+                [class.is-invalid]="form.get('date')?.invalid && form.get('date')?.touched"
+              />
+              @if (form.get('date')?.invalid && form.get('date')?.touched) {
+                <div class="invalid-feedback">La fecha es requerida</div>
+              }
+            </div>
+
+            <!-- Hora -->
+            <div class="col-md-4">
+              <label for="time" class="form-label required">Hora</label>
+              <input
+                type="time"
+                id="time"
+                formControlName="time"
+                class="form-control"
+                [class.is-invalid]="form.get('time')?.invalid && form.get('time')?.touched"
+              />
+              @if (form.get('time')?.invalid && form.get('time')?.touched) {
+                <div class="invalid-feedback">La hora es requerida</div>
+              }
+            </div>
+
+            <!-- Objetivos y Técnicas -->
+            <div class="col-12">
+              <label for="objectivesAndTechniques" class="form-label required">
+                Objetivos / Técnicas - Instrumentos
+              </label>
+              <textarea
+                id="objectivesAndTechniques"
+                formControlName="objectivesAndTechniques"
+                class="form-control"
+                [class.is-invalid]="form.get('objectivesAndTechniques')?.invalid && form.get('objectivesAndTechniques')?.touched"
+                rows="4"
+                maxlength="2000"
+                placeholder="Describa los objetivos de la sesión y las técnicas o instrumentos utilizados"
+              ></textarea>
+              @if (form.get('objectivesAndTechniques')?.invalid && form.get('objectivesAndTechniques')?.touched) {
+                <div class="invalid-feedback">
+                  Este campo es requerido (máximo 2000 caracteres)
+                </div>
+              }
+              <div class="form-text">
+                {{ form.get('objectivesAndTechniques')?.value?.length || 0 }}/2000 caracteres
+              </div>
+            </div>
+
+            <!-- Descripción de la sesión -->
+            <div class="col-12">
+              <label for="sessionDescription" class="form-label required">
+                Descripción de la Sesión
+              </label>
+              <textarea
+                id="sessionDescription"
+                formControlName="sessionDescription"
+                class="form-control"
+                [class.is-invalid]="form.get('sessionDescription')?.invalid && form.get('sessionDescription')?.touched"
+                rows="8"
+                maxlength="5000"
+                placeholder="Describa detalladamente lo ocurrido durante la sesión, observaciones relevantes, respuesta del paciente a las intervenciones, etc."
+              ></textarea>
+              @if (form.get('sessionDescription')?.invalid && form.get('sessionDescription')?.touched) {
+                <div class="invalid-feedback">
+                  Este campo es requerido (máximo 5000 caracteres)
+                </div>
+              }
+              <div class="form-text">
+                {{ form.get('sessionDescription')?.value?.length || 0 }}/5000 caracteres
+              </div>
+            </div>
+          </div>
+
+          <!-- Botones del formulario -->
+          <div class="d-flex gap-2 mt-4">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="saveSession()"
+            >
+              <i class="bi bi-check-circle me-2"></i>
+              {{ isEditing() ? 'Guardar Cambios' : 'Guardar Sesión' }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="cancelEdit()"
+            >
+              <i class="bi bi-x-circle me-2"></i>
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- Mensaje si no hay sesiones -->
+  @if (sessionsCount() === 0 && !showForm()) {
+    <div class="alert alert-info">
+      <i class="bi bi-info-circle me-2"></i>
+      No hay sesiones registradas aún. Haga clic en el botón para registrar la primera sesión.
+    </div>
+  }
+</div>
+

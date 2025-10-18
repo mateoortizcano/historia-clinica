@@ -1,0 +1,88 @@
+<div class="section-container">
+  <h3 class="section-title">Motivo de Consulta</h3>
+  <p class="section-description">
+    Registre el motivo principal de la consulta y los códigos diagnósticos correspondientes.
+  </p>
+
+  <form [formGroup]="form">
+    <div class="row g-3">
+      <!-- Motivo de la consulta -->
+      <div class="col-12">
+        <label for="reason" class="form-label required">Motivo de la consulta</label>
+        <textarea
+          id="reason"
+          formControlName="reason"
+          class="form-control"
+          [class.is-invalid]="form.get('reason')?.invalid && form.get('reason')?.touched"
+          rows="4"
+          maxlength="1000"
+          placeholder="Describa el motivo principal por el cual el paciente solicita atención psicológica"
+        ></textarea>
+        @if (form.get('reason')?.invalid && form.get('reason')?.touched) {
+          <div class="invalid-feedback">
+            Este campo es requerido (máximo 1000 caracteres)
+          </div>
+        }
+        <div class="form-text">
+          {{ form.get('reason')?.value?.length || 0 }}/1000 caracteres
+        </div>
+      </div>
+
+      <!-- Códigos diagnósticos -->
+      <div class="col-md-6">
+        <label for="cieCode" class="form-label">Código CIE-10</label>
+        <input
+          type="text"
+          id="cieCode"
+          formControlName="cieCode"
+          class="form-control"
+          maxlength="50"
+          placeholder="Ej: F41.1"
+        />
+        <div class="form-text">
+          Clasificación Internacional de Enfermedades (opcional)
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="dsmCode" class="form-label">Código DSM-5</label>
+        <input
+          type="text"
+          id="dsmCode"
+          formControlName="dsmCode"
+          class="form-control"
+          maxlength="50"
+          placeholder="Ej: 300.02"
+        />
+        <div class="form-text">
+          Manual Diagnóstico y Estadístico (opcional)
+        </div>
+      </div>
+
+      <!-- Descripción de la situación actual -->
+      <div class="col-12">
+        <label for="situationDescription" class="form-label required">
+          Descripción de la situación actual
+        </label>
+        <textarea
+          id="situationDescription"
+          formControlName="situationDescription"
+          class="form-control"
+          [class.is-invalid]="form.get('situationDescription')?.invalid && form.get('situationDescription')?.touched"
+          rows="8"
+          maxlength="5000"
+          placeholder="Indique cómo esta situación ha afectado la vida familiar, social, laboral o académica del paciente. Identifique las redes de apoyo con las que cuenta y las estrategias que han intentado para solucionar la problemática"
+        ></textarea>
+        @if (form.get('situationDescription')?.invalid && form.get('situationDescription')?.touched) {
+          <div class="invalid-feedback">
+            Este campo es requerido (máximo 5000 caracteres)
+          </div>
+        }
+        <div class="form-text">
+          {{ form.get('situationDescription')?.value?.length || 0 }}/5000 caracteres
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+

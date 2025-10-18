@@ -1,0 +1,59 @@
+.section-container {
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+}
+
+.section-title {
+  color: var(--bs-gray-900);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.section-description {
+  color: var(--bs-gray-600);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.form-label {
+  font-weight: 500;
+  color: var(--bs-gray-700);
+  margin-bottom: 0.5rem;
+
+  &.required::after {
+    content: ' *';
+    color: var(--bs-danger);
+  }
+}
+
+.form-control,
+.form-select {
+  &:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+  }
+}
+
+.form-text {
+  font-size: 0.85rem;
+  color: var(--bs-gray-600);
+}
+
+.invalid-feedback {
+  font-size: 0.875rem;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .section-container {
+    padding: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+}
+

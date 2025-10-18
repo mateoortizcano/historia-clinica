@@ -1,0 +1,210 @@
+<div class="therapeutic-process-container">
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <!-- Header -->
+        <div class="mb-4">
+          <h1 class="page-title">Proceso Terapéutico</h1>
+          <p class="page-description">
+            Gestione el proceso terapéutico completo: registre el motivo de consulta, agregue sesiones conforme ocurran,
+            y cierre el proceso cuando finalice.
+          </p>
+        </div>
+
+        <!-- Process Info Card -->
+        <div class="alert alert-info d-flex align-items-center mb-3">
+          <i class="bi bi-info-circle-fill me-2"></i>
+          <div class="flex-grow-1">
+            <strong>Información:</strong>
+            @if (sessionsCount() === 0) {
+              Comience registrando el motivo de consulta. Luego agregue sesiones conforme se realicen las citas.
+            } @else {
+              Sesiones registradas: <strong>{{ sessionsCount() }}</strong>. 
+              Puede continuar agregando sesiones o cerrar el proceso cuando finalice.
+            }
+          </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="card shadow-sm mb-3">
+          <div class="card-body p-0">
+            <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
+              @for (tab of tabs(); track tab.id) {
+                <li class="nav-item" role="presentation">
+                  <button
+                    [class]="'nav-link ' + (isTabActive(tab.id) ? 'active' : '')"
+                    type="button"
+                    role="tab"
+                    [attr.aria-selected]="isTabActive(tab.id)"
+                    (click)="selectTab(tab.id)"
+                  >
+                    <div class="d-flex align-items-center gap-2">
+                      <i [class]="'bi ' + tab.icon"></i>
+                      <span>{{ tab.label }}</span>
+                      @if (tab.id === 'sessions' && sessionsCount() > 0) {
+                        <span class="badge bg-primary rounded-pill">{{ sessionsCount() }}</span>
+                      }
+                      @if (tab.completed) {
+                        <i class="bi bi-check-circle-fill text-success ms-1"></i>
+                      }
+                    </div>
+                  </button>
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+          <!-- Motivo de Consulta Tab -->
+          @if (isTabActive('consultation-motive')) {
+            <div class="tab-pane-custom active">
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <app-consultation-motive-section
+                    [initialData]="processData().consultationMotive"
+                    (dataChange)="onConsultationMotiveChange($event)"
+                  />
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Sesiones Tab -->
+          @if (isTabActive('sessions')) {
+            <div class="tab-pane-custom active">
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <app-session-registration-section
+                    [initialData]="processData().sessions || []"
+                    (dataChange)="onSessionsChange($event)"
+                  />
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Cierre del Proceso Tab -->
+          @if (isTabActive('closure')) {
+            <div class="tab-pane-custom active">
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <app-process-closure-section
+                    [initialData]="processData().closure"
+                    (dataChange)="onClosureChange($event)"
+                  />
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="card shadow-sm mt-4">
+          <div class="card-body">
+            <div class="action-buttons d-flex gap-3 justify-content-between flex-wrap">
+              <div class="left-buttons">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  (click)="saveDraft()"
+                >
+                  <i class="bi bi-save me-2"></i>
+                  Guardar Borrador
+                </button>
+              </div>
+
+              <div class="right-buttons d-flex gap-2 flex-wrap">
+                @if (canFinishWithoutClosure()) {
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    (click)="saveWithoutClosure()"
+                  >
+                    <i class="bi bi-check-circle me-2"></i>
+                    Guardar Proceso en Curso
+                  </button>
+                }
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="submitForm()"
+                  [disabled]="!isFormValid()"
+                >
+                  <i class="bi bi-check-circle-fill me-2"></i>
+                  Finalizar y Cerrar Proceso
+                </button>
+              </div>
+            </div>
+
+            <!-- Status Message -->
+            <div class="mt-3">
+              @if (!canFinishWithoutClosure()) {
+                <small class="text-muted">
+                  <i class="bi bi-exclamation-triangle me-1"></i>
+                  Complete el motivo de consulta y registre al menos una sesión para guardar el proceso
+                </small>
+              } @else if (!isFormValid()) {
+                <small class="text-warning">
+                  <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                  Para finalizar el proceso, complete también el cierre del proceso
+                </small>
+              } @else {
+                <small class="text-success">
+                  <i class="bi bi-check-circle-fill me-1"></i>
+                  Proceso completo y listo para finalizar
+                </small>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Help Section -->
+        <div class="card border-light bg-light mt-4">
+          <div class="card-body">
+            <h6 class="card-title">
+              <i class="bi bi-lightbulb me-2"></i>
+              Guía de Uso
+            </h6>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="help-item">
+                  <h6 class="text-primary">
+                    <i class="bi bi-clipboard-pulse me-1"></i>
+                    Motivo de Consulta
+                  </h6>
+                  <p class="small mb-0">
+                    Registre el motivo inicial cuando el paciente inicia el proceso. Puede editarlo posteriormente si es necesario.
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="help-item">
+                  <h6 class="text-primary">
+                    <i class="bi bi-calendar-check me-1"></i>
+                    Sesiones
+                  </h6>
+                  <p class="small mb-0">
+                    Agregue cada sesión después de realizarla. Puede agregar, editar o eliminar sesiones en cualquier momento.
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="help-item">
+                  <h6 class="text-primary">
+                    <i class="bi bi-check-circle me-1"></i>
+                    Cierre del Proceso
+                  </h6>
+                  <p class="small mb-0">
+                    Complete esta sección cuando el proceso terapéutico finalice. Puede guardar el proceso sin cierre si aún está en curso.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

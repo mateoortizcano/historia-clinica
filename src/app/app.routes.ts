@@ -13,15 +13,18 @@ export const routes: Routes = [
         (m) => m.PatientRegistrationComponent
       ),
   },
-  // Mantener rutas antiguas por compatibilidad (redirigen al nuevo componente)
   {
-    path: 'pacientes/registro-adulto',
-    redirectTo: '/pacientes/registro',
-    pathMatch: 'full',
+    path: 'proceso-terapeutico',
+    loadComponent: () =>
+      import('./components/therapeutic-process/therapeutic-process.component').then(
+        (m) => m.TherapeuticProcessComponent
+      ),
   },
   {
-    path: 'pacientes/registro-menor',
-    redirectTo: '/pacientes/registro',
-    pathMatch: 'full',
+    path: 'proceso-terapeutico/:patientId',
+    loadComponent: () =>
+      import('./components/therapeutic-process/therapeutic-process.component').then(
+        (m) => m.TherapeuticProcessComponent
+      ),
   },
 ];

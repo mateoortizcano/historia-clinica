@@ -98,13 +98,13 @@ Estos datos se podrian, a partir de la información básica, solicitar en cualqu
         * A nivel familia 
 
 ## Datos del motivo de consulta (Una consulta engloba varios encuentros/citas cuyo objetivo es resolver el motivo)
-Esto se abre cada vez que el paciente llega a consulta por un nuevo caso. En cada motivo de consulta pueden haber varias citas/encuentros
+Esto se abre cada vez que el paciente llega a consulta por un nuevo caso. En cada motivo de consulta pueden haber varias citas/encuentros. Lo llamaremos aqui como proceso.
 
 * Motivo de la consulta: Campo de texto. Adicional se especifica aquí el Código CIE X - DSM V
 
 * Descripción de la situación actual: Indique cómo esta situación ha afectado su vida familiar, social, laboral, académica. Identifique las redes sociales con las que cuenta la persona y la manera como han intentado (padres, hermanos, familiares) solucionar su problemática
 
-## Registro de la sesión
+## Registro de la sesión(Cita)
 Esto se hace por cada visita que haga el paciente
 
 * Nro de la sesión
