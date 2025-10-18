@@ -26,6 +26,7 @@ export class ProcessClosureSectionComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   initialData = input<Partial<ProcessClosure>>();
+  readOnly = input(false);
   dataChange = output<Partial<ProcessClosure>>();
 
   selectedStatus = signal<ProcessStatus | null>(null);
@@ -77,6 +78,11 @@ export class ProcessClosureSectionComponent implements OnInit {
   ];
 
   ngOnInit() {
+    // Deshabilitar el formulario si es solo lectura
+    if (this.readOnly()) {
+      this.form.disable();
+    }
+
     const data = this.initialData();
     if (data) {
       // Cargar datos iniciales
@@ -135,7 +141,7 @@ export class ProcessClosureSectionComponent implements OnInit {
 
     // Emitir cambios
     this.form.valueChanges.subscribe(() => {
-      if (this.form.valid) {
+      if (this.form.valid && !this.readOnly()) {
         this.dataChange.emit(this.buildClosureData());
       }
     });

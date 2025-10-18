@@ -66,24 +66,40 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 - Guardado de borradores
 
 ### 2. Proceso Terapéutico
-- **Ruta:** `/proceso-terapeutico`
-- Registro del motivo de consulta con códigos diagnósticos (CIE-10, DSM-5)
-- Gestión de sesiones individuales (agregar, editar, eliminar)
-- Cierre de proceso con diferentes estados
-- Documentación completa de cada sesión
+- **Flujo completo:**
+  1. Selección de paciente (búsqueda inteligente)
+  2. Visualización de procesos del paciente (activos/cerrados)
+  3. Crear nuevo proceso o continuar existente
+- **Gestión de procesos:**
+  - Registro del motivo de consulta con códigos diagnósticos (CIE-10, DSM-5)
+  - Gestión de sesiones individuales
+    - ✅ **Agregar** nuevas sesiones
+    - ✅ **Visualizar** sesiones guardadas (expandible)
+    - ❌ **No editar/eliminar** (inmutables una vez guardadas)
+  - Cierre de proceso con diferentes estados
+  - Historial completo de procesos cerrados
+- **Vinculación:** Todo proceso está asociado a un paciente registrado
+- **Integridad de Datos:**
+  - 🔒 Procesos cerrados: modo solo lectura completo
+  - 🔒 Sesiones guardadas: inmutables pero visualizables
 
 ## Rutas Disponibles
 
 ```
-/pacientes/registro            - Registro de nuevo paciente (adulto o menor)
-/proceso-terapeutico          - Nuevo proceso terapéutico
-/proceso-terapeutico/:patientId - Proceso asociado a paciente específico
+/pacientes/registro                                    - Registro de nuevo paciente
+/proceso-terapeutico                                  - Selección de paciente
+/proceso-terapeutico/paciente/:patientId              - Ver procesos del paciente
+/proceso-terapeutico/paciente/:patientId/nuevo        - Crear nuevo proceso
+/proceso-terapeutico/paciente/:patientId/proceso/:id  - Editar proceso existente
 ```
 
 ## Documentación Adicional
 
+- **[FLUJO-PROCESO-TERAPEUTICO.md](./FLUJO-PROCESO-TERAPEUTICO.md)** - Flujo completo y arquitectura del proceso terapéutico
+- **[PROCESOS-CERRADOS-READONLY.md](./PROCESOS-CERRADOS-READONLY.md)** - Modo solo lectura para procesos cerrados
+- **[SESIONES-INMUTABLES.md](./SESIONES-INMUTABLES.md)** - Sesiones inmutables una vez guardadas
 - **[PROCESO-TERAPEUTICO.md](./PROCESO-TERAPEUTICO.md)** - Guía completa del sistema de proceso terapéutico
-- **[RESUMEN-IMPLEMENTACION-PROCESO-TERAPEUTICO.md](./RESUMEN-IMPLEMENTACION-PROCESO-TERAPEUTICO.md)** - Resumen técnico de la implementación
+- **[CAMBIOS-TABS-IMPLEMENTATION.md](./CAMBIOS-TABS-IMPLEMENTATION.md)** - Migración de stepper a tabs
 - **[descripcion-proyecto.md](./.cursor/especificaciones/descripcion-proyecto.md)** - Descripción general del proyecto
 - **[estructura-general.md](./.cursor/especificaciones/historias de usuario/estructura-general.md)** - Especificaciones de formularios
 

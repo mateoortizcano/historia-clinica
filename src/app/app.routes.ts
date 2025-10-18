@@ -16,12 +16,26 @@ export const routes: Routes = [
   {
     path: 'proceso-terapeutico',
     loadComponent: () =>
+      import('./components/therapeutic-process/patient-selection/patient-selection.component').then(
+        (m) => m.PatientSelectionComponent
+      ),
+  },
+  {
+    path: 'proceso-terapeutico/paciente/:patientId',
+    loadComponent: () =>
+      import('./components/therapeutic-process/process-selection/process-selection.component').then(
+        (m) => m.ProcessSelectionComponent
+      ),
+  },
+  {
+    path: 'proceso-terapeutico/paciente/:patientId/nuevo',
+    loadComponent: () =>
       import('./components/therapeutic-process/therapeutic-process.component').then(
         (m) => m.TherapeuticProcessComponent
       ),
   },
   {
-    path: 'proceso-terapeutico/:patientId',
+    path: 'proceso-terapeutico/paciente/:patientId/proceso/:processId',
     loadComponent: () =>
       import('./components/therapeutic-process/therapeutic-process.component').then(
         (m) => m.TherapeuticProcessComponent

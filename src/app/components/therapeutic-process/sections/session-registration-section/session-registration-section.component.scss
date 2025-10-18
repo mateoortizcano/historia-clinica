@@ -4,6 +4,11 @@
   .session-card {
     transition: box-shadow 0.2s ease;
 
+    &.session-locked {
+      border-left: 3px solid var(--bs-secondary);
+      background-color: var(--bs-gray-50);
+    }
+
     &:hover {
       box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
     }
@@ -12,6 +17,11 @@
       color: var(--bs-gray-800);
       font-size: 1rem;
       font-weight: 600;
+
+      .badge {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.5rem;
+      }
     }
 
     .card-text {
@@ -21,6 +31,34 @@
 
     .btn-group {
       flex-shrink: 0;
+    }
+
+    .session-details-expanded {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 2px solid var(--bs-gray-200);
+      animation: slideDown 0.3s ease;
+
+      .detail-section {
+        .detail-label {
+          display: block;
+          font-weight: 600;
+          color: var(--bs-gray-700);
+          margin-bottom: 0.5rem;
+          font-size: 0.9rem;
+        }
+
+        .detail-content {
+          padding: 0.75rem;
+          background-color: white;
+          border: 1px solid var(--bs-gray-300);
+          border-radius: 0.375rem;
+          color: var(--bs-gray-800);
+          line-height: 1.6;
+          white-space: pre-wrap;
+          word-wrap: break-word;
+        }
+      }
     }
   }
 }
@@ -32,6 +70,10 @@
     h5 {
       font-weight: 600;
     }
+  }
+
+  .alert-warning {
+    border-left: 4px solid var(--bs-warning);
   }
 }
 

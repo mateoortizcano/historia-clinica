@@ -22,11 +22,13 @@ export class SessionRegistrationSectionComponent {
   private fb = inject(FormBuilder);
 
   initialData = input<Session[]>([]);
+  readOnly = input(false);
   dataChange = output<Session[]>();
 
   sessions = signal<Session[]>([]);
   editingSessionIndex = signal<number | null>(null);
   showForm = signal(false);
+  expandedSessionIndex = signal<number | null>(null);
 
   sessionsCount = computed(() => this.sessions().length);
   isEditing = computed(() => this.editingSessionIndex() !== null);
@@ -70,14 +72,6 @@ export class SessionRegistrationSectionComponent {
     this.showForm.set(true);
   }
 
-  editSession(index: number) {
-    const session = this.sessions()[index];
-    this.form.patchValue(session);
-    this.form.get('sessionNumber')?.disable();
-    this.editingSessionIndex.set(index);
-    this.showForm.set(true);
-  }
-
   saveSession() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -88,39 +82,11 @@ export class SessionRegistrationSectionComponent {
       ...this.form.getRawValue(),
     } as Session;
 
-    const editIndex = this.editingSessionIndex();
-    if (editIndex !== null) {
-      // Editar sesión existente
-      this.sessions.update((sessions) => {
-        const updated = [...sessions];
-        updated[editIndex] = formValue;
-        return updated;
-      });
-    } else {
-      // Agregar nueva sesión
-      this.sessions.update((sessions) => [...sessions, formValue]);
-    }
+    // Solo se pueden agregar nuevas sesiones, no editar existentes
+    this.sessions.update((sessions) => [...sessions, formValue]);
 
     this.dataChange.emit(this.sessions());
     this.cancelEdit();
-  }
-
-  deleteSession(index: number) {
-    if (
-      confirm(
-        '¿Está seguro de que desea eliminar esta sesión? Esta acción no se puede deshacer.'
-      )
-    ) {
-      this.sessions.update((sessions) => {
-        const updated = sessions.filter((_, i) => i !== index);
-        // Renumerar las sesiones
-        return updated.map((session, idx) => ({
-          ...session,
-          sessionNumber: idx + 1,
-        }));
-      });
-      this.dataChange.emit(this.sessions());
-    }
   }
 
   cancelEdit() {
@@ -135,6 +101,18 @@ export class SessionRegistrationSectionComponent {
     return description.length > maxLength
       ? description.substring(0, maxLength) + '...'
       : description;
+  }
+
+  toggleSessionDetails(index: number) {
+    if (this.expandedSessionIndex() === index) {
+      this.expandedSessionIndex.set(null);
+    } else {
+      this.expandedSessionIndex.set(index);
+    }
+  }
+
+  isSessionExpanded(index: number): boolean {
+    return this.expandedSessionIndex() === index;
   }
 }
 

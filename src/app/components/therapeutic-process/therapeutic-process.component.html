@@ -2,14 +2,67 @@
   <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
+        <!-- Back Button -->
+        <button type="button" class="btn btn-outline-secondary mb-3" (click)="goBack()">
+          <i class="bi bi-arrow-left me-2"></i>
+          Volver a Procesos del Paciente
+        </button>
+
+        <!-- Patient Info Header -->
+        @if (patient(); as patientData) {
+          <div class="card shadow-sm mb-4">
+            <div class="card-body py-3">
+              <div class="d-flex align-items-center">
+                <i class="bi bi-person-circle me-2 text-primary fs-3"></i>
+                <div>
+                  <h5 class="mb-0">{{ patientData.fullName }}</h5>
+                  <small class="text-muted">
+                    ID: {{ patientData.idNumber }} | {{ patientData.age }} años
+                  </small>
+                </div>
+                @if (isNewProcess()) {
+                  <span class="badge bg-success ms-auto">NUEVO PROCESO</span>
+                } @else if (isReadOnly()) {
+                  <span class="badge bg-secondary ms-auto">PROCESO CERRADO - SOLO LECTURA</span>
+                } @else {
+                  <span class="badge bg-info ms-auto">EDITANDO PROCESO</span>
+                }
+              </div>
+            </div>
+          </div>
+        }
+
         <!-- Header -->
         <div class="mb-4">
-          <h1 class="page-title">Proceso Terapéutico</h1>
+          <h1 class="page-title">
+            @if (isNewProcess()) {
+              Nuevo Proceso Terapéutico
+            } @else if (isReadOnly()) {
+              Ver Proceso Terapéutico Cerrado
+            } @else {
+              Editar Proceso Terapéutico
+            }
+          </h1>
           <p class="page-description">
-            Gestione el proceso terapéutico completo: registre el motivo de consulta, agregue sesiones conforme ocurran,
-            y cierre el proceso cuando finalice.
+            @if (isReadOnly()) {
+              Este proceso ha sido cerrado y no se puede modificar. Puede consultar toda la información registrada.
+            } @else {
+              Gestione el proceso terapéutico completo: registre el motivo de consulta, agregue sesiones conforme ocurran,
+              y cierre el proceso cuando finalice.
+            }
           </p>
         </div>
+
+        <!-- Read-Only Alert -->
+        @if (isReadOnly()) {
+          <div class="alert alert-warning d-flex align-items-center mb-3">
+            <i class="bi bi-lock-fill me-2"></i>
+            <div class="flex-grow-1">
+              <strong>Proceso Cerrado:</strong>
+              Este proceso ha sido finalizado y no se puede editar. Puede revisar toda la información pero no realizar cambios.
+            </div>
+          </div>
+        }
 
         <!-- Process Info Card -->
         <div class="alert alert-info d-flex align-items-center mb-3">
@@ -64,6 +117,7 @@
                 <div class="card-body">
                   <app-consultation-motive-section
                     [initialData]="processData().consultationMotive"
+                    [readOnly]="isReadOnly()"
                     (dataChange)="onConsultationMotiveChange($event)"
                   />
                 </div>
@@ -78,6 +132,7 @@
                 <div class="card-body">
                   <app-session-registration-section
                     [initialData]="processData().sessions || []"
+                    [readOnly]="isReadOnly()"
                     (dataChange)="onSessionsChange($event)"
                   />
                 </div>
@@ -92,6 +147,7 @@
                 <div class="card-body">
                   <app-process-closure-section
                     [initialData]="processData().closure"
+                    [readOnly]="isReadOnly()"
                     (dataChange)="onClosureChange($event)"
                   />
                 </div>
@@ -101,64 +157,66 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="card shadow-sm mt-4">
-          <div class="card-body">
-            <div class="action-buttons d-flex gap-3 justify-content-between flex-wrap">
-              <div class="left-buttons">
-                <button
-                  type="button"
-                  class="btn btn-outline-secondary"
-                  (click)="saveDraft()"
-                >
-                  <i class="bi bi-save me-2"></i>
-                  Guardar Borrador
-                </button>
-              </div>
-
-              <div class="right-buttons d-flex gap-2 flex-wrap">
-                @if (canFinishWithoutClosure()) {
+        @if (!isReadOnly()) {
+          <div class="card shadow-sm mt-4">
+            <div class="card-body">
+              <div class="action-buttons d-flex gap-3 justify-content-between flex-wrap">
+                <div class="left-buttons">
                   <button
                     type="button"
-                    class="btn btn-outline-primary"
-                    (click)="saveWithoutClosure()"
+                    class="btn btn-outline-secondary"
+                    (click)="saveDraft()"
                   >
-                    <i class="bi bi-check-circle me-2"></i>
-                    Guardar Proceso en Curso
+                    <i class="bi bi-save me-2"></i>
+                    Guardar Borrador
                   </button>
+                </div>
+
+                <div class="right-buttons d-flex gap-2 flex-wrap">
+                  @if (canFinishWithoutClosure()) {
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary"
+                      (click)="saveWithoutClosure()"
+                    >
+                      <i class="bi bi-check-circle me-2"></i>
+                      Guardar Proceso en Curso
+                    </button>
+                  }
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="submitForm()"
+                    [disabled]="!isFormValid()"
+                  >
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    Finalizar y Cerrar Proceso
+                  </button>
+                </div>
+              </div>
+
+              <!-- Status Message -->
+              <div class="mt-3">
+                @if (!canFinishWithoutClosure()) {
+                  <small class="text-muted">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    Complete el motivo de consulta y registre al menos una sesión para guardar el proceso
+                  </small>
+                } @else if (!isFormValid()) {
+                  <small class="text-warning">
+                    <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                    Para finalizar el proceso, complete también el cierre del proceso
+                  </small>
+                } @else {
+                  <small class="text-success">
+                    <i class="bi bi-check-circle-fill me-1"></i>
+                    Proceso completo y listo para finalizar
+                  </small>
                 }
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  (click)="submitForm()"
-                  [disabled]="!isFormValid()"
-                >
-                  <i class="bi bi-check-circle-fill me-2"></i>
-                  Finalizar y Cerrar Proceso
-                </button>
               </div>
             </div>
-
-            <!-- Status Message -->
-            <div class="mt-3">
-              @if (!canFinishWithoutClosure()) {
-                <small class="text-muted">
-                  <i class="bi bi-exclamation-triangle me-1"></i>
-                  Complete el motivo de consulta y registre al menos una sesión para guardar el proceso
-                </small>
-              } @else if (!isFormValid()) {
-                <small class="text-warning">
-                  <i class="bi bi-exclamation-triangle-fill me-1"></i>
-                  Para finalizar el proceso, complete también el cierre del proceso
-                </small>
-              } @else {
-                <small class="text-success">
-                  <i class="bi bi-check-circle-fill me-1"></i>
-                  Proceso completo y listo para finalizar
-                </small>
-              }
-            </div>
           </div>
-        </div>
+        }
 
         <!-- Help Section -->
         <div class="card border-light bg-light mt-4">

@@ -20,6 +20,7 @@ export class ConsultationMotiveSectionComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   initialData = input<Partial<ConsultationMotive>>();
+  readOnly = input(false);
   dataChange = output<Partial<ConsultationMotive>>();
 
   form = this.fb.group({
@@ -38,8 +39,13 @@ export class ConsultationMotiveSectionComponent implements OnInit {
       this.form.patchValue(data);
     }
 
+    // Deshabilitar el formulario si es solo lectura
+    if (this.readOnly()) {
+      this.form.disable();
+    }
+
     this.form.valueChanges.subscribe(() => {
-      if (this.form.valid) {
+      if (this.form.valid && !this.readOnly()) {
         this.dataChange.emit(this.form.value as ConsultationMotive);
       }
     });

@@ -1,47 +1,72 @@
 <div class="section-container">
   <h3 class="section-title">Registro de Sesiones</h3>
   <p class="section-description">
-    Registre cada sesión o cita con el paciente. Puede agregar múltiples sesiones y editarlas posteriormente.
+    Registre cada sesión o cita con el paciente. Las sesiones quedan registradas permanentemente para mantener la integridad del historial clínico.
   </p>
 
   <!-- Lista de sesiones existentes -->
   @if (sessionsCount() > 0) {
     <div class="sessions-list mb-4">
       <h5 class="mb-3">Sesiones Registradas ({{ sessionsCount() }})</h5>
+      <div class="alert alert-info mb-3">
+        <i class="bi bi-lock me-2"></i>
+        <small>
+          Las sesiones guardadas no se pueden modificar ni eliminar para mantener la integridad de los registros clínicos.
+        </small>
+      </div>
       @for (session of sessions(); track session.sessionNumber; let i = $index) {
-        <div class="session-card card mb-3">
+        <div class="session-card card mb-3 session-locked">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-start">
               <div class="flex-grow-1">
                 <h6 class="card-title mb-2">
                   <span class="badge bg-primary me-2">Sesión {{ session.sessionNumber }}</span>
                   {{ session.date }} - {{ session.time }}
+                  <span class="badge bg-secondary ms-2">
+                    <i class="bi bi-lock-fill"></i> Registrada
+                  </span>
                 </h6>
-                <p class="card-text mb-2">
-                  <strong>Objetivos/Técnicas:</strong> {{ session.objectivesAndTechniques }}
-                </p>
-                <p class="card-text text-muted mb-0">
-                  {{ getSessionSummary(session) }}
-                </p>
+                
+                <!-- Vista colapsada (resumen) -->
+                @if (!isSessionExpanded(i)) {
+                  <p class="card-text mb-2">
+                    <strong>Objetivos/Técnicas:</strong> {{ session.objectivesAndTechniques }}
+                  </p>
+                  <p class="card-text text-muted mb-0">
+                    {{ getSessionSummary(session) }}
+                  </p>
+                }
+                
+                <!-- Vista expandida (detalles completos) -->
+                @if (isSessionExpanded(i)) {
+                  <div class="session-details-expanded">
+                    <div class="detail-section mb-3">
+                      <label class="detail-label">Objetivos / Técnicas - Instrumentos:</label>
+                      <div class="detail-content">{{ session.objectivesAndTechniques }}</div>
+                    </div>
+                    
+                    <div class="detail-section">
+                      <label class="detail-label">Descripción de la Sesión:</label>
+                      <div class="detail-content">{{ session.sessionDescription }}</div>
+                    </div>
+                  </div>
+                }
               </div>
-              <div class="btn-group ms-3" role="group">
-                <button
-                  type="button"
-                  class="btn btn-sm btn-outline-primary"
-                  (click)="editSession(i)"
-                  [disabled]="showForm()"
-                >
-                  <i class="bi bi-pencil"></i> Editar
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-sm btn-outline-danger"
-                  (click)="deleteSession(i)"
-                  [disabled]="showForm()"
-                >
-                  <i class="bi bi-trash"></i> Eliminar
-                </button>
-              </div>
+              
+              <!-- Botón para expandir/colapsar -->
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-info ms-3"
+                (click)="toggleSessionDetails(i)"
+              >
+                @if (isSessionExpanded(i)) {
+                  <i class="bi bi-chevron-up me-1"></i>
+                  Ocultar
+                } @else {
+                  <i class="bi bi-eye me-1"></i>
+                  Ver Detalles
+                }
+              </button>
             </div>
           </div>
         </div>
@@ -50,7 +75,7 @@
   }
 
   <!-- Botón para agregar nueva sesión -->
-  @if (!showForm()) {
+  @if (!showForm() && !readOnly()) {
     <div class="mb-4">
       <button
         type="button"
@@ -65,10 +90,11 @@
 
   <!-- Formulario de sesión -->
   @if (showForm()) {
-    <div class="session-form card border-primary">
-      <div class="card-header bg-primary text-white">
+    <div class="session-form card border-success">
+      <div class="card-header bg-success text-white">
         <h5 class="mb-0">
-          {{ isEditing() ? 'Editar Sesión' : 'Nueva Sesión' }}
+          <i class="bi bi-plus-circle me-2"></i>
+          Nueva Sesión
         </h5>
       </div>
       <div class="card-body">
@@ -170,11 +196,11 @@
           <div class="d-flex gap-2 mt-4">
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-success"
               (click)="saveSession()"
             >
-              <i class="bi bi-check-circle me-2"></i>
-              {{ isEditing() ? 'Guardar Cambios' : 'Guardar Sesión' }}
+              <i class="bi bi-check-circle-fill me-2"></i>
+              Registrar Sesión
             </button>
             <button
               type="button"
@@ -184,6 +210,15 @@
               <i class="bi bi-x-circle me-2"></i>
               Cancelar
             </button>
+          </div>
+          
+          <!-- Advertencia sobre inmutabilidad -->
+          <div class="alert alert-warning mt-3 mb-0">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            <small>
+              <strong>Importante:</strong> Una vez guardada, la sesión no podrá ser modificada ni eliminada.
+              Verifique que toda la información sea correcta antes de guardar.
+            </small>
           </div>
         </form>
       </div>
