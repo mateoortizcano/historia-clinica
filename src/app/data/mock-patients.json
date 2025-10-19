@@ -4,452 +4,407 @@
       "id": "pat-001",
       "patientType": "adult",
       "personalInfo": {
-        "firstName": "María",
-        "secondName": "Isabel",
-        "firstLastName": "González",
-        "secondLastName": "Ramírez",
+        "fullName": "María Isabel González Ramírez",
         "birthDate": "1985-03-15",
-        "gender": "female",
-        "idType": "cc",
+        "age": 39,
+        "sex": "femenino",
+        "idType": "CC",
         "idNumber": "1023456789",
         "birthPlace": "Bogotá, Colombia"
       },
-      "civilEducationalInfo": {
-        "maritalStatus": "married",
-        "educationLevel": "university",
-        "occupation": "Psicóloga Clínica"
-      },
       "contactInfo": {
         "address": "Calle 45 #12-34, Apt 501",
+        "municipality": "Bogotá",
         "neighborhood": "Chapinero",
-        "city": "Bogotá",
-        "phone": "3201234567",
-        "email": "maria.gonzalez@email.com"
+        "socioeconomicLevel": 3,
+        "phone": "3201234567"
       },
-      "emergencyContact": {
-        "fullName": "Carlos González",
-        "relationship": "Esposo",
-        "phone": "3109876543"
+      "civilEducationalInfo": {
+        "maritalStatus": "casado",
+        "educationLevel": "universitario_completo",
+        "occupation": "empleado",
+        "institution": "Hospital Central - Área de Psicología"
       },
       "healthInfo": {
-        "eps": "Sanitas EPS",
-        "bloodType": "O+",
-        "hasAllergies": true,
-        "allergies": "Penicilina, Polen",
-        "hasMedications": false,
-        "medications": ""
-      },
-      "healthHistory": {
-        "hasPreviousTreatment": true,
-        "previousTreatmentDetails": "Terapia cognitivo-conductual en 2020 por ansiedad generalizada. Duración: 6 meses.",
-        "hasMedicalConditions": false,
-        "medicalConditions": "",
-        "hasTrauma": true,
-        "traumaDetails": "Accidente automovilístico en 2019. Ha trabajado el trauma pero persisten algunas fobias de conducción."
-      },
-      "healthBackground": {
-        "hasFamilyHistory": true,
-        "familyHistoryDetails": "Madre con trastorno depresivo mayor. Hermano con trastorno de ansiedad.",
-        "hasSubstanceUse": false,
-        "substanceUseDetails": "",
-        "hasRiskBehaviors": false,
-        "riskBehaviorsDetails": ""
+        "hasHealthService": true,
+        "healthServiceName": "Sanitas EPS",
+        "membershipType": "cotizante",
+        "takesMedication": true,
+        "medications": "Sertralina 50mg - 1 vez al día"
       },
       "referralInfo": {
-        "referralSource": "medical",
-        "referralDetails": "Dr. Juan Pérez - Médico General"
-      },
-      "psychiatricAttention": {
-        "hasAttended": true,
-        "lastAttendance": "2022-06-15",
-        "diagnosis": "Trastorno de ansiedad generalizada (F41.1)",
-        "hasMedication": true,
-        "currentMedication": "Sertralina 50mg - 1 vez al día"
+        "wasReferred": true,
+        "referredBy": "Dr. Juan Pérez - Médico General",
+        "referralReason": "Síntomas de ansiedad generalizada que interfieren con actividades diarias"
       },
       "psychologicalAttention": {
-        "hasAttended": true,
-        "lastAttendance": "2023-12-10",
-        "treatmentType": "Terapia Cognitivo-Conductual",
-        "duration": "8 meses",
-        "outcome": "Mejoría significativa en manejo de ansiedad"
+        "hadPreviousAttention": true,
+        "location": "Centro de Salud Mental Colsubsidio",
+        "duration": "6 meses",
+        "endReason": "Mejoría significativa en manejo de ansiedad. Alta terapéutica."
       },
-      "createdAt": "2024-01-15T10:00:00Z",
-      "updatedAt": "2024-10-15T14:30:00Z"
+      "psychiatricAttention": {
+        "hadPreviousAttention": true,
+        "location": "Clínica Psiquiátrica San Rafael",
+        "duration": "1 año",
+        "endReason": "Control estabilizado. Continúa con medicación de mantenimiento."
+      },
+      "familyMembers": [
+        {
+          "name": "Carlos González",
+          "relationship": "Esposo",
+          "age": 42,
+          "occupation": "Ingeniero Civil"
+        },
+        {
+          "name": "Ana González Ramírez",
+          "relationship": "Hija",
+          "age": 12,
+          "occupation": "Estudiante"
+        },
+        {
+          "name": "Santiago González Ramírez",
+          "relationship": "Hijo",
+          "age": 8,
+          "occupation": "Estudiante"
+        }
+      ],
+      "emergencyContact": {
+        "name": "Carlos González",
+        "phone": "3109876543"
+      },
+      "healthBackground": {
+        "personalSomaticConditions": "No refiere condiciones médicas significativas actuales. Historial de migrañas ocasionales controladas con medicación.",
+        "familySomaticConditions": "Madre: diabetes tipo 2. Padre: hipertensión arterial.",
+        "personalPsychologicalHistory": "Episodio de trastorno de ansiedad generalizada en 2020. Tratamiento exitoso con terapia cognitivo-conductual.",
+        "familyPsychologicalHistory": "Madre con diagnóstico de trastorno depresivo mayor. Hermano con trastorno de ansiedad. Ambos en tratamiento y estables."
+      }
     },
     {
       "id": "pat-002",
       "patientType": "adult",
       "personalInfo": {
-        "firstName": "Carlos",
-        "secondName": "Andrés",
-        "firstLastName": "Martínez",
-        "secondLastName": "López",
+        "fullName": "Carlos Andrés Martínez López",
         "birthDate": "1992-07-22",
-        "gender": "male",
-        "idType": "cc",
+        "age": 32,
+        "sex": "masculino",
+        "idType": "CC",
         "idNumber": "1098765432",
         "birthPlace": "Medellín, Colombia"
       },
-      "civilEducationalInfo": {
-        "maritalStatus": "single",
-        "educationLevel": "university",
-        "occupation": "Ingeniero de Software"
-      },
       "contactInfo": {
         "address": "Carrera 70 #45-67",
+        "municipality": "Medellín",
         "neighborhood": "Laureles",
-        "city": "Medellín",
-        "phone": "3152345678",
-        "email": "carlos.martinez@tech.com"
+        "socioeconomicLevel": 4,
+        "phone": "3152345678"
       },
-      "emergencyContact": {
-        "fullName": "Ana López de Martínez",
-        "relationship": "Madre",
-        "phone": "3123456789"
+      "civilEducationalInfo": {
+        "maritalStatus": "soltero",
+        "educationLevel": "universitario_completo",
+        "occupation": "empleado",
+        "institution": "TechCorp - Departamento de Desarrollo"
       },
       "healthInfo": {
-        "eps": "Compensar",
-        "bloodType": "A+",
-        "hasAllergies": false,
-        "allergies": "",
-        "hasMedications": false,
-        "medications": ""
-      },
-      "healthHistory": {
-        "hasPreviousTreatment": false,
-        "previousTreatmentDetails": "",
-        "hasMedicalConditions": false,
-        "medicalConditions": "",
-        "hasTrauma": false,
-        "traumaDetails": ""
-      },
-      "healthBackground": {
-        "hasFamilyHistory": false,
-        "familyHistoryDetails": "",
-        "hasSubstanceUse": false,
-        "substanceUseDetails": "",
-        "hasRiskBehaviors": false,
-        "riskBehaviorsDetails": ""
+        "hasHealthService": true,
+        "healthServiceName": "Compensar EPS",
+        "membershipType": "cotizante",
+        "takesMedication": false
       },
       "referralInfo": {
-        "referralSource": "self",
-        "referralDetails": "Búsqueda personal por estrés laboral"
-      },
-      "psychiatricAttention": {
-        "hasAttended": false
+        "wasReferred": false
       },
       "psychologicalAttention": {
-        "hasAttended": false
+        "hadPreviousAttention": false
       },
-      "createdAt": "2024-09-10T09:00:00Z",
-      "updatedAt": "2024-09-10T09:00:00Z"
+      "psychiatricAttention": {
+        "hadPreviousAttention": false
+      },
+      "familyMembers": [
+        {
+          "name": "Ana López de Martínez",
+          "relationship": "Madre",
+          "age": 58,
+          "occupation": "Docente jubilada"
+        },
+        {
+          "name": "Roberto Martínez Gómez",
+          "relationship": "Padre",
+          "age": 62,
+          "occupation": "Contador jubilado"
+        }
+      ],
+      "emergencyContact": {
+        "name": "Ana López de Martínez",
+        "phone": "3123456789"
+      },
+      "healthBackground": {
+        "personalSomaticConditions": "No refiere condiciones médicas actuales.",
+        "familySomaticConditions": "No refiere antecedentes significativos.",
+        "personalPsychologicalHistory": "Episodios ocasionales de estrés laboral. Primera consulta psicológica.",
+        "familyPsychologicalHistory": "No refiere antecedentes psiquiátricos o psicológicos en la familia."
+      }
     },
     {
       "id": "pat-003",
       "patientType": "minor",
+      "guardianInfo": {
+        "name": "Laura Torres Gómez",
+        "idNumber": "1055443322",
+        "relationship": "Madre"
+      },
       "personalInfo": {
-        "firstName": "Sofía",
-        "secondName": "Valentina",
-        "firstLastName": "Rodríguez",
-        "secondLastName": "Torres",
+        "fullName": "Sofía Valentina Rodríguez Torres",
         "birthDate": "2015-05-10",
-        "gender": "female",
-        "idType": "ti",
+        "age": 9,
+        "sex": "femenino",
+        "idType": "TI",
         "idNumber": "1234567890",
         "birthPlace": "Cali, Colombia"
       },
-      "parentsInfo": {
-        "mother": {
-          "fullName": "Laura Torres Gómez",
-          "idType": "cc",
-          "idNumber": "1055443322",
-          "occupation": "Contadora",
-          "phone": "3176543210",
-          "livesWithMinor": true
-        },
-        "father": {
-          "fullName": "Miguel Rodríguez Pérez",
-          "idType": "cc",
-          "idNumber": "1044332211",
-          "occupation": "Arquitecto",
-          "phone": "3187654321",
-          "livesWithMinor": true
-        }
-      },
-      "guardianInfo": {
-        "isGuarded": false
-      },
       "contactInfo": {
         "address": "Avenida 3N #25-45",
+        "municipality": "Cali",
         "neighborhood": "Granada",
-        "city": "Cali",
+        "socioeconomicLevel": 3,
         "phone": "3176543210"
       },
-      "emergencyContact": {
-        "fullName": "Laura Torres Gómez",
-        "relationship": "Madre",
-        "phone": "3176543210"
+      "educationalInfo": {
+        "occupation": "estudiante",
+        "grade": "4to Primaria",
+        "institution": "Colegio San Francisco de Asís"
+      },
+      "healthInfo": {
+        "hasHealthService": true,
+        "healthServiceName": "Sura EPS",
+        "takesMedication": false
+      },
+      "referralInfo": {
+        "wasReferred": true,
+        "referredBy": "Psicóloga Escolar - Colegio San Francisco",
+        "referralReason": "Dificultades de atención en clase y algunas dificultades en relaciones sociales con compañeros"
+      },
+      "psychologicalAttention": {
+        "hadPreviousAttention": false
+      },
+      "psychiatricAttention": {
+        "hadPreviousAttention": false
+      },
+      "parentsInfo": {
+        "maritalStatus": "casados",
+        "father": {
+          "fullName": "Miguel Rodríguez Pérez",
+          "age": 42,
+          "education": "universitario_completo",
+          "landlinePhone": "6023456789",
+          "cellPhone": "3187654321",
+          "occupation": "Arquitecto",
+          "workplace": "Estudio Rodríguez y Asociados"
+        },
+        "mother": {
+          "fullName": "Laura Torres Gómez",
+          "age": 40,
+          "education": "universitario_completo",
+          "landlinePhone": "6023456789",
+          "cellPhone": "3176543210",
+          "occupation": "Contadora",
+          "workplace": "Empresa Contable SAS"
+        }
       },
       "familyMembers": [
         {
-          "fullName": "Miguel Rodríguez Pérez",
+          "name": "Miguel Rodríguez Pérez",
           "relationship": "Padre",
           "age": 42,
-          "occupation": "Arquitecto",
-          "livesWithPatient": true
+          "occupation": "Arquitecto"
         },
         {
-          "fullName": "Laura Torres Gómez",
+          "name": "Laura Torres Gómez",
           "relationship": "Madre",
           "age": 40,
-          "occupation": "Contadora",
-          "livesWithPatient": true
+          "occupation": "Contadora"
         },
         {
-          "fullName": "Daniel Rodríguez Torres",
-          "relationship": "Hermano",
+          "name": "Daniel Rodríguez Torres",
+          "relationship": "Hermano menor",
           "age": 6,
-          "occupation": "Estudiante",
-          "livesWithPatient": true
+          "occupation": "Estudiante preescolar"
         }
       ],
-      "minorEducationalInfo": {
-        "grade": "4to Primaria",
-        "institutionName": "Colegio San Francisco de Asís",
-        "institutionType": "private",
-        "academicPerformance": "Bueno - Promedio 4.2/5.0",
-        "behavioralIssues": "Dificultades ocasionales de concentración en clase"
-      },
-      "healthInfo": {
-        "eps": "Sura EPS",
-        "bloodType": "O+",
-        "hasAllergies": true,
-        "allergies": "Lactosa, Ácaros del polvo",
-        "hasMedications": false,
-        "medications": ""
-      },
-      "healthHistory": {
-        "hasPreviousTreatment": false,
-        "previousTreatmentDetails": "",
-        "hasMedicalConditions": true,
-        "medicalConditions": "Asma leve controlada",
-        "hasTrauma": false,
-        "traumaDetails": ""
-      },
       "healthBackground": {
-        "hasFamilyHistory": true,
-        "familyHistoryDetails": "Abuela paterna con trastorno de ansiedad",
-        "hasSubstanceUse": false,
-        "substanceUseDetails": "",
-        "hasRiskBehaviors": false,
-        "riskBehaviorsDetails": ""
-      },
-      "referralInfo": {
-        "referralSource": "educational",
-        "referralDetails": "Psicóloga escolar - Dificultades de atención y relaciones sociales"
-      },
-      "psychiatricAttention": {
-        "hasAttended": false
-      },
-      "psychologicalAttention": {
-        "hasAttended": false
-      },
-      "createdAt": "2024-08-20T11:00:00Z",
-      "updatedAt": "2024-10-01T16:00:00Z"
+        "personalSomaticConditions": "Asma leve controlada. Alergias a lactosa y ácaros del polvo.",
+        "familySomaticConditions": "Padre: no refiere. Madre: hipotiroidismo controlado.",
+        "personalPsychologicalHistory": "Primera consulta. Reporta dificultades ocasionales de concentración.",
+        "familyPsychologicalHistory": "Abuela paterna con diagnóstico de trastorno de ansiedad (en tratamiento)"
+      }
     },
     {
       "id": "pat-004",
       "patientType": "adult",
       "personalInfo": {
-        "firstName": "Ana",
-        "secondName": "Lucía",
-        "firstLastName": "Fernández",
-        "secondLastName": "Silva",
+        "fullName": "Ana Lucía Fernández Silva",
         "birthDate": "1978-11-30",
-        "gender": "female",
-        "idType": "cc",
+        "age": 45,
+        "sex": "femenino",
+        "idType": "CC",
         "idNumber": "52987654",
         "birthPlace": "Barranquilla, Colombia"
       },
-      "civilEducationalInfo": {
-        "maritalStatus": "divorced",
-        "educationLevel": "technical",
-        "occupation": "Asistente Administrativa"
-      },
       "contactInfo": {
         "address": "Calle 84 #52-23",
+        "municipality": "Barranquilla",
         "neighborhood": "El Prado",
-        "city": "Barranquilla",
-        "phone": "3004567890",
-        "email": "ana.fernandez@correo.com"
+        "socioeconomicLevel": 2,
+        "phone": "3004567890"
       },
-      "emergencyContact": {
-        "fullName": "Claudia Silva",
-        "relationship": "Hermana",
-        "phone": "3015678901"
+      "civilEducationalInfo": {
+        "maritalStatus": "separado",
+        "educationLevel": "tecnico_completo",
+        "occupation": "empleado",
+        "institution": "Empresa Administrativa del Norte"
       },
       "healthInfo": {
-        "eps": "Nueva EPS",
-        "bloodType": "B+",
-        "hasAllergies": false,
-        "allergies": "",
-        "hasMedications": true,
-        "medications": "Levotiroxina 100mcg (hipotiroidismo)"
-      },
-      "healthHistory": {
-        "hasPreviousTreatment": true,
-        "previousTreatmentDetails": "Proceso terapéutico post-divorcio en 2021. Duración: 4 meses. Trabajo de duelo y adaptación a nueva etapa de vida.",
-        "hasMedicalConditions": true,
-        "medicalConditions": "Hipotiroidismo controlado",
-        "hasTrauma": true,
-        "traumaDetails": "Violencia intrafamiliar durante matrimonio (2015-2020). Proceso legal de divorcio conflictivo."
-      },
-      "healthBackground": {
-        "hasFamilyHistory": true,
-        "familyHistoryDetails": "Padre con trastorno bipolar (fallecido)",
-        "hasSubstanceUse": false,
-        "substanceUseDetails": "",
-        "hasRiskBehaviors": false,
-        "riskBehaviorsDetails": ""
+        "hasHealthService": true,
+        "healthServiceName": "Nueva EPS",
+        "membershipType": "cotizante",
+        "takesMedication": true,
+        "medications": "Levotiroxina 100mcg diaria (hipotiroidismo)"
       },
       "referralInfo": {
-        "referralSource": "legal",
-        "referralDetails": "Defensoría de Familia - Proceso de custodia de hijos"
-      },
-      "psychiatricAttention": {
-        "hasAttended": true,
-        "lastAttendance": "2021-03-20",
-        "diagnosis": "Trastorno de estrés postraumático (F43.1)",
-        "hasMedication": false,
-        "currentMedication": ""
+        "wasReferred": true,
+        "referredBy": "Defensoría de Familia",
+        "referralReason": "Apoyo psicológico en proceso de custodia de hijos menores"
       },
       "psychologicalAttention": {
-        "hasAttended": true,
-        "lastAttendance": "2021-08-15",
-        "treatmentType": "Terapia centrada en trauma (EMDR)",
+        "hadPreviousAttention": true,
+        "location": "Centro de Atención Psicosocial Municipal",
         "duration": "4 meses",
-        "outcome": "Mejoría en síntomas de TEPT, fortalecimiento de autoestima"
+        "endReason": "Mejoría en síntomas de TEPT y fortalecimiento de autoestima. Alta por cumplimiento de objetivos terapéuticos."
       },
-      "createdAt": "2023-05-10T08:30:00Z",
-      "updatedAt": "2024-09-25T13:00:00Z"
+      "psychiatricAttention": {
+        "hadPreviousAttention": true,
+        "location": "Hospital Universitario del Norte - Consulta Externa",
+        "duration": "6 meses",
+        "endReason": "Estabilización de síntomas. No requirió medicación psiquiátrica."
+      },
+      "familyMembers": [
+        {
+          "name": "Camila Fernández",
+          "relationship": "Hija",
+          "age": 15,
+          "occupation": "Estudiante secundaria"
+        },
+        {
+          "name": "Diego Fernández",
+          "relationship": "Hijo",
+          "age": 12,
+          "occupation": "Estudiante"
+        },
+        {
+          "name": "Claudia Silva",
+          "relationship": "Hermana",
+          "age": 42,
+          "occupation": "Enfermera"
+        }
+      ],
+      "emergencyContact": {
+        "name": "Claudia Silva",
+        "phone": "3015678901"
+      },
+      "healthBackground": {
+        "personalSomaticConditions": "Hipotiroidismo controlado con medicación. Sin otras condiciones significativas.",
+        "familySomaticConditions": "Madre: diabetes tipo 2. Padre fallecido (enfermedad cardiovascular).",
+        "personalPsychologicalHistory": "Trastorno de estrés postraumático asociado a violencia intrafamiliar (2015-2020). Tratamiento con EMDR en 2021. Mejoría significativa.",
+        "familyPsychologicalHistory": "Padre: trastorno bipolar (fallecido). Sin otros antecedentes reportados."
+      }
     },
     {
       "id": "pat-005",
       "patientType": "minor",
+      "guardianInfo": {
+        "name": "Patricia Morales Díaz",
+        "idNumber": "1066554433",
+        "relationship": "Madre"
+      },
       "personalInfo": {
-        "firstName": "Diego",
-        "secondName": "Alejandro",
-        "firstLastName": "Vargas",
-        "secondLastName": "Morales",
+        "fullName": "Diego Alejandro Vargas Morales",
         "birthDate": "2010-09-18",
-        "gender": "male",
-        "idType": "ti",
+        "age": 14,
+        "sex": "masculino",
+        "idType": "TI",
         "idNumber": "1122334455",
         "birthPlace": "Bucaramanga, Colombia"
       },
-      "parentsInfo": {
-        "mother": {
-          "fullName": "Patricia Morales Díaz",
-          "idType": "cc",
-          "idNumber": "1066554433",
-          "occupation": "Enfermera",
-          "phone": "3198765432",
-          "livesWithMinor": true
-        },
-        "father": {
-          "fullName": "Roberto Vargas Castro",
-          "idType": "cc",
-          "idNumber": "1077665544",
-          "occupation": "Conductor",
-          "phone": "3189876543",
-          "livesWithMinor": false
-        }
-      },
-      "guardianInfo": {
-        "isGuarded": false
-      },
       "contactInfo": {
         "address": "Carrera 27 #42-18",
+        "municipality": "Bucaramanga",
         "neighborhood": "Cabecera",
-        "city": "Bucaramanga",
+        "socioeconomicLevel": 2,
         "phone": "3198765432"
       },
-      "emergencyContact": {
-        "fullName": "Patricia Morales Díaz",
-        "relationship": "Madre",
-        "phone": "3198765432"
+      "educationalInfo": {
+        "occupation": "estudiante",
+        "grade": "9no Grado",
+        "institution": "Colegio Integrado Juan Atalaya"
+      },
+      "healthInfo": {
+        "hasHealthService": true,
+        "healthServiceName": "Coosalud EPS",
+        "takesMedication": false
+      },
+      "referralInfo": {
+        "wasReferred": true,
+        "referredBy": "Comité de Convivencia Escolar - Colegio Integrado Juan Atalaya",
+        "referralReason": "Conducta disruptiva en clase, bajo rendimiento académico y conflictos frecuentes con compañeros"
+      },
+      "psychologicalAttention": {
+        "hadPreviousAttention": true,
+        "location": "Centro de Salud Comunitario del barrio",
+        "duration": "3 sesiones",
+        "endReason": "Abandono del tratamiento por problemas de transporte y falta de compromiso familiar"
+      },
+      "psychiatricAttention": {
+        "hadPreviousAttention": false
+      },
+      "parentsInfo": {
+        "maritalStatus": "separados",
+        "father": {
+          "fullName": "Roberto Vargas Castro",
+          "age": 47,
+          "education": "secundaria_completa",
+          "cellPhone": "3189876543",
+          "occupation": "Conductor de transporte público",
+          "workplace": "Cooperativa de Transportadores"
+        },
+        "mother": {
+          "fullName": "Patricia Morales Díaz",
+          "age": 45,
+          "education": "tecnico_completo",
+          "cellPhone": "3198765432",
+          "occupation": "Enfermera auxiliar",
+          "workplace": "Hospital Local de Bucaramanga"
+        }
       },
       "familyMembers": [
         {
-          "fullName": "Patricia Morales Díaz",
+          "name": "Patricia Morales Díaz",
           "relationship": "Madre",
           "age": 45,
-          "occupation": "Enfermera",
-          "livesWithPatient": true
+          "occupation": "Enfermera auxiliar"
         },
         {
-          "fullName": "Roberto Vargas Castro",
-          "relationship": "Padre",
-          "age": 47,
-          "occupation": "Conductor",
-          "livesWithPatient": false
-        },
-        {
-          "fullName": "Camila Morales Díaz",
+          "name": "Camila Morales Díaz",
           "relationship": "Tía materna",
           "age": 42,
-          "occupation": "Profesora",
-          "livesWithPatient": true
+          "occupation": "Profesora"
         }
       ],
-      "minorEducationalInfo": {
-        "grade": "9no Grado",
-        "institutionName": "Colegio Integrado Juan Atalaya",
-        "institutionType": "public",
-        "academicPerformance": "Regular - Promedio 3.0/5.0. Bajo rendimiento en matemáticas",
-        "behavioralIssues": "Comportamiento disruptivo en clase, conflictos con compañeros, incumplimiento de normas"
-      },
-      "healthInfo": {
-        "eps": "Coosalud",
-        "bloodType": "AB+",
-        "hasAllergies": false,
-        "allergies": "",
-        "hasMedications": false,
-        "medications": ""
-      },
-      "healthHistory": {
-        "hasPreviousTreatment": true,
-        "previousTreatmentDetails": "3 sesiones en 2023 en centro de salud comunitario. Abandono del tratamiento por problemas de transporte.",
-        "hasMedicalConditions": false,
-        "medicalConditions": "",
-        "hasTrauma": true,
-        "traumaDetails": "Separación conflictiva de los padres a los 8 años. Exposición a violencia verbal entre padres."
-      },
       "healthBackground": {
-        "hasFamilyHistory": true,
-        "familyHistoryDetails": "Padre con consumo problemático de alcohol",
-        "hasSubstanceUse": true,
-        "substanceUseDetails": "Consumo experimental de marihuana (reportado por madre y colegio)",
-        "hasRiskBehaviors": true,
-        "riskBehaviorsDetails": "Ausentismo escolar, pandillismo incipiente en el barrio"
-      },
-      "referralInfo": {
-        "referralSource": "educational",
-        "referralDetails": "Comité de Convivencia Escolar - Conducta disruptiva y bajo rendimiento académico"
-      },
-      "psychiatricAttention": {
-        "hasAttended": false
-      },
-      "psychologicalAttention": {
-        "hasAttended": true,
-        "lastAttendance": "2023-04-10",
-        "treatmentType": "Orientación psicológica breve",
-        "duration": "3 sesiones",
-        "outcome": "Abandono del tratamiento"
-      },
-      "createdAt": "2024-10-05T10:00:00Z",
-      "updatedAt": "2024-10-15T11:30:00Z"
+        "personalSomaticConditions": "No refiere condiciones médicas actuales.",
+        "familySomaticConditions": "No refiere antecedentes médicos significativos en la familia.",
+        "personalPsychologicalHistory": "Exposición a separación conflictiva de los padres a los 8 años. Exposición a violencia verbal entre padres.",
+        "familyPsychologicalHistory": "Padre: consumo problemático de alcohol (no en tratamiento). Madre: episodios depresivos reactivos (no tratados formalmente)."
+      }
     }
   ]
 }
-

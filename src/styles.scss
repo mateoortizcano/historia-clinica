@@ -4,17 +4,13 @@
  * ============================================================================
  */
 
-/* Import Bootstrap using modern Sass module system (debe ir primero) */
+/* IMPORTANTE: Todas las reglas @use deben ir primero */
 @use "bootstrap/scss/bootstrap" as *;
-
-/* Import shared section styles */
 @use 'app/components/patient-registration/sections/shared-section-styles';
+@use 'styles/design-tokens';
 
 /* Importar fuente Inter desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-/* Importar tokens de diseño (CSS variables, no Sass, por eso @import) */
-@import 'styles/design-tokens';
 
 /**
  * ----------------------------------------------------------------------------

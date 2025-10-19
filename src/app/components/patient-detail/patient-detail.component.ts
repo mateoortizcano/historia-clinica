@@ -110,69 +110,70 @@ export class PatientDetailComponent implements OnInit {
     });
   }
 
-  getGenderLabel(gender: string): string {
+  formatMaritalStatus(status: string): string {
     const labels: Record<string, string> = {
-      male: 'Masculino',
-      female: 'Femenino',
-      other: 'Otro',
-    };
-    return labels[gender] || gender;
-  }
-
-  getIdTypeLabel(idType: string): string {
-    const labels: Record<string, string> = {
-      cc: 'Cédula de Ciudadanía',
-      ti: 'Tarjeta de Identidad',
-      ce: 'Cédula de Extranjería',
-      passport: 'Pasaporte',
-      rc: 'Registro Civil',
-    };
-    return labels[idType] || idType;
-  }
-
-  getMaritalStatusLabel(status: string): string {
-    const labels: Record<string, string> = {
-      single: 'Soltero/a',
-      married: 'Casado/a',
-      divorced: 'Divorciado/a',
-      widowed: 'Viudo/a',
-      separated: 'Separado/a',
-      union: 'Unión libre',
+      soltero: 'Soltero/a',
+      casado: 'Casado/a',
+      union_libre: 'Unión libre',
+      separado: 'Separado/a',
+      viudo: 'Viudo/a',
     };
     return labels[status] || status;
   }
 
-  getEducationLevelLabel(level: string): string {
+  formatParentsMaritalStatus(status: string): string {
     const labels: Record<string, string> = {
-      none: 'Ninguno',
-      primary: 'Primaria',
-      secondary: 'Secundaria',
-      technical: 'Técnico',
-      university: 'Universitario',
-      postgraduate: 'Postgrado',
+      solteros: 'Solteros',
+      casados: 'Casados',
+      union_libre: 'Unión libre',
+      separados: 'Separados',
+      viudo_a: 'Viudo(a)',
+    };
+    return labels[status] || status;
+  }
+
+  formatEducationLevel(level: string): string {
+    const labels: Record<string, string> = {
+      ninguna: 'Ninguna',
+      primaria_completa: 'Primaria completa',
+      primaria_incompleta: 'Primaria incompleta',
+      secundaria_completa: 'Secundaria completa',
+      secundaria_incompleta: 'Secundaria incompleta',
+      tecnico_completo: 'Técnico completo',
+      tecnico_incompleto: 'Técnico incompleto',
+      tecnologico_completo: 'Tecnológico completo',
+      tecnologico_incompleto: 'Tecnológico incompleto',
+      universitario_completo: 'Universitario completo',
+      universitario_incompleto: 'Universitario incompleto',
+      postgrado_completo: 'Postgrado completo',
+      postgrado_incompleto: 'Postgrado incompleto',
     };
     return labels[level] || level;
   }
 
-  getReferralSourceLabel(source: string): string {
-    const labels: Record<string, string> = {
-      self: 'Iniciativa propia',
-      medical: 'Remisión médica',
-      educational: 'Institución educativa',
-      legal: 'Entidad legal',
-      family: 'Familiar',
-      other: 'Otro',
-    };
-    return labels[source] || source;
+  // Helper methods to safely access type-specific properties
+  getGuardianInfo(): any {
+    return (this.patient() as any)?.guardianInfo;
   }
 
-  getInstitutionTypeLabel(type: string): string {
-    const labels: Record<string, string> = {
-      public: 'Pública',
-      private: 'Privada',
-      subsidized: 'Subsidiada',
-    };
-    return labels[type] || type;
+  getCivilEducationalInfo(): any {
+    return (this.patient() as any)?.civilEducationalInfo;
+  }
+
+  getEducationalInfo(): any {
+    return (this.patient() as any)?.educationalInfo;
+  }
+
+  getParentsInfo(): any {
+    return (this.patient() as any)?.parentsInfo;
+  }
+
+  getEmergencyContact(): any {
+    return (this.patient() as any)?.emergencyContact;
+  }
+
+  getMembershipType(): string | undefined {
+    return (this.patient()?.healthInfo as any)?.membershipType;
   }
 }
 

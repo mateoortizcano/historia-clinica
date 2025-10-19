@@ -11,22 +11,20 @@ interface MockPatient {
   id: string;
   patientType: 'adult' | 'minor';
   personalInfo: {
-    firstName: string;
-    secondName?: string;
-    firstLastName: string;
-    secondLastName?: string;
+    fullName: string;
     birthDate: string;
-    gender: string;
+    age: number;
+    sex: string;
     idType: string;
     idNumber: string;
     birthPlace: string;
   };
   contactInfo: {
     address: string;
+    municipality: string;
     neighborhood: string;
-    city: string;
+    socioeconomicLevel: number;
     phone: string;
-    email?: string;
   };
   [key: string]: any;
 }
@@ -104,10 +102,7 @@ export class MockDataService {
     return of(this.patients()).pipe(
       map((patients) =>
         patients.filter((patient) => {
-          const fullName =
-            `${patient.personalInfo.firstName} ${patient.personalInfo.secondName || ''} ${patient.personalInfo.firstLastName} ${patient.personalInfo.secondLastName || ''}`
-              .toLowerCase()
-              .trim();
+          const fullName = patient.personalInfo.fullName.toLowerCase();
           const idNumber = patient.personalInfo.idNumber.toLowerCase();
           const phone = patient.contactInfo?.phone?.toLowerCase() || '';
 
@@ -334,11 +329,7 @@ export class MockDataService {
    * Obtiene el nombre completo de un paciente
    */
   getFullName(patient: MockPatient): string {
-    const { firstName, secondName, firstLastName, secondLastName } =
-      patient.personalInfo;
-    return `${firstName} ${secondName || ''} ${firstLastName} ${secondLastName || ''}`
-      .replace(/\s+/g, ' ')
-      .trim();
+    return patient.personalInfo.fullName;
   }
 
   /**
