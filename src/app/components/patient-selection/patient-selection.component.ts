@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { MockDataService } from '../../../services/mock-data.service';
+import { MockDataService } from '../../services/mock-data.service';
 
 interface PatientSummary {
   id: string;

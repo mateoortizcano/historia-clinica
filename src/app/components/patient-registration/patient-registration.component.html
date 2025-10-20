@@ -4,34 +4,31 @@
       <!-- Header -->
       <div class="mb-4">
         <h1 class="display-6 mb-2">
-          @if (isMinor()) {
-            Registro de Paciente Menor de Edad
-          } @else {
-            Registro de Paciente Adulto
-          }
+          Registro de Paciente
         </h1>
-        <p class="text-muted">
-          @if (isMinor()) {
-            Complete el formulario en 8 pasos
-          } @else {
-            Complete el formulario en 7 pasos
-          }
-        </p>
       </div>
 
       <!-- Progress Info -->
-      <div class="alert alert-info mb-4">
-        <div class="d-flex align-items-center">
-          <i class="bi bi-info-circle-fill me-2"></i>
-          <small>
-            Los campos marcados con <span class="text-danger fw-bold">*</span> son obligatorios.
-            Complete cada paso para continuar al siguiente.
-            @if (!patientData().personalInfo?.age) {
-              <br><strong>La edad del paciente determinará automáticamente el formulario (adulto o menor de edad).</strong>
-            }
-          </small>
+      @if (showInfoAlert()) {
+        <div class="alert alert-info alert-dismissible fade show mb-4" role="alert">
+          <div class="d-flex align-items-start">
+            <i class="bi bi-info-circle-fill me-2 mt-1"></i>
+            <small class="flex-grow-1">
+              Los campos marcados con <span class="text-danger fw-bold">*</span> son obligatorios.
+              Complete cada paso para continuar al siguiente.
+              @if (!patientData().personalInfo?.age) {
+                <br><strong>La edad del paciente determinará automáticamente el formulario (adulto o menor de edad).</strong>
+              }
+            </small>
+            <button 
+              type="button" 
+              class="btn-close" 
+              aria-label="Cerrar"
+              (click)="closeInfoAlert()"
+            ></button>
+          </div>
         </div>
-      </div>
+      }
 
       <!-- Form with Stepper -->
       <div class="row">

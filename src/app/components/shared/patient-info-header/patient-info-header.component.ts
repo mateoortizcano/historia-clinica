@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
 
 export interface PatientHeaderInfo {
   fullName: string;
@@ -15,5 +15,11 @@ export interface PatientHeaderInfo {
 })
 export class PatientInfoHeaderComponent {
   patient = input.required<PatientHeaderInfo>();
+  backButtonLabel = input<string>();
+  backButtonClicked = output<void>();
+
+  handleBackClick() {
+    this.backButtonClicked.emit();
+  }
 }
 

@@ -33,6 +33,9 @@ export class SessionRegistrationSectionComponent {
 
   sessionsCount = computed(() => this.sessions().length);
   isEditing = computed(() => this.editingSessionIndex() !== null);
+  
+  // Sesiones en orden descendente (más reciente primero)
+  sessionsReversed = computed(() => [...this.sessions()].reverse());
 
   form = this.fb.group({
     sessionNumber: [
@@ -106,16 +109,16 @@ export class SessionRegistrationSectionComponent {
       : description;
   }
 
-  toggleSessionDetails(index: number) {
-    if (this.expandedSessionIndex() === index) {
+  toggleSessionDetails(sessionNumber: number) {
+    if (this.expandedSessionIndex() === sessionNumber) {
       this.expandedSessionIndex.set(null);
     } else {
-      this.expandedSessionIndex.set(index);
+      this.expandedSessionIndex.set(sessionNumber);
     }
   }
 
-  isSessionExpanded(index: number): boolean {
-    return this.expandedSessionIndex() === index;
+  isSessionExpanded(sessionNumber: number): boolean {
+    return this.expandedSessionIndex() === sessionNumber;
   }
 }
 

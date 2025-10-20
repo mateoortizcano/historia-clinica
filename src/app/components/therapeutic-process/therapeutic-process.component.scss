@@ -16,7 +16,7 @@
 
 .page-title {
   color: var(--color-text-primary);
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--spacing-2);
 }
@@ -28,10 +28,18 @@
   margin-bottom: 0;
 }
 
-// Custom Tabs Styling
+// Custom Tabs Styling with Status Badge
+.card-body {
+  > .d-flex {
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+}
+
 .nav-tabs-custom {
   border-bottom: none;
   padding: var(--spacing-2);
+  padding-right: 0; // Remove right padding to align with badge
   gap: var(--spacing-2);
 
   .nav-item {
@@ -71,6 +79,15 @@
       font-size: var(--font-size-xs);
       padding: var(--spacing-1) var(--spacing-2);
     }
+  }
+}
+
+// Process Status Badge in Tabs Row
+.badge {
+  &.bg-success, &.bg-secondary, &.bg-info {
+    font-weight: 600;
+    font-size: 0.85rem;
+    white-space: nowrap;
   }
 }
 

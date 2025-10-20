@@ -52,6 +52,12 @@ export class PatientDetailComponent implements OnInit {
   isAdult = computed(() => this.patient()?.patientType === 'adult');
   isMinor = computed(() => this.patient()?.patientType === 'minor');
 
+  backButtonLabel = computed(() => 
+    this.returnTo() === 'patient-list' 
+      ? 'Volver al Listado de Pacientes'
+      : 'Volver a Procesos del Paciente'
+  );
+
   patientHeaderInfo = computed<PatientHeaderInfo | null>(() => {
     const p = this.patient();
     if (!p) return null;

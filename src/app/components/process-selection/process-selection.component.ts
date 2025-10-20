@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MockDataService } from '../../../services/mock-data.service';
-import { PatientInfoHeaderComponent, PatientHeaderInfo } from '../../shared/patient-info-header/patient-info-header.component';
+import { MockDataService } from '../../services/mock-data.service';
+import { PatientInfoHeaderComponent, PatientHeaderInfo } from '../shared/patient-info-header/patient-info-header.component';
 
 interface PatientInfo extends PatientHeaderInfo {
   id: string;

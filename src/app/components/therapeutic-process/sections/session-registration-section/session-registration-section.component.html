@@ -1,110 +1,39 @@
 <div class="section-container">
-  <h3 class="section-title">
-    <i class="bi bi-calendar2-week me-2"></i>
-    Registro de Sesiones
-  </h3>
-  <p class="section-description">
-    @if (readOnly()) {
-      Historial completo de sesiones realizadas durante el proceso terapéutico.
-    } @else {
-      Registre cada sesión o cita con el paciente. Las sesiones quedan registradas permanentemente para mantener la integridad del historial clínico.
-    }
-  </p>
-
-  <!-- Lista de sesiones existentes -->
-  @if (sessionsCount() > 0) {
-    <div class="sessions-list mb-4">
-      <h5 class="mb-3">Sesiones Registradas ({{ sessionsCount() }})</h5>
-      <div class="alert alert-info mb-3">
-        <i class="bi bi-lock me-2"></i>
-        <small>
-          Las sesiones guardadas no se pueden modificar ni eliminar para mantener la integridad de los registros clínicos.
-        </small>
+  <!-- Header with Action Button -->
+  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-3">
+    <div class="flex-grow-1">
+      <h3 class="section-title mb-2">
+        <i class="bi bi-calendar2-week me-2"></i>
+        Registro de Sesiones
+      </h3>
+      <p class="section-description mb-0">
+        @if (readOnly()) {
+          Historial completo de sesiones realizadas durante el proceso terapéutico.
+        } @else {
+          Registre cada sesión o cita con el paciente. Las sesiones quedan registradas permanentemente para mantener la integridad del historial clínico.
+        }
+      </p>
+    </div>
+    
+    <!-- Botón para agregar nueva sesión -->
+    @if (!showForm() && !readOnly()) {
+      <div class="flex-shrink-0">
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="startNewSession()"
+        >
+          <i class="bi bi-plus-circle me-2"></i>
+          {{ sessionsCount() === 0 ? 'Registrar Primera Sesión' : 'Agregar Nueva Sesión' }}
+        </button>
       </div>
-      @for (session of sessions(); track session.sessionNumber; let i = $index) {
-        <div class="session-card card mb-3 session-locked">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-start">
-              <div class="flex-grow-1">
-                <h6 class="card-title mb-2">
-                  <span class="badge bg-primary me-2">Sesión {{ session.sessionNumber }}</span>
-                  {{ session.date }} - {{ session.time }}
-                  <span class="badge bg-secondary ms-2">
-                    <i class="bi bi-lock-fill"></i> Registrada
-                  </span>
-                </h6>
-                
-                <!-- Vista colapsada (resumen) -->
-                @if (!isSessionExpanded(i)) {
-                  <p class="card-text mb-2">
-                    <strong>Objetivos/Técnicas:</strong> {{ session.objectivesAndTechniques }}
-                  </p>
-                  <p class="card-text text-muted mb-0">
-                    {{ getSessionSummary(session) }}
-                  </p>
-                }
-                
-                <!-- Vista expandida (detalles completos) -->
-                @if (isSessionExpanded(i)) {
-                  <div class="session-details-expanded">
-                    <div class="detail-section">
-                      <span class="detail-label">
-                        <i class="bi bi-bullseye"></i>
-                        Objetivos / Técnicas - Instrumentos
-                      </span>
-                      <div class="detail-content">{{ session.objectivesAndTechniques }}</div>
-                    </div>
-                    
-                    <div class="detail-section">
-                      <span class="detail-label">
-                        <i class="bi bi-journal-text"></i>
-                        Descripción de la Sesión
-                      </span>
-                      <div class="detail-content">{{ session.sessionDescription }}</div>
-                    </div>
-                  </div>
-                }
-              </div>
-              
-              <!-- Botón para expandir/colapsar -->
-              <button
-                type="button"
-                class="btn btn-sm btn-outline-info ms-3"
-                (click)="toggleSessionDetails(i)"
-              >
-                @if (isSessionExpanded(i)) {
-                  <i class="bi bi-chevron-up me-1"></i>
-                  Ocultar
-                } @else {
-                  <i class="bi bi-eye me-1"></i>
-                  Ver Detalles
-                }
-              </button>
-            </div>
-          </div>
-        </div>
-      }
-    </div>
-  }
-
-  <!-- Botón para agregar nueva sesión -->
-  @if (!showForm() && !readOnly()) {
-    <div class="mb-4">
-      <button
-        type="button"
-        class="btn btn-success"
-        (click)="startNewSession()"
-      >
-        <i class="bi bi-plus-circle me-2"></i>
-        {{ sessionsCount() === 0 ? 'Registrar Primera Sesión' : 'Agregar Nueva Sesión' }}
-      </button>
-    </div>
-  }
+    }
+  </div>
 
   <!-- Formulario de sesión -->
   @if (showForm()) {
-    <div class="session-form card border-success">
-      <div class="card-header bg-success text-white">
+    <div class="session-form card mb-4">
+      <div class="card-header">
         <h5 class="mb-0">
           <i class="bi bi-plus-circle me-2"></i>
           Nueva Sesión
@@ -235,6 +164,85 @@
           </div>
         </form>
       </div>
+    </div>
+  }
+
+  <!-- Lista de sesiones existentes (más recientes primero) -->
+  @if (sessionsCount() > 0) {
+    <div class="sessions-list">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">
+          Sesiones Registradas 
+          <span class="badge bg-primary rounded-pill ms-2">{{ sessionsCount() }}</span>
+        </h5>
+        <small class="text-muted">
+          <i class="bi bi-sort-down me-1"></i>
+          Más recientes primero
+        </small>
+      </div>
+      @for (session of sessionsReversed(); track session.sessionNumber) {
+        <div class="session-card card mb-3 session-locked">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start">
+              <div class="flex-grow-1">
+                <h6 class="card-title mb-2">
+                  <span class="badge bg-primary me-2">Sesión {{ session.sessionNumber }}</span>
+                  {{ session.date }}  {{ session.time }}
+                  <span class="badge bg-secondary ms-2">
+                    <i class="bi bi-lock-fill"></i> Registrada
+                  </span>
+                </h6>
+                
+                <!-- Vista colapsada (resumen) -->
+                @if (!isSessionExpanded(session.sessionNumber)) {
+                  <p class="card-text mb-2">
+                    <strong>Objetivos/Técnicas:</strong> {{ session.objectivesAndTechniques }}
+                  </p>
+                  <p class="card-text text-muted mb-0">
+                    {{ getSessionSummary(session) }}
+                  </p>
+                }
+                
+                <!-- Vista expandida (detalles completos) -->
+                @if (isSessionExpanded(session.sessionNumber)) {
+                  <div class="session-details-expanded">
+                    <div class="detail-section">
+                      <span class="detail-label">
+                        <i class="bi bi-bullseye"></i>
+                        Objetivos / Técnicas - Instrumentos
+                      </span>
+                      <div class="detail-content">{{ session.objectivesAndTechniques }}</div>
+                    </div>
+                    
+                    <div class="detail-section">
+                      <span class="detail-label">
+                        <i class="bi bi-journal-text"></i>
+                        Descripción de la Sesión
+                      </span>
+                      <div class="detail-content">{{ session.sessionDescription }}</div>
+                    </div>
+                  </div>
+                }
+              </div>
+              
+              <!-- Botón para expandir/colapsar -->
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-info ms-3"
+                (click)="toggleSessionDetails(session.sessionNumber)"
+              >
+                @if (isSessionExpanded(session.sessionNumber)) {
+                  <i class="bi bi-chevron-up me-1"></i>
+                  Ocultar
+                } @else {
+                  <i class="bi bi-eye me-1"></i>
+                  Ver Detalles
+                }
+              </button>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   }
 

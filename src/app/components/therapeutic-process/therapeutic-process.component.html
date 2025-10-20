@@ -2,54 +2,14 @@
   <div class="container-fluid py-4">
     <div class="row">
       <div class="col-12">
-        <!-- Back Button -->
-        <button type="button" class="btn btn-outline-secondary mb-3" (click)="goBack()">
-          <i class="bi bi-arrow-left me-2"></i>
-          Volver a Procesos del Paciente
-        </button>
-
         <!-- Patient Info Header --> 
         @if (patient(); as patientData) {
-          <app-patient-info-header [patient]="patientData">
-            @if (isNewProcess()) {
-              <span class="badge bg-success px-3 py-2">
-                <i class="bi bi-plus-circle me-1"></i>
-                NUEVO PROCESO
-              </span>
-            } @else if (isReadOnly()) {
-              <span class="badge bg-secondary px-3 py-2">
-                <i class="bi bi-lock-fill me-1"></i>
-                PROCESO CERRADO
-              </span>
-            } @else {
-              <span class="badge bg-info px-3 py-2">
-                <i class="bi bi-pencil-square me-1"></i>
-                EDITANDO PROCESO
-              </span>
-            }
-          </app-patient-info-header>
+          <app-patient-info-header 
+            [patient]="patientData"
+            backButtonLabel="Volver a Procesos del Paciente"
+            (backButtonClicked)="goBack()"
+          />
         }
-
-        <!-- Header -->
-        <div class="mb-4">
-          <h1 class="page-title">
-            @if (isNewProcess()) {
-              Nuevo Proceso Terapéutico
-            } @else if (isReadOnly()) {
-              Ver Proceso Terapéutico Cerrado
-            } @else {
-              Editar Proceso Terapéutico
-            }
-          </h1>
-          <p class="page-description">
-            @if (isReadOnly()) {
-              Este proceso ha sido cerrado y no se puede modificar. Puede consultar toda la información registrada.
-            } @else {
-              Gestione el proceso terapéutico completo: registre el motivo de consulta, agregue sesiones conforme ocurran,
-              y cierre el proceso cuando finalice.
-            }
-          </p>
-        </div>
 
         <!-- Read-Only Alert -->
         @if (isReadOnly()) {
@@ -60,9 +20,8 @@
               Este proceso ha sido finalizado y no se puede editar. Puede revisar toda la información pero no realizar cambios.
             </div>
           </div>
-        }
-
-        <!-- Process Info Card -->
+        }  @else {
+          <!-- Process Info Card -->
         <div class="alert alert-info d-flex align-items-center mb-3">
           <i class="bi bi-info-circle-fill me-2"></i>
           <div class="flex-grow-1">
@@ -75,34 +34,54 @@
             }
           </div>
         </div>
+        }
 
-        <!-- Tabs Navigation -->
+        <!-- Tabs Navigation with Process Status -->
         <div class="card shadow-sm mb-3">
           <div class="card-body p-0">
-            <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
-              @for (tab of tabs(); track tab.id) {
-                <li class="nav-item" role="presentation">
-                  <button
-                    [class]="'nav-link ' + (isTabActive(tab.id) ? 'active' : '')"
-                    type="button"
-                    role="tab"
-                    [attr.aria-selected]="isTabActive(tab.id)"
-                    (click)="selectTab(tab.id)"
-                  >
-                    <div class="d-flex align-items-center gap-2">
-                      <i [class]="'bi ' + tab.icon"></i>
-                      <span>{{ tab.label }}</span>
-                      @if (tab.id === 'sessions' && sessionsCount() > 0) {
-                        <span class="badge bg-primary rounded-pill">{{ sessionsCount() }}</span>
-                      }
-                      @if (tab.completed) {
-                        <i class="bi bi-check-circle-fill text-success ms-1"></i>
-                      }
-                    </div>
-                  </button>
-                </li>
-              }
-            </ul>
+            <div class="d-flex justify-content-between align-items-center">
+              <ul class="nav nav-tabs nav-tabs-custom flex-grow-1 mb-0" role="tablist">
+                @for (tab of tabs(); track tab.id) {
+                  <li class="nav-item" role="presentation">
+                    <button
+                      [class]="'nav-link ' + (isTabActive(tab.id) ? 'active' : '')"
+                      type="button"
+                      role="tab"
+                      [attr.aria-selected]="isTabActive(tab.id)"
+                      (click)="selectTab(tab.id)"
+                    >
+                      <div class="d-flex align-items-center gap-2">
+                        <i [class]="'bi ' + tab.icon"></i>
+                        <span>{{ tab.label }}</span>
+                        @if (tab.id === 'sessions' && sessionsCount() > 0) {
+                          <span class="badge bg-primary rounded-pill">{{ sessionsCount() }}</span>
+                        }
+                        @if (tab.completed) {
+                          <i class="bi bi-check-circle-fill text-success ms-1"></i>
+                        }
+                      </div>
+                    </button>
+                  </li>
+                }
+              </ul>
+              
+              <!-- Process Status Badge -->
+              <div class="px-3">
+                @if (isNewProcess()) {
+                  <span class="badge bg-success px-3 py-2">
+                    PROCESO NUEVO
+                  </span>
+                } @else if (isReadOnly()) {
+                  <span class="badge bg-secondary px-3 py-2">
+                    PROCESO CERRADO
+                  </span>
+                } @else {
+                  <span class="badge bg-info px-3 py-2">
+                    PROCESO ABIERTO
+                  </span>
+                }
+              </div>
+            </div>
           </div>
         </div>
 

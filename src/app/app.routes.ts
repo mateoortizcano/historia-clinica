@@ -16,7 +16,7 @@ export const routes: Routes = [
   {
     path: 'proceso-terapeutico',
     loadComponent: () =>
-      import('./components/therapeutic-process/patient-selection/patient-selection.component').then(
+      import('./components/patient-selection/patient-selection.component').then(
         (m) => m.PatientSelectionComponent
       ),
   },
@@ -30,7 +30,7 @@ export const routes: Routes = [
   {
     path: 'proceso-terapeutico/paciente/:patientId',
     loadComponent: () =>
-      import('./components/therapeutic-process/process-selection/process-selection.component').then(
+      import('./components/process-selection/process-selection.component').then(
         (m) => m.ProcessSelectionComponent
       ),
   },

@@ -31,10 +31,12 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
+    color: inherit;
 
     i {
       font-size: 1.3rem;
       opacity: 0.9;
+      color: inherit;
     }
   }
 
@@ -56,6 +58,10 @@
 
     h5 {
       color: var(--color-text-primary);
+
+      i {
+        color: var(--color-text-primary);
+      }
     }
   }
 

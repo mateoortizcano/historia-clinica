@@ -92,10 +92,21 @@
 
 .session-form {
   animation: slideDown 0.3s ease;
+  border: 2px solid #198754 !important;
+  box-shadow: 0 0.125rem 0.5rem rgba(25, 135, 84, 0.15);
 
   .card-header {
+    background: linear-gradient(135deg, #198754 0%, #157347 100%) !important;
+    border: none;
+    padding: 1rem 1.25rem;
+    
     h5 {
       font-weight: 600;
+      color: #ffffff !important;
+      
+      i {
+        color: #ffffff !important;
+      }
     }
   }
 
@@ -112,6 +123,48 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+// Header con botón de acción
+.section-container {
+  > .d-flex {
+    align-items: center;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: stretch;
+      
+      .flex-shrink-0 {
+        width: 100%;
+        
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+// Botón de agregar nueva sesión
+.btn-success {
+  font-weight: 600;
+  box-shadow: 0 0.125rem 0.5rem rgba(25, 135, 84, 0.25);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  padding: 0.5rem 1.25rem;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0.25rem 0.75rem rgba(25, 135, 84, 0.35);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  i {
+    vertical-align: middle;
   }
 }
 

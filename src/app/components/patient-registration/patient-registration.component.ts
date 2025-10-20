@@ -60,6 +60,7 @@ interface StepValidations {
 export class PatientRegistrationComponent {
   patientData = signal<PatientDataUnion>({});
   currentStepIndex = signal(0);
+  showInfoAlert = signal(true);
 
   // Computed: detecta automáticamente si es menor de edad según la fecha de nacimiento
   isMinor = computed(() => {
@@ -350,6 +351,10 @@ export class PatientRegistrationComponent {
       psychologicalAttention: data.psychologicalAttention,
       psychiatricAttention: data.psychiatricAttention,
     };
+  }
+
+  closeInfoAlert() {
+    this.showInfoAlert.set(false);
   }
 }
 

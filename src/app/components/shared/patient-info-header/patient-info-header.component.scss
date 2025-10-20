@@ -5,7 +5,137 @@
   align-items: center;
 }
 
-h1, h2 {
+h2 {
+  font-size: 1.75rem;
+  line-height: 1.2;
   margin-bottom: 0.5rem;
+}
+
+// Columna 1: Botón de volver
+.back-button-column {
+  flex-shrink: 0;
+  padding-top: 0;
+  padding-right: 1rem;
+  margin-right: 0.5rem;
+  border-right: 2px solid #e9ecef;
+  position: relative;
+
+  // Efecto de gradiente sutil
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -1px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, 
+      transparent 0%, 
+      rgba(0, 123, 255, 0.1) 50%, 
+      transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+.back-icon-btn {
+  color: #6c757d;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  &:hover {
+    color: #0d6efd;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    color: #0a58ca;
+    transform: scale(1.05);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #0d6efd;
+    outline-offset: 3px;
+    border-radius: 50%;
+  }
+}
+
+// Columna 2: Información del paciente
+.patient-column {
+  min-width: 0; // Permite que el texto se trunque si es necesario
+}
+
+// Columna 3: Acciones
+.actions-column {
+  margin-left: auto;
+}
+
+// Responsive adjustments
+@media (max-width: 992px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .back-icon-btn i {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem !important;
+  }
+
+  h2 {
+    font-size: 1.35rem;
+  }
+
+  .back-icon-btn i {
+    font-size: 1.6rem;
+  }
+
+  .back-button-column {
+    padding-right: 0.75rem;
+    margin-right: 0.25rem;
+  }
+
+  // En móviles, los botones de acción van abajo
+  .d-flex.align-items-start {
+    flex-wrap: wrap;
+  }
+
+  .actions-column {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0.75rem;
+    padding-left: calc(2rem + 0.75rem); // Alineado con el contenido del paciente
+
+    > * {
+      flex: 1;
+      min-width: auto;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .actions-column {
+    flex-direction: column;
+    
+    > * {
+      width: 100%;
+    }
+  }
 }
 
