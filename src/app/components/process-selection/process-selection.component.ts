@@ -6,7 +6,6 @@ import {
   inject,
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { MockDataService } from '../../services/mock-data.service';
 import { PatientInfoHeaderComponent, PatientHeaderInfo } from '../shared/patient-info-header/patient-info-header.component';
 
@@ -27,7 +26,7 @@ interface ProcessSummary {
 
 @Component({
   selector: 'app-process-selection',
-  imports: [CommonModule, PatientInfoHeaderComponent],
+  imports: [PatientInfoHeaderComponent],
   templateUrl: './process-selection.component.html',
   styleUrl: './process-selection.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

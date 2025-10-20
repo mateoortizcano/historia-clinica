@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy, signal, input, output, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 export interface Step {
   id: string;
@@ -10,7 +9,6 @@ export interface Step {
 
 @Component({
   selector: 'app-stepper',
-  imports: [CommonModule],
   templateUrl: './stepper.component.html',
   styleUrl: './stepper.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

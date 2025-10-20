@@ -10,11 +10,10 @@ import {
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Session } from '../../../../models/therapeutic-process.model';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-session-registration-section',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './session-registration-section.component.html',
   styleUrl: './session-registration-section.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

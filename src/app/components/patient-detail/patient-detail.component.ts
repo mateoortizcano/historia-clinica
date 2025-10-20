@@ -7,7 +7,6 @@ import {
   inject,
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { MockDataService } from '../../services/mock-data.service';
 import { PatientInfoHeaderComponent, PatientHeaderInfo } from '../shared/patient-info-header/patient-info-header.component';
 
@@ -34,7 +33,7 @@ interface PatientData {
 
 @Component({
   selector: 'app-patient-detail',
-  imports: [CommonModule, PatientInfoHeaderComponent],
+  imports: [PatientInfoHeaderComponent],
   templateUrl: './patient-detail.component.html',
   styleUrl: './patient-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
