@@ -6,75 +6,107 @@
 
   .container-fluid {
     max-width: var(--max-width-container);
-    margin: 0 auto;
-  }
-
-  .card {
-    border: none;
-    margin-bottom: var(--spacing-6);
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-lg) !important;
-    }
-
-    .card-header {
-      font-weight: var(--font-weight-semibold);
-      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-
-      h5 {
-        font-size: var(--font-size-md);
-      }
-    }
-  }
-
-  .patient-badges {
-    margin-top: var(--spacing-2);
-
-    .badge {
-      font-size: var(--font-size-sm);
-      padding: var(--spacing-2) var(--spacing-3);
-      font-weight: var(--font-weight-medium);
-    }
-  }
-
-  .textarea-content {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-
-  .table {
-    margin-bottom: 0;
-
-    th {
-      background-color: var(--color-bg-secondary);
-      font-weight: var(--font-weight-semibold);
-      font-size: var(--font-size-sm);
-      border-top: none;
-    }
-
-    tbody tr {
-      transition: background-color var(--transition-base);
-
-      &:hover {
-        background-color: var(--color-bg-tertiary);
-      }
-    }
-  }
-
-  .btn {
-    transition: all var(--transition-base);
-
-    &:hover {
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-base);
-    }
-  }
-
-  .spinner-border {
-    width: 3rem;
-    height: 3rem;
   }
 }
 
+// Custom Tabs Styling
+.nav-tabs-custom {
+  border-bottom: none;
+  padding: var(--spacing-2);
+  gap: var(--spacing-2);
+
+  .nav-link {
+    border: 2px solid transparent;
+    border-radius: var(--radius-base);
+    padding: var(--spacing-3) var(--spacing-5);
+    color: var(--color-text-secondary);
+    background-color: transparent;
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-base);
+
+    &:hover {
+      background-color: var(--color-bg-tertiary);
+      color: var(--color-primary-500);
+    }
+
+    &.active {
+      background-color: var(--color-primary-500);
+      color: var(--color-text-inverse);
+      border-color: var(--color-primary-500);
+    }
+
+    i {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+// Tab Content
+.tab-pane-custom {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Secciones
+.section-card {
+  background-color: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+
+  &:hover {
+    background-color: var(--color-neutral-200);
+  }
+
+  .section-title i {
+    color: var(--color-primary-600);
+  }
+}
+
+// Subsecciones
+.subsection-card {
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+
+  &:hover {
+    border-color: var(--color-primary-300);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .subsection-title {
+    color: var(--color-primary-700);
+  }
+}
+
+.textarea-content {
+  white-space: pre-wrap;
+  line-height: var(--line-height-relaxed);
+}
+
+.table tbody tr:hover {
+  background-color: var(--color-primary-50);
+}
+
+// Responsive
+@media (max-width: 992px) {
+  .nav-tabs-custom {
+    flex-direction: column;
+
+    .nav-link {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .nav-tabs-custom .nav-link {
+    padding: var(--spacing-2) var(--spacing-3);
+  }
+}

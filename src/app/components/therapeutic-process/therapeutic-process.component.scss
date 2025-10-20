@@ -5,6 +5,13 @@
   .container-fluid {
     max-width: var(--max-width-container);
   }
+
+  .patient-badges {
+    margin-top: var(--spacing-2);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
 }
 
 .page-title {

@@ -8,25 +8,45 @@
           Volver a Procesos del Paciente
         </button>
 
-        <!-- Patient Info Header -->
+        <!-- Patient Info Header --> 
         @if (patient(); as patientData) {
           <div class="card shadow-sm mb-4">
-            <div class="card-body py-3">
-              <div class="d-flex align-items-center">
-                <i class="bi bi-person-circle me-2 text-primary fs-3"></i>
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
                 <div>
-                  <h5 class="mb-0">{{ patientData.fullName }}</h5>
-                  <small class="text-muted">
-                    ID: {{ patientData.idNumber }} | {{ patientData.age }} años
-                  </small>
+                  <h1 class="mb-2">
+                    <i class="bi bi-person-circle me-2 text-primary"></i>
+                    {{ patientData.fullName }}
+                  </h1>
+                  <div class="patient-badges">
+                    <span class="badge bg-primary me-2">
+                      <i class="bi bi-calendar3 me-1"></i>
+                      {{ patientData.age }} años
+                    </span>
+                    <span class="badge bg-info">
+                      <i class="bi bi-card-text me-1"></i>
+                      {{ patientData.idType }}: {{ patientData.idNumber }}
+                    </span>
+                  </div>
                 </div>
-                @if (isNewProcess()) {
-                  <span class="badge bg-success ms-auto">NUEVO PROCESO</span>
-                } @else if (isReadOnly()) {
-                  <span class="badge bg-secondary ms-auto">PROCESO CERRADO - SOLO LECTURA</span>
-                } @else {
-                  <span class="badge bg-info ms-auto">EDITANDO PROCESO</span>
-                }
+                <div class="d-flex align-items-start gap-2">
+                  @if (isNewProcess()) {
+                    <span class="badge bg-success px-3 py-2">
+                      <i class="bi bi-plus-circle me-1"></i>
+                      NUEVO PROCESO
+                    </span>
+                  } @else if (isReadOnly()) {
+                    <span class="badge bg-secondary px-3 py-2">
+                      <i class="bi bi-lock-fill me-1"></i>
+                      PROCESO CERRADO
+                    </span>
+                  } @else {
+                    <span class="badge bg-info px-3 py-2">
+                      <i class="bi bi-pencil-square me-1"></i>
+                      EDITANDO PROCESO
+                    </span>
+                  }
+                </div>
               </div>
             </div>
           </div>

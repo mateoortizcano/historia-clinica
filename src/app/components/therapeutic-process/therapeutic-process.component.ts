@@ -36,6 +36,7 @@ interface Tab {
 interface PatientInfo {
   id: string;
   fullName: string;
+  idType: string;
   idNumber: string;
   age: number;
 }
@@ -93,6 +94,7 @@ export class TherapeuticProcessComponent implements OnInit {
           this.patient.set({
             id: patient.id,
             fullName: this.mockDataService.getFullName(patient),
+            idType: patient.personalInfo.idType,
             idNumber: patient.personalInfo.idNumber,
             age: this.mockDataService.calculateAge(patient.personalInfo.birthDate),
           });

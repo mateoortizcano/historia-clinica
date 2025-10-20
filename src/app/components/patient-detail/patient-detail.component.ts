@@ -51,6 +51,12 @@ export class PatientDetailComponent implements OnInit {
   isAdult = computed(() => this.patient()?.patientType === 'adult');
   isMinor = computed(() => this.patient()?.patientType === 'minor');
 
+  activeTab = signal<string>('general');
+
+  setActiveTab(tab: string) {
+    this.activeTab.set(tab);
+  }
+
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('patientId');
     const returnToParam = this.route.snapshot.queryParamMap.get('returnTo');

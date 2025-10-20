@@ -25,7 +25,7 @@
           <!-- Header Card -->
           <div class="card shadow-sm mb-4">
             <div class="card-body">
-              <div class="d-flex justify-content-between align-items-start">
+              <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
                 <div>
                   <h1 class="mb-2">
                     <i class="bi bi-person-circle me-2 text-primary"></i>
@@ -36,13 +36,17 @@
                       <i class="bi bi-calendar3 me-1"></i>
                       {{ patientData.personalInfo.age }} años
                     </span>
-                    <span class="badge bg-secondary">
+                    <span class="badge bg-secondary me-2">
                       <i class="bi bi-person me-1"></i>
                       @if (isMinor()) {
                         Menor de edad
                       } @else {
                         Adulto
                       }
+                    </span>
+                    <span class="badge bg-info">
+                      <i class="bi bi-card-text me-1"></i>
+                      {{ patientData.personalInfo.idType }}: {{ patientData.personalInfo.idNumber }}
                     </span>
                   </div>
                 </div>
@@ -58,555 +62,684 @@
             </div>
           </div>
 
-          <!-- Información del Acompañante (Solo para menores) -->
+          <!-- Información del Acompañante (Solo para menores) - Alert destacado -->
           @if (isMinor() && getGuardianInfo()) {
-            <div class="card shadow-sm mb-4">
-              <div class="card-header bg-info text-white">
-                <h5 class="mb-0">
-                  <i class="bi bi-person-badge me-2"></i>
-                  Información del Acompañante
-                </h5>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-4 mb-3">
-                    <strong class="text-muted d-block mb-1">Nombre Completo</strong>
-                    <p class="mb-0">{{ getGuardianInfo()?.name }}</p>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <strong class="text-muted d-block mb-1">Identificación</strong>
-                    <p class="mb-0">{{ getGuardianInfo()?.idNumber }}</p>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <strong class="text-muted d-block mb-1">Parentesco</strong>
-                    <p class="mb-0">{{ getGuardianInfo()?.relationship }}</p>
+            <div class="alert alert-info shadow-sm mb-4">
+              <div class="d-flex align-items-start">
+                <i class="bi bi-person-badge fs-4 me-3"></i>
+                <div class="flex-grow-1">
+                  <h6 class="alert-heading mb-2">Acompañante del Menor</h6>
+                  <div class="row g-2">
+                    <div class="col-md-4">
+                      <strong class="d-block text-muted small">Nombre:</strong>
+                      {{ getGuardianInfo()?.name }}
+                    </div>
+                    <div class="col-md-4">
+                      <strong class="d-block text-muted small">Identificación:</strong>
+                      {{ getGuardianInfo()?.idNumber }}
+                    </div>
+                    <div class="col-md-4">
+                      <strong class="d-block text-muted small">Parentesco:</strong>
+                      {{ getGuardianInfo()?.relationship }}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           }
 
-          <!-- Información Personal -->
-          <div class="card shadow-sm mb-4">
-            <div class="card-header bg-primary text-white">
-              <h5 class="mb-0">
-                <i class="bi bi-person-lines-fill me-2"></i>
-                Información Personal
-              </h5>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <strong class="text-muted d-block mb-1">Nombre Completo</strong>
-                  <p class="mb-0">{{ patientData.personalInfo.fullName }}</p>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <strong class="text-muted d-block mb-1">Fecha de Nacimiento</strong>
-                  <p class="mb-0">{{ formatDate(patientData.personalInfo.birthDate) }}</p>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <strong class="text-muted d-block mb-1">Edad</strong>
-                  <p class="mb-0">{{ patientData.personalInfo.age }} años</p>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <strong class="text-muted d-block mb-1">Sexo</strong>
-                  <p class="mb-0 text-capitalize">{{ patientData.personalInfo.sex }}</p>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <strong class="text-muted d-block mb-1">Tipo de Identificación</strong>
-                  <p class="mb-0">{{ patientData.personalInfo.idType }}</p>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <strong class="text-muted d-block mb-1">Número de Identificación</strong>
-                  <p class="mb-0">{{ patientData.personalInfo.idNumber }}</p>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <strong class="text-muted d-block mb-1">Lugar de Nacimiento</strong>
-                  <p class="mb-0">{{ patientData.personalInfo.birthPlace }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Información de Contacto -->
-          <div class="card shadow-sm mb-4">
-            <div class="card-header bg-success text-white">
-              <h5 class="mb-0">
-                <i class="bi bi-geo-alt-fill me-2"></i>
-                Información de Contacto
-              </h5>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <strong class="text-muted d-block mb-1">Dirección de Residencia</strong>
-                  <p class="mb-0">{{ patientData.contactInfo.address }}</p>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <strong class="text-muted d-block mb-1">Municipio</strong>
-                  <p class="mb-0">{{ patientData.contactInfo.municipality }}</p>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <strong class="text-muted d-block mb-1">Barrio</strong>
-                  <p class="mb-0">{{ patientData.contactInfo.neighborhood }}</p>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <strong class="text-muted d-block mb-1">Estrato Socioeconómico</strong>
-                  <p class="mb-0">{{ patientData.contactInfo.socioeconomicLevel }}</p>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <strong class="text-muted d-block mb-1">Teléfono</strong>
-                  <p class="mb-0">{{ patientData.contactInfo.phone || 'No especificado' }}</p>
-                </div>
-              </div>
+          <!-- Navigation Tabs -->
+          <div class="card shadow-sm mb-3">
+            <div class="card-body p-0">
+              <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button
+                    [class]="'nav-link ' + (activeTab() === 'general' ? 'active' : '')"
+                    type="button"
+                    role="tab"
+                    [attr.aria-selected]="activeTab() === 'general'"
+                    (click)="setActiveTab('general')"
+                  >
+                    <div class="d-flex align-items-center gap-2">
+                      <i class="bi bi-person-lines-fill"></i>
+                      <span>General</span>
+                    </div>
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    [class]="'nav-link ' + (activeTab() === 'salud' ? 'active' : '')"
+                    type="button"
+                    role="tab"
+                    [attr.aria-selected]="activeTab() === 'salud'"
+                    (click)="setActiveTab('salud')"
+                  >
+                    <div class="d-flex align-items-center gap-2">
+                      <i class="bi bi-heart-pulse-fill"></i>
+                      <span>Salud</span>
+                    </div>
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    [class]="'nav-link ' + (activeTab() === 'familia' ? 'active' : '')"
+                    type="button"
+                    role="tab"
+                    [attr.aria-selected]="activeTab() === 'familia'"
+                    (click)="setActiveTab('familia')"
+                  >
+                    <div class="d-flex align-items-center gap-2">
+                      <i class="bi bi-people-fill"></i>
+                      <span>Familia</span>
+                    </div>
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    [class]="'nav-link ' + (activeTab() === 'atencion' ? 'active' : '')"
+                    type="button"
+                    role="tab"
+                    [attr.aria-selected]="activeTab() === 'atencion'"
+                    (click)="setActiveTab('atencion')"
+                  >
+                    <div class="d-flex align-items-center gap-2">
+                      <i class="bi bi-clipboard-heart"></i>
+                      <span>Atención Previa</span>
+                    </div>
+                  </button>
+                </li>
+              </ul>
             </div>
           </div>
 
-          <!-- Información Civil y Educativa (Solo para adultos) -->
-          @if (isAdult() && getCivilEducationalInfo()) {
-            <div class="card shadow-sm mb-4">
-              <div class="card-header bg-warning text-dark">
-                <h5 class="mb-0">
-                  <i class="bi bi-mortarboard-fill me-2"></i>
-                  Información Civil y Educativa
-                </h5>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-4 mb-3">
-                    <strong class="text-muted d-block mb-1">Estado Civil</strong>
-                    <p class="mb-0 text-capitalize">{{ formatMaritalStatus(getCivilEducationalInfo()?.maritalStatus) }}</p>
+          <!-- Tab Content -->
+          <div class="tab-content">
+            <div class="card-body">
+              <!-- Tab Content: General -->
+              @if (activeTab() === 'general') {
+                <div class="tab-pane-custom active">
+                  <!-- Información Personal -->
+                  <div class="section-card mb-4 p-4">
+                    <div class="section-header mb-4 pb-3 border-bottom border-2">
+                      <h5 class="section-title mb-0 fw-semibold">
+                        <i class="bi bi-person-vcard me-2"></i>
+                        Información Personal
+                      </h5>
+                    </div>
+                    <div class="section-body">
+                      <div class="row g-3">
+                        <div class="col-md-6">
+                          <strong class="text-muted d-block mb-1 small">Nombre Completo</strong>
+                          <p class="mb-0">{{ patientData.personalInfo.fullName }}</p>
+                        </div>
+                        <div class="col-md-3">
+                          <strong class="text-muted d-block mb-1 small">Fecha de Nacimiento</strong>
+                          <p class="mb-0">{{ formatDate(patientData.personalInfo.birthDate) }}</p>
+                        </div>
+                        <div class="col-md-3">
+                          <strong class="text-muted d-block mb-1 small">Edad</strong>
+                          <p class="mb-0">{{ patientData.personalInfo.age }} años</p>
+                        </div>
+                        <div class="col-md-3">
+                          <strong class="text-muted d-block mb-1 small">Sexo</strong>
+                          <p class="mb-0 text-capitalize">{{ patientData.personalInfo.sex }}</p>
+                        </div>
+                        <div class="col-md-3">
+                          <strong class="text-muted d-block mb-1 small">Tipo de Identificación</strong>
+                          <p class="mb-0">{{ patientData.personalInfo.idType }}</p>
+                        </div>
+                        <div class="col-md-3">
+                          <strong class="text-muted d-block mb-1 small">Número de Identificación</strong>
+                          <p class="mb-0">{{ patientData.personalInfo.idNumber }}</p>
+                        </div>
+                        <div class="col-md-3">
+                          <strong class="text-muted d-block mb-1 small">Lugar de Nacimiento</strong>
+                          <p class="mb-0">{{ patientData.personalInfo.birthPlace }}</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-md-4 mb-3">
-                    <strong class="text-muted d-block mb-1">Nivel Educativo</strong>
-                    <p class="mb-0">{{ formatEducationLevel(getCivilEducationalInfo()?.educationLevel) }}</p>
+
+                  <!-- Información de Contacto -->
+                  <div class="section-card mb-4 p-4">
+                    <div class="section-header mb-4 pb-3 border-bottom border-2">
+                      <h5 class="section-title mb-0 fw-semibold">
+                        <i class="bi bi-geo-alt-fill me-2"></i>
+                        Información de Contacto
+                      </h5>
+                    </div>
+                    <div class="section-body">
+                      <div class="row g-3">
+                        <div class="col-md-6">
+                          <strong class="text-muted d-block mb-1 small">Dirección de Residencia</strong>
+                          <p class="mb-0">{{ patientData.contactInfo.address }}</p>
+                        </div>
+                        <div class="col-md-3">
+                          <strong class="text-muted d-block mb-1 small">Municipio</strong>
+                          <p class="mb-0">{{ patientData.contactInfo.municipality }}</p>
+                        </div>
+                        <div class="col-md-3">
+                          <strong class="text-muted d-block mb-1 small">Barrio</strong>
+                          <p class="mb-0">{{ patientData.contactInfo.neighborhood }}</p>
+                        </div>
+                        <div class="col-md-6">
+                          <strong class="text-muted d-block mb-1 small">Estrato Socioeconómico</strong>
+                          <p class="mb-0">{{ patientData.contactInfo.socioeconomicLevel }}</p>
+                        </div>
+                        <div class="col-md-6">
+                          <strong class="text-muted d-block mb-1 small">Teléfono</strong>
+                          <p class="mb-0">{{ patientData.contactInfo.phone || 'No especificado' }}</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-md-4 mb-3">
-                    <strong class="text-muted d-block mb-1">Ocupación</strong>
-                    <p class="mb-0 text-capitalize">
-                      @if (getCivilEducationalInfo()?.occupation === 'otro' && getCivilEducationalInfo()?.otherOccupation) {
-                        {{ getCivilEducationalInfo()?.otherOccupation }}
-                      } @else {
-                        {{ getCivilEducationalInfo()?.occupation }}
-                      }
-                    </p>
-                  </div>
-                  @if (getCivilEducationalInfo()?.institution) {
-                    <div class="col-12 mb-3">
-                      <strong class="text-muted d-block mb-1">Institución donde estudia o trabaja</strong>
-                      <p class="mb-0">{{ getCivilEducationalInfo()?.institution }}</p>
+
+                  <!-- Información Civil y Educativa (Solo para adultos) -->
+                  @if (isAdult() && getCivilEducationalInfo()) {
+                    <div class="section-card p-4">
+                      <div class="section-header mb-4 pb-3 border-bottom border-2">
+                        <h5 class="section-title mb-0 fw-semibold">
+                          <i class="bi bi-mortarboard-fill me-2"></i>
+                          Información Civil y Educativa
+                        </h5>
+                      </div>
+                      <div class="section-body">
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <strong class="text-muted d-block mb-1 small">Estado Civil</strong>
+                            <p class="mb-0 text-capitalize">{{ formatMaritalStatus(getCivilEducationalInfo()?.maritalStatus) }}</p>
+                          </div>
+                          <div class="col-md-4">
+                            <strong class="text-muted d-block mb-1 small">Nivel Educativo</strong>
+                            <p class="mb-0">{{ formatEducationLevel(getCivilEducationalInfo()?.educationLevel) }}</p>
+                          </div>
+                          <div class="col-md-4">
+                            <strong class="text-muted d-block mb-1 small">Ocupación</strong>
+                            <p class="mb-0 text-capitalize">
+                              @if (getCivilEducationalInfo()?.occupation === 'otro' && getCivilEducationalInfo()?.otherOccupation) {
+                                {{ getCivilEducationalInfo()?.otherOccupation }}
+                              } @else {
+                                {{ getCivilEducationalInfo()?.occupation }}
+                              }
+                            </p>
+                          </div>
+                          @if (getCivilEducationalInfo()?.institution) {
+                            <div class="col-12">
+                              <strong class="text-muted d-block mb-1 small">Institución donde estudia o trabaja</strong>
+                              <p class="mb-0">{{ getCivilEducationalInfo()?.institution }}</p>
+                            </div>
+                          }
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  <!-- Información Educativa (Solo para menores) -->
+                  @if (isMinor() && getEducationalInfo()) {
+                    <div class="section-card p-4">
+                      <div class="section-header mb-4 pb-3 border-bottom border-2">
+                        <h5 class="section-title mb-0 fw-semibold">
+                          <i class="bi bi-mortarboard-fill me-2"></i>
+                          Información Educativa
+                        </h5>
+                      </div>
+                      <div class="section-body">
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <strong class="text-muted d-block mb-1 small">Ocupación</strong>
+                            <p class="mb-0 text-capitalize">
+                              @if (getEducationalInfo()?.occupation === 'otra' && getEducationalInfo()?.otherOccupation) {
+                                {{ getEducationalInfo()?.otherOccupation }}
+                              } @else {
+                                {{ getEducationalInfo()?.occupation }}
+                              }
+                            </p>
+                          </div>
+                          @if (getEducationalInfo()?.grade) {
+                            <div class="col-md-4">
+                              <strong class="text-muted d-block mb-1 small">Grado</strong>
+                              <p class="mb-0">{{ getEducationalInfo()?.grade }}</p>
+                            </div>
+                          }
+                          @if (getEducationalInfo()?.institution) {
+                            <div class="col-md-4">
+                              <strong class="text-muted d-block mb-1 small">Institución Educativa</strong>
+                              <p class="mb-0">{{ getEducationalInfo()?.institution }}</p>
+                            </div>
+                          }
+                        </div>
+                      </div>
                     </div>
                   }
                 </div>
-              </div>
-            </div>
-          }
+              }
 
-          <!-- Información Educativa (Solo para menores) -->
-          @if (isMinor() && getEducationalInfo()) {
-            <div class="card shadow-sm mb-4">
-              <div class="card-header bg-warning text-dark">
-                <h5 class="mb-0">
-                  <i class="bi bi-mortarboard-fill me-2"></i>
-                  Información Educativa
-                </h5>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-4 mb-3">
-                    <strong class="text-muted d-block mb-1">Ocupación</strong>
-                    <p class="mb-0 text-capitalize">
-                      @if (getEducationalInfo()?.occupation === 'otra' && getEducationalInfo()?.otherOccupation) {
-                        {{ getEducationalInfo()?.otherOccupation }}
-                      } @else {
-                        {{ getEducationalInfo()?.occupation }}
-                      }
-                    </p>
+              <!-- Tab Content: Salud -->
+              @if (activeTab() === 'salud') {
+                <div class="tab-pane-custom active">
+                  <!-- Información de Salud -->
+                  <div class="section-card mb-4">
+                    <div class="section-header">
+                      <h5 class="section-title">
+                        <i class="bi bi-hospital me-2"></i>
+                        Servicio de Salud y Medicamentos
+                      </h5>
+                    </div>
+                    <div class="section-body">
+                      <div class="row g-3">
+                        <div class="col-md-4">
+                          <strong class="text-muted d-block mb-1 small">¿Tiene Servicio de Salud?</strong>
+                          <p class="mb-0">
+                            @if (patientData.healthInfo.hasHealthService) {
+                              <span class="badge bg-success">Sí</span>
+                            } @else {
+                              <span class="badge bg-secondary">No</span>
+                            }
+                          </p>
+                        </div>
+                        @if (patientData.healthInfo.hasHealthService && patientData.healthInfo.healthServiceName) {
+                          <div class="col-md-4">
+                            <strong class="text-muted d-block mb-1 small">Nombre del Servicio</strong>
+                            <p class="mb-0">{{ patientData.healthInfo.healthServiceName }}</p>
+                          </div>
+                        }
+                        @if (isAdult() && getMembershipType()) {
+                          <div class="col-md-4">
+                            <strong class="text-muted d-block mb-1 small">Tipo de Vinculación</strong>
+                            <p class="mb-0 text-capitalize">{{ getMembershipType() }}</p>
+                          </div>
+                        }
+                        <div class="col-md-4">
+                          <strong class="text-muted d-block mb-1 small">¿Consume Medicamentos?</strong>
+                          <p class="mb-0">
+                            @if (patientData.healthInfo.takesMedication) {
+                              <span class="badge bg-success">Sí</span>
+                            } @else {
+                              <span class="badge bg-secondary">No</span>
+                            }
+                          </p>
+                        </div>
+                        @if (patientData.healthInfo.takesMedication && patientData.healthInfo.medications) {
+                          <div class="col-12">
+                            <strong class="text-muted d-block mb-1 small">Medicamentos</strong>
+                            <div class="p-3 bg-light rounded">
+                              <p class="mb-0 textarea-content">{{ patientData.healthInfo.medications }}</p>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    </div>
                   </div>
-                  @if (getEducationalInfo()?.grade) {
-                    <div class="col-md-4 mb-3">
-                      <strong class="text-muted d-block mb-1">Grado</strong>
-                      <p class="mb-0">{{ getEducationalInfo()?.grade }}</p>
+
+                  <!-- Antecedentes de Salud -->
+                  <div class="section-card">
+                    <div class="section-header">
+                      <h5 class="section-title">
+                        <i class="bi bi-clipboard2-pulse-fill me-2"></i>
+                        Antecedentes de Salud
+                      </h5>
+                    </div>
+                    <div class="section-body">
+                      <div class="row g-4">
+                        <div class="col-md-6">
+                          <div class="subsection-card">
+                            <div class="subsection-header">
+                              <h6 class="subsection-title">
+                                <i class="bi bi-person-fill me-1"></i>
+                                Personal
+                              </h6>
+                            </div>
+                            <div class="subsection-body">
+                              <strong class="text-muted d-block mb-2 small">Estado Somático Actual / Enfermedades Relevantes</strong>
+                              <div class="p-3 bg-light rounded">
+                                <p class="mb-0 textarea-content small">
+                                  {{ patientData.healthBackground.personalSomaticConditions || 'No especificado' }}
+                                </p>
+                              </div>
+                              <strong class="text-muted d-block mb-2 mt-3 small">Trastornos Psíquicos / Acontecimientos Emocionales</strong>
+                              <div class="p-3 bg-light rounded">
+                                <p class="mb-0 textarea-content small">
+                                  {{ patientData.healthBackground.personalPsychologicalHistory || 'No especificado' }}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="subsection-card">
+                            <div class="subsection-header">
+                              <h6 class="subsection-title">
+                                <i class="bi bi-people-fill me-1"></i>
+                                Familiar
+                              </h6>
+                            </div>
+                            <div class="subsection-body">
+                              <strong class="text-muted d-block mb-2 small">Estado Somático Actual / Enfermedades Relevantes</strong>
+                              <div class="p-3 bg-light rounded">
+                                <p class="mb-0 textarea-content small">
+                                  {{ patientData.healthBackground.familySomaticConditions || 'No especificado' }}
+                                </p>
+                              </div>
+                              <strong class="text-muted d-block mb-2 mt-3 small">Trastornos Psíquicos / Acontecimientos Emocionales</strong>
+                              <div class="p-3 bg-light rounded">
+                                <p class="mb-0 textarea-content small">
+                                  {{ patientData.healthBackground.familyPsychologicalHistory || 'No especificado' }}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              <!-- Tab Content: Familia -->
+              @if (activeTab() === 'familia') {
+                <div class="tab-pane-custom active">
+                  <!-- Información de los Padres (Solo para menores) -->
+                  @if (isMinor() && getParentsInfo()) {
+                    <div class="section-card mb-4">
+                      <div class="section-header">
+                        <h5 class="section-title">
+                          <i class="bi bi-person-hearts me-2"></i>
+                          Información de los Padres
+                        </h5>
+                      </div>
+                      <div class="section-body">
+                        <div class="row g-3 mb-4">
+                          <div class="col-12">
+                            <strong class="text-muted d-block mb-1 small">Estado Civil de los Padres</strong>
+                            <p class="mb-0">
+                              <span class="badge bg-info">{{ formatParentsMaritalStatus(getParentsInfo()?.maritalStatus) }}</span>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="row g-4">
+                          <!-- Padre -->
+                          <div class="col-md-6">
+                            <div class="subsection-card p-4 rounded h-100">
+                              <div class="subsection-header mb-3 pb-2 border-bottom">
+                                <h6 class="subsection-title mb-0 fw-semibold">
+                                  <i class="bi bi-person me-1"></i>
+                                  Padre
+                                </h6>
+                              </div>
+                              <div class="subsection-body">
+                                <div class="row g-2">
+                                  <div class="col-12">
+                                    <strong class="text-muted d-block mb-1 small">Nombre Completo</strong>
+                                    <p class="mb-0">{{ getParentsInfo()?.father.fullName }}</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <strong class="text-muted d-block mb-1 small">Edad</strong>
+                                    <p class="mb-0">{{ getParentsInfo()?.father.age }} años</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <strong class="text-muted d-block mb-1 small">Escolaridad</strong>
+                                    <p class="mb-0 small">{{ formatEducationLevel(getParentsInfo()?.father.education) }}</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <strong class="text-muted d-block mb-1 small">Teléfono Fijo</strong>
+                                    <p class="mb-0">{{ getParentsInfo()?.father.landlinePhone || 'N/A' }}</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <strong class="text-muted d-block mb-1 small">Celular</strong>
+                                    <p class="mb-0">{{ getParentsInfo()?.father.cellPhone }}</p>
+                                  </div>
+                                  <div class="col-12">
+                                    <strong class="text-muted d-block mb-1 small">Ocupación</strong>
+                                    <p class="mb-0">{{ getParentsInfo()?.father.occupation }}</p>
+                                  </div>
+                                  <div class="col-12">
+                                    <strong class="text-muted d-block mb-1 small">Lugar de Trabajo</strong>
+                                    <p class="mb-0">{{ getParentsInfo()?.father.workplace || 'No especificado' }}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Madre -->
+                          <div class="col-md-6">
+                            <div class="subsection-card p-4 rounded h-100">
+                              <div class="subsection-header mb-3 pb-2 border-bottom">
+                                <h6 class="subsection-title mb-0 fw-semibold">
+                                  <i class="bi bi-person me-1"></i>
+                                  Madre
+                                </h6>
+                              </div>
+                              <div class="subsection-body">
+                                <div class="row g-2">
+                                  <div class="col-12">
+                                    <strong class="text-muted d-block mb-1 small">Nombre Completo</strong>
+                                    <p class="mb-0">{{ getParentsInfo()?.mother.fullName }}</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <strong class="text-muted d-block mb-1 small">Edad</strong>
+                                    <p class="mb-0">{{ getParentsInfo()?.mother.age }} años</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <strong class="text-muted d-block mb-1 small">Escolaridad</strong>
+                                    <p class="mb-0 small">{{ formatEducationLevel(getParentsInfo()?.mother.education) }}</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <strong class="text-muted d-block mb-1 small">Teléfono Fijo</strong>
+                                    <p class="mb-0">{{ getParentsInfo()?.mother.landlinePhone || 'N/A' }}</p>
+                                  </div>
+                                  <div class="col-6">
+                                    <strong class="text-muted d-block mb-1 small">Celular</strong>
+                                    <p class="mb-0">{{ getParentsInfo()?.mother.cellPhone }}</p>
+                                  </div>
+                                  <div class="col-12">
+                                    <strong class="text-muted d-block mb-1 small">Ocupación</strong>
+                                    <p class="mb-0">{{ getParentsInfo()?.mother.occupation }}</p>
+                                  </div>
+                                  <div class="col-12">
+                                    <strong class="text-muted d-block mb-1 small">Lugar de Trabajo</strong>
+                                    <p class="mb-0">{{ getParentsInfo()?.mother.workplace || 'No especificado' }}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   }
-                  @if (getEducationalInfo()?.institution) {
-                    <div class="col-md-4 mb-3">
-                      <strong class="text-muted d-block mb-1">Institución Educativa</strong>
-                      <p class="mb-0">{{ getEducationalInfo()?.institution }}</p>
+
+                  <!-- Miembros Familiares (Personas con las que vive) -->
+                  @if (patientData.familyMembers && patientData.familyMembers.length > 0) {
+                    <div class="section-card mb-4">
+                      <div class="section-header">
+                        <h5 class="section-title">
+                          <i class="bi bi-house-heart-fill me-2"></i>
+                          Personas con las que vive
+                        </h5>
+                      </div>
+                      <div class="section-body">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-sm">
+                            <thead class="table-light">
+                              <tr>
+                                <th>Nombre</th>
+                                <th>Parentesco</th>
+                                <th>Edad</th>
+                                <th>Ocupación</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @for (member of patientData.familyMembers; track $index) {
+                                <tr>
+                                  <td>{{ member.name }}</td>
+                                  <td class="text-capitalize">{{ member.relationship }}</td>
+                                  <td>{{ member.age }} años</td>
+                                  <td>{{ member.occupation }}</td>
+                                </tr>
+                              }
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  <!-- Contacto de Emergencia (Solo para adultos) -->
+                  @if (isAdult() && getEmergencyContact()) {
+                    <div class="section-card p-4">
+                      <div class="section-header mb-4 pb-3 border-bottom border-2">
+                        <h5 class="section-title mb-0 fw-semibold">
+                          <i class="bi bi-telephone-fill me-2"></i>
+                          Contacto de Emergencia
+                        </h5>
+                      </div>
+                      <div class="section-body">
+                        <div class="row g-3">
+                          <div class="col-md-6">
+                            <strong class="text-muted d-block mb-1 small">Nombre</strong>
+                            <p class="mb-0">{{ getEmergencyContact()?.name }}</p>
+                          </div>
+                          <div class="col-md-6">
+                            <strong class="text-muted d-block mb-1 small">Teléfono</strong>
+                            <p class="mb-0">{{ getEmergencyContact()?.phone }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  <!-- Mensaje si no hay información familiar -->
+                  @if (!isMinor() && (!patientData.familyMembers || patientData.familyMembers.length === 0) && !getEmergencyContact()) {
+                    <div class="alert alert-info">
+                      <i class="bi bi-info-circle me-2"></i>
+                      No hay información familiar registrada para este paciente.
                     </div>
                   }
                 </div>
-              </div>
-            </div>
-          }
+              }
 
-          <!-- Información de Salud -->
-          <div class="card shadow-sm mb-4">
-            <div class="card-header bg-danger text-white">
-              <h5 class="mb-0">
-                <i class="bi bi-heart-pulse-fill me-2"></i>
-                Información de Salud
-              </h5>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-4 mb-3">
-                  <strong class="text-muted d-block mb-1">¿Tiene Servicio de Salud?</strong>
-                  <p class="mb-0">
-                    @if (patientData.healthInfo.hasHealthService) {
-                      <span class="badge bg-success">Sí</span>
-                    } @else {
-                      <span class="badge bg-secondary">No</span>
-                    }
-                  </p>
-                </div>
-                @if (patientData.healthInfo.hasHealthService && patientData.healthInfo.healthServiceName) {
-                  <div class="col-md-4 mb-3">
-                    <strong class="text-muted d-block mb-1">Nombre del Servicio</strong>
-                    <p class="mb-0">{{ patientData.healthInfo.healthServiceName }}</p>
+              <!-- Tab Content: Atención Previa -->
+              @if (activeTab() === 'atencion') {
+                <div class="tab-pane-custom active">
+                  <!-- Información de Remisión -->
+                  <div class="section-card mb-4">
+                    <div class="section-header">
+                      <h5 class="section-title">
+                        <i class="bi bi-arrow-left-right me-2"></i>
+                        Información de Remisión
+                      </h5>
+                    </div>
+                    <div class="section-body">
+                      <div class="row g-3">
+                        <div class="col-md-3">
+                          <strong class="text-muted d-block mb-1 small">¿Fue Remitido?</strong>
+                          <p class="mb-0">
+                            @if (patientData.referralInfo.wasReferred) {
+                              <span class="badge bg-success">Sí</span>
+                            } @else {
+                              <span class="badge bg-secondary">No</span>
+                            }
+                          </p>
+                        </div>
+                        @if (patientData.referralInfo.wasReferred) {
+                          <div class="col-md-9">
+                            <strong class="text-muted d-block mb-1 small">Remitido Por</strong>
+                            <p class="mb-0">{{ patientData.referralInfo.referredBy || 'No especificado' }}</p>
+                          </div>
+                          <div class="col-12">
+                            <strong class="text-muted d-block mb-1 small">Motivo de Remisión</strong>
+                            <div class="p-3 bg-light rounded">
+                              <p class="mb-0 textarea-content">{{ patientData.referralInfo.referralReason || 'No especificado' }}</p>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    </div>
                   </div>
-                }
-                @if (isAdult() && getMembershipType()) {
-                  <div class="col-md-4 mb-3">
-                    <strong class="text-muted d-block mb-1">Tipo de Vinculación</strong>
-                    <p class="mb-0 text-capitalize">{{ getMembershipType() }}</p>
-                  </div>
-                }
-                <div class="col-md-4 mb-3">
-                  <strong class="text-muted d-block mb-1">¿Consume Medicamentos?</strong>
-                  <p class="mb-0">
-                    @if (patientData.healthInfo.takesMedication) {
-                      <span class="badge bg-success">Sí</span>
-                    } @else {
-                      <span class="badge bg-secondary">No</span>
-                    }
-                  </p>
-                </div>
-                @if (patientData.healthInfo.takesMedication && patientData.healthInfo.medications) {
-                  <div class="col-12 mb-3">
-                    <strong class="text-muted d-block mb-1">Medicamentos</strong>
-                    <p class="mb-0 textarea-content">{{ patientData.healthInfo.medications }}</p>
-                  </div>
-                }
-              </div>
-            </div>
-          </div>
 
-          <!-- Información de Remisión -->
-          <div class="card shadow-sm mb-4">
-            <div class="card-header bg-info text-white">
-              <h5 class="mb-0">
-                <i class="bi bi-arrow-left-right me-2"></i>
-                Información de Remisión
-              </h5>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-3 mb-3">
-                  <strong class="text-muted d-block mb-1">¿Fue Remitido?</strong>
-                  <p class="mb-0">
-                    @if (patientData.referralInfo.wasReferred) {
-                      <span class="badge bg-success">Sí</span>
-                    } @else {
-                      <span class="badge bg-secondary">No</span>
-                    }
-                  </p>
-                </div>
-                @if (patientData.referralInfo.wasReferred) {
-                  <div class="col-md-5 mb-3">
-                    <strong class="text-muted d-block mb-1">Remitido Por</strong>
-                    <p class="mb-0">{{ patientData.referralInfo.referredBy || 'No especificado' }}</p>
+                  <!-- Atención Psicológica Anterior -->
+                  <div class="section-card mb-4">
+                    <div class="section-header">
+                      <h5 class="section-title">
+                        <i class="bi bi-clipboard-heart me-2"></i>
+                        Atención Psicológica Anterior
+                      </h5>
+                    </div>
+                    <div class="section-body">
+                      <div class="row g-3">
+                        <div class="col-md-3">
+                          <strong class="text-muted d-block mb-1 small">¿Tuvo Atención Previa?</strong>
+                          <p class="mb-0">
+                            @if (patientData.psychologicalAttention.hadPreviousAttention) {
+                              <span class="badge bg-success">Sí</span>
+                            } @else {
+                              <span class="badge bg-secondary">No</span>
+                            }
+                          </p>
+                        </div>
+                        @if (patientData.psychologicalAttention.hadPreviousAttention) {
+                          <div class="col-md-3">
+                            <strong class="text-muted d-block mb-1 small">¿Dónde?</strong>
+                            <p class="mb-0">{{ patientData.psychologicalAttention.location || 'No especificado' }}</p>
+                          </div>
+                          <div class="col-md-3">
+                            <strong class="text-muted d-block mb-1 small">Duración</strong>
+                            <p class="mb-0">{{ patientData.psychologicalAttention.duration || 'No especificado' }}</p>
+                          </div>
+                          <div class="col-12">
+                            <strong class="text-muted d-block mb-1 small">Motivo por el cual terminó</strong>
+                            <div class="p-3 bg-light rounded">
+                              <p class="mb-0 textarea-content">{{ patientData.psychologicalAttention.endReason || 'No especificado' }}</p>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-12 mb-3">
-                    <strong class="text-muted d-block mb-1">Motivo de Remisión</strong>
-                    <p class="mb-0 textarea-content">{{ patientData.referralInfo.referralReason || 'No especificado' }}</p>
-                  </div>
-                }
-              </div>
-            </div>
-          </div>
 
-          <!-- Atención Psicológica Anterior -->
-          <div class="card shadow-sm mb-4">
-            <div class="card-header" style="background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%); color: white;">
-              <h5 class="mb-0">
-                <i class="bi bi-clipboard-heart me-2"></i>
-                Atención Psicológica Anterior
-              </h5>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-3 mb-3">
-                  <strong class="text-muted d-block mb-1">¿Tuvo Atención Previa?</strong>
-                  <p class="mb-0">
-                    @if (patientData.psychologicalAttention.hadPreviousAttention) {
-                      <span class="badge bg-success">Sí</span>
-                    } @else {
-                      <span class="badge bg-secondary">No</span>
-                    }
-                  </p>
-                </div>
-                @if (patientData.psychologicalAttention.hadPreviousAttention) {
-                  <div class="col-md-3 mb-3">
-                    <strong class="text-muted d-block mb-1">¿Dónde?</strong>
-                    <p class="mb-0">{{ patientData.psychologicalAttention.location || 'No especificado' }}</p>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <strong class="text-muted d-block mb-1">Duración</strong>
-                    <p class="mb-0">{{ patientData.psychologicalAttention.duration || 'No especificado' }}</p>
-                  </div>
-                  <div class="col-12 mb-3">
-                    <strong class="text-muted d-block mb-1">Motivo por el cual terminó</strong>
-                    <p class="mb-0 textarea-content">{{ patientData.psychologicalAttention.endReason || 'No especificado' }}</p>
-                  </div>
-                }
-              </div>
-            </div>
-          </div>
-
-          <!-- Atención Psiquiátrica Anterior -->
-          <div class="card shadow-sm mb-4">
-            <div class="card-header" style="background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%); color: white;">
-              <h5 class="mb-0">
-                <i class="bi bi-capsule me-2"></i>
-                Atención Psiquiátrica Anterior
-              </h5>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-3 mb-3">
-                  <strong class="text-muted d-block mb-1">¿Tuvo Atención Previa?</strong>
-                  <p class="mb-0">
-                    @if (patientData.psychiatricAttention.hadPreviousAttention) {
-                      <span class="badge bg-success">Sí</span>
-                    } @else {
-                      <span class="badge bg-secondary">No</span>
-                    }
-                  </p>
-                </div>
-                @if (patientData.psychiatricAttention.hadPreviousAttention) {
-                  <div class="col-md-3 mb-3">
-                    <strong class="text-muted d-block mb-1">¿Dónde?</strong>
-                    <p class="mb-0">{{ patientData.psychiatricAttention.location || 'No especificado' }}</p>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <strong class="text-muted d-block mb-1">Duración</strong>
-                    <p class="mb-0">{{ patientData.psychiatricAttention.duration || 'No especificado' }}</p>
-                  </div>
-                  <div class="col-12 mb-3">
-                    <strong class="text-muted d-block mb-1">Motivo por el cual terminó</strong>
-                    <p class="mb-0 textarea-content">{{ patientData.psychiatricAttention.endReason || 'No especificado' }}</p>
-                  </div>
-                }
-              </div>
-            </div>
-          </div>
-
-          <!-- Información de los Padres (Solo para menores) -->
-          @if (isMinor() && getParentsInfo()) {
-            <div class="card shadow-sm mb-4">
-              <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">
-                  <i class="bi bi-people-fill me-2"></i>
-                  Información de los Padres
-                </h5>
-              </div>
-              <div class="card-body">
-                <div class="row mb-4">
-                  <div class="col-12">
-                    <strong class="text-muted d-block mb-1">Estado Civil de los Padres</strong>
-                    <p class="mb-0 text-capitalize">{{ formatParentsMaritalStatus(getParentsInfo()?.maritalStatus) }}</p>
+                  <!-- Atención Psiquiátrica Anterior -->
+                  <div class="section-card">
+                    <div class="section-header">
+                      <h5 class="section-title">
+                        <i class="bi bi-capsule me-2"></i>
+                        Atención Psiquiátrica Anterior
+                      </h5>
+                    </div>
+                    <div class="section-body">
+                      <div class="row g-3">
+                        <div class="col-md-3">
+                          <strong class="text-muted d-block mb-1 small">¿Tuvo Atención Previa?</strong>
+                          <p class="mb-0">
+                            @if (patientData.psychiatricAttention.hadPreviousAttention) {
+                              <span class="badge bg-success">Sí</span>
+                            } @else {
+                              <span class="badge bg-secondary">No</span>
+                            }
+                          </p>
+                        </div>
+                        @if (patientData.psychiatricAttention.hadPreviousAttention) {
+                          <div class="col-md-3">
+                            <strong class="text-muted d-block mb-1 small">¿Dónde?</strong>
+                            <p class="mb-0">{{ patientData.psychiatricAttention.location || 'No especificado' }}</p>
+                          </div>
+                          <div class="col-md-3">
+                            <strong class="text-muted d-block mb-1 small">Duración</strong>
+                            <p class="mb-0">{{ patientData.psychiatricAttention.duration || 'No especificado' }}</p>
+                          </div>
+                          <div class="col-12">
+                            <strong class="text-muted d-block mb-1 small">Motivo por el cual terminó</strong>
+                            <div class="p-3 bg-light rounded">
+                              <p class="mb-0 textarea-content">{{ patientData.psychiatricAttention.endReason || 'No especificado' }}</p>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                <h6 class="text-primary border-bottom pb-2 mb-3">
-                  <i class="bi bi-person me-1"></i>
-                  Padre
-                </h6>
-                <div class="row mb-4">
-                  <div class="col-md-4 mb-3">
-                    <strong class="text-muted d-block mb-1">Nombre Completo</strong>
-                    <p class="mb-0">{{ getParentsInfo()?.father.fullName }}</p>
-                  </div>
-                  <div class="col-md-2 mb-3">
-                    <strong class="text-muted d-block mb-1">Edad</strong>
-                    <p class="mb-0">{{ getParentsInfo()?.father.age }} años</p>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <strong class="text-muted d-block mb-1">Escolaridad</strong>
-                    <p class="mb-0">{{ formatEducationLevel(getParentsInfo()?.father.education) }}</p>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <strong class="text-muted d-block mb-1">Teléfono Fijo</strong>
-                    <p class="mb-0">{{ getParentsInfo()?.father.landlinePhone || 'No especificado' }}</p>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <strong class="text-muted d-block mb-1">Celular</strong>
-                    <p class="mb-0">{{ getParentsInfo()?.father.cellPhone }}</p>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <strong class="text-muted d-block mb-1">Ocupación</strong>
-                    <p class="mb-0">{{ getParentsInfo()?.father.occupation }}</p>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <strong class="text-muted d-block mb-1">Lugar de Trabajo</strong>
-                    <p class="mb-0">{{ getParentsInfo()?.father.workplace || 'No especificado' }}</p>
-                  </div>
-                </div>
-
-                <h6 class="text-primary border-bottom pb-2 mb-3">
-                  <i class="bi bi-person me-1"></i>
-                  Madre
-                </h6>
-                <div class="row">
-                  <div class="col-md-4 mb-3">
-                    <strong class="text-muted d-block mb-1">Nombre Completo</strong>
-                    <p class="mb-0">{{ getParentsInfo()?.mother.fullName }}</p>
-                  </div>
-                  <div class="col-md-2 mb-3">
-                    <strong class="text-muted d-block mb-1">Edad</strong>
-                    <p class="mb-0">{{ getParentsInfo()?.mother.age }} años</p>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <strong class="text-muted d-block mb-1">Escolaridad</strong>
-                    <p class="mb-0">{{ formatEducationLevel(getParentsInfo()?.mother.education) }}</p>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <strong class="text-muted d-block mb-1">Teléfono Fijo</strong>
-                    <p class="mb-0">{{ getParentsInfo()?.mother.landlinePhone || 'No especificado' }}</p>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <strong class="text-muted d-block mb-1">Celular</strong>
-                    <p class="mb-0">{{ getParentsInfo()?.mother.cellPhone }}</p>
-                  </div>
-                  <div class="col-md-3 mb-3">
-                    <strong class="text-muted d-block mb-1">Ocupación</strong>
-                    <p class="mb-0">{{ getParentsInfo()?.mother.occupation }}</p>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <strong class="text-muted d-block mb-1">Lugar de Trabajo</strong>
-                    <p class="mb-0">{{ getParentsInfo()?.mother.workplace || 'No especificado' }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          }
-
-          <!-- Miembros Familiares (Personas con las que vive) -->
-          @if (patientData.familyMembers && patientData.familyMembers.length > 0) {
-            <div class="card shadow-sm mb-4">
-              <div class="card-header bg-secondary text-white">
-                <h5 class="mb-0">
-                  <i class="bi bi-house-heart-fill me-2"></i>
-                  Información Familiar (Personas con las que vive)
-                </h5>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>Nombre</th>
-                        <th>Parentesco</th>
-                        <th>Edad</th>
-                        <th>Ocupación</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @for (member of patientData.familyMembers; track $index) {
-                        <tr>
-                          <td>{{ member.name }}</td>
-                          <td class="text-capitalize">{{ member.relationship }}</td>
-                          <td>{{ member.age }} años</td>
-                          <td>{{ member.occupation }}</td>
-                        </tr>
-                      }
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          }
-
-          <!-- Contacto de Emergencia (Solo para adultos) -->
-          @if (isAdult() && getEmergencyContact()) {
-            <div class="card shadow-sm mb-4">
-              <div class="card-header bg-danger text-white">
-                <h5 class="mb-0">
-                  <i class="bi bi-telephone-fill me-2"></i>
-                  Contacto de Emergencia
-                </h5>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <strong class="text-muted d-block mb-1">Nombre</strong>
-                    <p class="mb-0">{{ getEmergencyContact()?.name }}</p>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <strong class="text-muted d-block mb-1">Teléfono</strong>
-                    <p class="mb-0">{{ getEmergencyContact()?.phone }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          }
-
-          <!-- Antecedentes de Salud -->
-          <div class="card shadow-sm mb-4">
-            <div class="card-header bg-warning text-dark">
-              <h5 class="mb-0">
-                <i class="bi bi-clipboard2-pulse-fill me-2"></i>
-                Antecedentes de Salud
-              </h5>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <strong class="text-muted d-block mb-2">
-                    <i class="bi bi-person-fill me-1"></i>
-                    Estado Somático Actual / Enfermedades Relevantes (Personal)
-                  </strong>
-                  <div class="p-3 bg-light rounded">
-                    <p class="mb-0 textarea-content">
-                      {{ patientData.healthBackground.personalSomaticConditions || 'No especificado' }}
-                    </p>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <strong class="text-muted d-block mb-2">
-                    <i class="bi bi-people-fill me-1"></i>
-                    Estado Somático Actual / Enfermedades Relevantes (Familiar)
-                  </strong>
-                  <div class="p-3 bg-light rounded">
-                    <p class="mb-0 textarea-content">
-                      {{ patientData.healthBackground.familySomaticConditions || 'No especificado' }}
-                    </p>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <strong class="text-muted d-block mb-2">
-                    <i class="bi bi-person-fill me-1"></i>
-                    Trastornos Psíquicos / Acontecimientos Emocionales (Personal)
-                  </strong>
-                  <div class="p-3 bg-light rounded">
-                    <p class="mb-0 textarea-content">
-                      {{ patientData.healthBackground.personalPsychologicalHistory || 'No especificado' }}
-                    </p>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <strong class="text-muted d-block mb-2">
-                    <i class="bi bi-people-fill me-1"></i>
-                    Trastornos Psíquicos / Acontecimientos Emocionales (Familiar)
-                  </strong>
-                  <div class="p-3 bg-light rounded">
-                    <p class="mb-0 textarea-content">
-                      {{ patientData.healthBackground.familyPsychologicalHistory || 'No especificado' }}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              }
             </div>
           </div>
         }
