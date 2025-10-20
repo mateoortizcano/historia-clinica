@@ -1,0 +1,65 @@
+/**
+ * ============================================================================
+ * IMPORTACIÓN OPTIMIZADA DE BOOTSTRAP
+ * ============================================================================
+ * Solo se importan los componentes que realmente se utilizan en la aplicación
+ * para minimizar el tamaño del bundle CSS final.
+ * 
+ * Nota: Bootstrap 5.3 todavía usa @import internamente, por lo que
+ * debemos usar @import aquí también. Las warnings de deprecación son normales
+ * y no afectan la funcionalidad.
+ */
+
+// 1. Funciones y variables de Bootstrap (requeridas)
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// 2. Layout & Grid
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+
+// 3. Componentes utilizados
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/close";
+
+// 4. Helpers & Utilities
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/utilities/api";
+
+// ============================================================================
+// Componentes NO importados (no utilizados en la aplicación):
+// ============================================================================
+// - accordion
+// - breadcrumb
+// - button-group
+// - carousel
+// - dropdown
+// - list-group
+// - modal
+// - offcanvas
+// - pagination
+// - placeholders
+// - popover
+// - scrollspy
+// - tables
+// - tabs (se usa implementación custom)
+// - toasts
+// - tooltip
+// - transitions
+// ============================================================================

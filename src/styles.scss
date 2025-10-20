@@ -5,7 +5,7 @@
  */
 
 /* IMPORTANTE: Todas las reglas @use deben ir primero */
-@use "bootstrap/scss/bootstrap" as *;
+@use 'styles/bootstrap-custom' as *;
 @use 'app/components/patient-registration/sections/shared-section-styles';
 @use 'styles/design-tokens';
 

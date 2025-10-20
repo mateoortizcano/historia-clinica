@@ -7,24 +7,27 @@
     <button
       class="navbar-toggler"
       type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
+      (click)="toggleNavbar()"
+      [attr.aria-expanded]="!isCollapsed()"
       aria-controls="navbarNav"
-      aria-expanded="false"
       aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div 
+      class="navbar-collapse"
+      [class.collapse]="isCollapsed()"
+      id="navbarNav"
+    >
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/pacientes/registro">
+          <a class="nav-link" href="/pacientes/registro" (click)="isCollapsed.set(true)">
             <i class="bi bi-person-plus me-1"></i>
             Registro de Paciente
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/proceso-terapeutico">
+          <a class="nav-link" href="/proceso-terapeutico" (click)="isCollapsed.set(true)">
             <i class="bi bi-clipboard-pulse me-1"></i>
             Proceso Terapéutico
           </a>

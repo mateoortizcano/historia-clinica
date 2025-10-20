@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -6,5 +6,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './navbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  isCollapsed = signal(true);
+
+  toggleNavbar() {
+    this.isCollapsed.update(value => !value);
+  }
+}
 
