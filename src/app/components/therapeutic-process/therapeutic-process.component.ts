@@ -17,6 +17,7 @@ import { ConsultationMotiveSectionComponent } from './sections/consultation-moti
 import { SessionRegistrationSectionComponent } from './sections/session-registration-section/session-registration-section.component';
 import { ProcessClosureSectionComponent } from './sections/process-closure-section/process-closure-section.component';
 import { MockDataService } from '../../services/mock-data.service';
+import { PatientInfoHeaderComponent, PatientHeaderInfo } from '../shared/patient-info-header/patient-info-header.component';
 
 type TabId = 'consultation-motive' | 'sessions' | 'closure';
 
@@ -33,12 +34,8 @@ interface Tab {
   completed: boolean;
 }
 
-interface PatientInfo {
+interface PatientInfo extends PatientHeaderInfo {
   id: string;
-  fullName: string;
-  idType: string;
-  idNumber: string;
-  age: number;
 }
 
 @Component({
@@ -47,6 +44,7 @@ interface PatientInfo {
     ConsultationMotiveSectionComponent,
     SessionRegistrationSectionComponent,
     ProcessClosureSectionComponent,
+    PatientInfoHeaderComponent,
   ],
   templateUrl: './therapeutic-process.component.html',
   styleUrl: './therapeutic-process.component.scss',

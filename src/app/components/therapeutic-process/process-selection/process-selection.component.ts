@@ -8,12 +8,10 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MockDataService } from '../../../services/mock-data.service';
+import { PatientInfoHeaderComponent, PatientHeaderInfo } from '../../shared/patient-info-header/patient-info-header.component';
 
-interface PatientInfo {
+interface PatientInfo extends PatientHeaderInfo {
   id: string;
-  fullName: string;
-  idNumber: string;
-  age: number;
 }
 
 interface ProcessSummary {
@@ -29,7 +27,7 @@ interface ProcessSummary {
 
 @Component({
   selector: 'app-process-selection',
-  imports: [CommonModule],
+  imports: [CommonModule, PatientInfoHeaderComponent],
   templateUrl: './process-selection.component.html',
   styleUrl: './process-selection.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -62,6 +60,7 @@ export class ProcessSelectionComponent implements OnInit {
           this.patient.set({
             id: patient.id,
             fullName: this.mockDataService.getFullName(patient),
+            idType: patient.personalInfo.idType,
             idNumber: patient.personalInfo.idNumber,
             age: this.mockDataService.calculateAge(patient.personalInfo.birthDate),
           });

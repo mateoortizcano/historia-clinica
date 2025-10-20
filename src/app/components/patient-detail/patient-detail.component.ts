@@ -9,6 +9,7 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MockDataService } from '../../services/mock-data.service';
+import { PatientInfoHeaderComponent, PatientHeaderInfo } from '../shared/patient-info-header/patient-info-header.component';
 
 interface PatientData {
   id: string;
@@ -33,7 +34,7 @@ interface PatientData {
 
 @Component({
   selector: 'app-patient-detail',
-  imports: [CommonModule],
+  imports: [CommonModule, PatientInfoHeaderComponent],
   templateUrl: './patient-detail.component.html',
   styleUrl: './patient-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -50,6 +51,18 @@ export class PatientDetailComponent implements OnInit {
 
   isAdult = computed(() => this.patient()?.patientType === 'adult');
   isMinor = computed(() => this.patient()?.patientType === 'minor');
+
+  patientHeaderInfo = computed<PatientHeaderInfo | null>(() => {
+    const p = this.patient();
+    if (!p) return null;
+    
+    return {
+      fullName: p.personalInfo.fullName,
+      idType: p.personalInfo.idType,
+      idNumber: p.personalInfo.idNumber,
+      age: p.personalInfo.age,
+    };
+  });
 
   activeTab = signal<string>('general');
 
